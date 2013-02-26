@@ -55,7 +55,7 @@ desc: 创新思考、乐于分享！ If not now, when? If not you, who?
       <h3>Categories</h3>
       <ul>
         {% for category in site.categories %}
-		<p>{{ category }}</p>
+		<p>{{ category | first }}</p>
         <li><a href="/{{category | first}}.html">{{category | first}} ({{category | last | size }})</a></li>
         {% endfor %}
       </ul>
