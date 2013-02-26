@@ -6,11 +6,8 @@ desc: 创新思考、乐于分享！ If not now, when? If not you, who?
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    {% if page.title != null %}
-    <title>{{page.title}} | {{ page.desc }} - {{ page.author }}</title>
-    {% else %}
     <title>{{ page.desc }} - {{ page.author }}</title>
-    {% endif %}
+	
     <link rel="stylesheet" href="/stylesheets/default.css" type="text/css" media="screen" charset="utf-8"/>
     <link rel="stylesheet" href="/stylesheets/styles.css" type="text/css" media="screen" charset="utf-8"/>
     <link rel="stylesheet" href="/stylesheets/syntax.css" type="text/css" media="screen" charset="utf-8"/>
@@ -55,7 +52,6 @@ desc: 创新思考、乐于分享！ If not now, when? If not you, who?
       <h3>Categories</h3>
       <ul>
         {% for category in site.categories %}
-		<p>{{ site.time | date_to_string }}</p>
         <li><a href="/{{category | first}}.html">{{category | first}} ({{category | last | size }})</a></li>
         {% endfor %}
       </ul>
