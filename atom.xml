@@ -1,27 +1,225 @@
----
-layout: nil
-author: saberma
-email: mahb45@gmail.com
-domain: saberma.me
----
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>{{page.author}}的博客</title>
-  <link href="http://{{page.domain}}/atom.xml" rel="self"/>
-  <link href="http://{{page.domain}}/"/>
-  <updated>{{ site.time | date_to_xmlschema }}</updated>
-  <id>http://{{page.domain}}/</id>
+
+  <title><![CDATA[fsword's blog]]></title>
+  <link href="http://fsword.github.com/atom.xml" rel="self"/>
+  <link href="http://fsword.github.com/"/>
+<<<<<<< HEAD
+  <updated>2012-03-04T17:50:55+08:00</updated>
+=======
+  <updated>2012-04-17T16:24:14+08:00</updated>
+>>>>>>> fef54d158cad1531898cd887acdae4299e654b2c
+  <id>http://fsword.github.com/</id>
   <author>
-    <name>{{page.author}}</name>
-    <email>{{page.email}}</email>
+    <name><![CDATA[fsword]]></name>
+    
   </author>
-  {% for post in site.posts %}
-    <entry>
-      <title>{{ post.title }}</title>
-      <link href="http://{{ page.domain }}{{ post.url }}"/>
-      <updated>{{ post.date | date_to_xmlschema }}</updated>
-      <id>http://{{ page.domain }}{{ post.id }}</id>
-      <content type="html">{{ post.content | xml_escape }}</content>
-    </entry>
-  {% endfor %}
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+<<<<<<< HEAD
+=======
+    <title type="html"><![CDATA[让bash提示符显示彩色的git_branch]]></title>
+    <link href="http://fsword.github.com/blog/2012/04/17/rang-bashti-shi-fu-xian-shi-cai-se-de-git-branch/"/>
+    <updated>2012-04-17T16:06:00+08:00</updated>
+    <id>http://fsword.github.com/blog/2012/04/17/rang-bashti-shi-fu-xian-shi-cai-se-de-git-branch</id>
+    <content type="html"><![CDATA[<p>之前一直很羡慕zsh用户，今天终于让bash也能显示彩色branch了
+具体做法：修改你的 .bashrc，添加下面几句就可以了</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>parse_git_branch() {
+</span><span class='line'>  git branch 2&gt; /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/[\1]/'
+</span><span class='line'>}                    
+</span><span class='line'>_PS1=$PS1                                                 
+</span><span class='line'>PS1="\[\e[36m\]\u:\[\e[32m\]\w\[\e[33m\]\$(parse_git_branch)\[\e[0m\]\$ "</span></code></pre></td></tr></table></div></figure>
+
+
+<p>                                                     <br/>
+很简单，不过之前遇到了点麻烦：添加了彩色支持以后发现对较长的命令行会显示错误，后来发现是把<code>\[\e[36m\]</code>写成了 <code>\[\e[36m</code>（丢了后面的部分），汗</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[通过drb集成java和ruby环境]]></title>
+    <link href="http://fsword.github.com/blog/2012/03/08/tong-guo-drbji-cheng-javahe-rubyhuan-jing/"/>
+    <updated>2012-03-08T23:51:00+08:00</updated>
+    <id>http://fsword.github.com/blog/2012/03/08/tong-guo-drbji-cheng-javahe-rubyhuan-jing</id>
+    <content type="html"><![CDATA[<p>ruby在很多方面都很不错，但是java也有它的优势，至少我们有很多基于java的遗留系统。<br/>
+结合这两者主要有几种思路：<br/>
+* 使用消息系统链接java应用和ruby应用，这是我们通常整合异构系统的思路<br/>
+* 基于java的分布式设施进行系统整合，这要将ruby放在jvm上工作，我们可以用jruby on rails<br/>
+* 基于ruby的 drb 技术进行系统整合，我们同样需要借助 jruby 让java系统看起来象 ruby<br/>
+前两个不用举例，最后一个给一个简单的示例</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># server.rb
+</span><span class='line'>require 'drb'
+</span><span class='line'>
+</span><span class='line'>DRb.start_service('druby://localhost:9000', self)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>以上的代码如果在 rails console 上执行，就可以使用如下代码进行远程调用了：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># client
+</span><span class='line'>require 'drb'
+</span><span class='line'>
+</span><span class='line'>DRb.start_service
+</span><span class='line'>this = DRbObject.new(nil, 'druby://localhost:9000')
+</span><span class='line'>
+</span><span class='line'>this.class_eval 'Rails.application.config.root'</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Have fun!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[cucumber使用备忘]]></title>
+    <link href="http://fsword.github.com/blog/2012/03/07/cucumbershi-yong-bei-wang/"/>
+    <updated>2012-03-07T00:59:00+08:00</updated>
+    <id>http://fsword.github.com/blog/2012/03/07/cucumbershi-yong-bei-wang</id>
+    <content type="html"><![CDATA[<p>cucumber 使用的时候默认的环境是 test ，此时配置信息为 config/environments/test.rb<br/>
+当然我们也可以使用独立的 cucumber ，修改 config/database.yml 如下：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>production:
+</span><span class='line'>  &lt;&lt;: *defaults
+</span><span class='line'>  database: app_development
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>cucumber:
+</span><span class='line'>  &lt;&lt;: *defaults
+</span><span class='line'>  database: app_cucumber</span></code></pre></td></tr></table></div></figure>
+
+
+<p>此时需要复制 test.rb 为 cucumber.rb<br/>
+$ cp config/environments/test.rb config/environments/cucumber.rb<br/>
+这时需要注意，如果你使用transaction进行数据清理，那么要设置 <code>config.cache_classes = true</code>，否则会收到错误信息</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>WARNING: You have set Rails' config.cache_classes to false (most likely in config/environments/cucumber.rb).  This setting is known to cause problems with database transactions. Set config.cache_classes to true if you want to use transactions.  For more information see https://rspec.lighthouseapp.com/projects/16211/tickets/165.</span></code></pre></td></tr></table></div></figure>
+
+
+<p>不过，如果这样，rails s启动的服务器将不会热更新代码，这点需要注意<br/>
+我自己的做法是，支持热更新，但是不使用 transaction 方式支持数据清理</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[不常用的git命令]]></title>
+    <link href="http://fsword.github.com/blog/2012/03/04/bu-chang-yong-de-gitcao-zuo/"/>
+    <updated>2012-03-04T18:18:00+08:00</updated>
+    <id>http://fsword.github.com/blog/2012/03/04/bu-chang-yong-de-gitcao-zuo</id>
+    <content type="html"><![CDATA[<h2>git remote prune</h2>
+
+<p>说明：remote上的一个分支被其他人删除后，需要更新本地的分支列表 <br/>
+使用举例：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git branch -a
+</span><span class='line'>* master
+</span><span class='line'>  remotes/origin/master
+</span><span class='line'>  remotes/origin/other
+</span><span class='line'>$ git remote prune origin
+</span><span class='line'>Pruning origin
+</span><span class='line'>URL: git@github.com:fsword/my_project.git
+</span><span class='line'> * [pruned] origin/other
+</span><span class='line'>$ git branch -a
+</span><span class='line'>* master
+</span><span class='line'>  remotes/origin/master</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+>>>>>>> fef54d158cad1531898cd887acdae4299e654b2c
+    <title type="html"><![CDATA[fixture使用时需要注意的问题]]></title>
+    <link href="http://fsword.github.com/blog/2012/03/04/fixtureshi-yong-shi-xu-yao-zhu-yi-de-wen-ti/"/>
+    <updated>2012-03-04T17:47:00+08:00</updated>
+    <id>http://fsword.github.com/blog/2012/03/04/fixtureshi-yong-shi-xu-yao-zhu-yi-de-wen-ti</id>
+<<<<<<< HEAD
+    <content type="html"><![CDATA[<p>单测时不太顺利，主要是fixture使用不熟悉，记录两个问题
+bug 1：经过定位发现是fixture数据始终不能灌入导致的，文件如下：</p>
+=======
+    <content type="html"><![CDATA[<p>单测时不太顺利，主要是fixture使用不熟悉，记录两个问题</p>
+
+<p>bug 1：经过定位发现是fixture数据始终不能灌入导致的</p>
+>>>>>>> fef54d158cad1531898cd887acdae4299e654b2c
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>machine1:
+</span><span class='line'>  id: 1
+</span><span class='line'>  app_id: 1
+</span><span class='line'>machine1:
+</span><span class='line'>  id: 2
+</span><span class='line'>  app_id: 1</span></code></pre></td></tr></table></div></figure>
+
+
+<<<<<<< HEAD
+<p>期望有两条数据，实际只有一条，原因是在rspec灌数据时装载yml，而这里的数据是个hash，结果key相同（都是“machine1”）的entry被覆盖了，后一条被装入。
+=======
+<p>期望有两条数据，实际只有一条，原因是在rspec灌数据时装载yml，而这里的数据是个hash，结果key相同（都是“machine1”）的entry被覆盖了，后一条被装入。  <br/>
+>>>>>>> fef54d158cad1531898cd887acdae4299e654b2c
+解决办法是：<code>检查并修改重名的fixture条目，确保不冲突</code></p>
+
+<p>bug 2：经过定位发现是fixture数据导入时，某个条目出错</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>something:
+</span><span class='line'>  id: 2
+</span><span class='line'>  app_id: 1
+</span><span class='line'>  name: package
+</span><span class='line'>  expression: 1,2</span></code></pre></td></tr></table></div></figure>
+
+
+<<<<<<< HEAD
+<p>这里的 expression 值期望为字符串 <code>1,2</code> ，然而最后总是变成 <code>12</code>，后来才发现是格式问题，对于,这种特殊字符，不能省略字符串的双引号，改为 &#8220;1,2&#8221;
+=======
+<p>这里的 expression 值期望为字符串 <code>1,2</code> ，然而最后总是变成 <code>12</code>，后来才发现是格式问题，对于,这种特殊字符，不能省略字符串的双引号，改为 &#8220;1,2&#8221;  <br/>
+>>>>>>> fef54d158cad1531898cd887acdae4299e654b2c
+解决办法是：<code>检查并修改fixture条目中的格式特别的字符串，确保使用双引号包含</code></p>
+]]></content>
+  </entry>
+  
 </feed>
