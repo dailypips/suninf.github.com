@@ -2,10 +2,10 @@
 #      Main Configs       #
 # ----------------------- #
 
-url: http://suninf.github.com
-title: suninf's blog
+url: http://fsword.github.com
+title: fsword's blog
 subtitle: A blogging framework for hackers.
-author: suninf
+author: fsword
 simple_search: http://google.com/search
 description:
 
@@ -58,7 +58,7 @@ default_asides: [asides/recent_posts.html, asides/github.html, asides/twitter.ht
 # ----------------------- #
 
 # Github repositories
-github_user: suninf
+github_user: fsword
 github_repo_count: 2
 github_show_profile_link: true
 github_skip_forks: true
@@ -89,7 +89,7 @@ delicious_user:
 delicious_count: 3
 
 # Disqus Comments
-disqus_short_name: suninf
+disqus_short_name: fswordsblog
 disqus_show_comment_count: true
 
 # Google Analytics
