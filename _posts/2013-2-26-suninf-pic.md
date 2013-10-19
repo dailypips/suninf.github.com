@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: article
 title: pic测试
 category: iphone
 ---

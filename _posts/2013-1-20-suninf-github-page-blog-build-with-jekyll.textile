@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: article
 title: 应用jekyll构建基于github page的博客
 category: other
 ---
