@@ -38,7 +38,7 @@ background: #BEC3C6;
 
 header {
 width: 940px;
-height: 80px;
+height: 90px;
 margin: 0 auto;
 background: url(/images/header.jpg) no-repeat left top;
 /* curved border radius */
@@ -91,7 +91,7 @@ h1 a, h2 a, h3 a {
 }
 
 a:link, a:visited {
-color:#6D9D30;
+color:#FFF;
 }
 
 a:hover, a:active {
