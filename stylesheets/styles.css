@@ -11,15 +11,6 @@ header, footer, section, aside, nav, article {
 display: block;
 }
 
-#desc_line {
-    color: #FFF;
-    border-top: 1px solid #FFF;
-    text-decoration: none;
-    font-size: 10px;
-    float: left;
-    padding: 0 3px;
-}
-
 body {
 line-height: 1;
 background-color: #BEC3C6;
@@ -47,13 +38,21 @@ background: #BEC3C6;
 
 header {
 width: 940px;
-height: 250px;
+height: 100px;
 margin: 0 auto;
 background: url(/images/header.jpg) no-repeat right top;
 /* curved border radius */
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
+}
 
+#desc_line {
+    color: #FFF;
+    border-top: 1px solid #FFF;
+    text-decoration: none;
+    font-size: 10px;
+    float: left;
+    padding: 0 3px;
 }
 
 #main {
