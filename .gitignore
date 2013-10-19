@@ -1,5 +1,5 @@
 _site/**
-
+.idea/**
 **.sw?
 
 o-rdoc/**
