@@ -38,9 +38,9 @@ background: #BEC3C6;
 
 header {
 width: 940px;
-height: 100px;
+height: 80px;
 margin: 0 auto;
-background: url(/images/header.jpg) no-repeat right top;
+background: url(/images/header.jpg) no-repeat left top;
 /* curved border radius */
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
@@ -145,11 +145,6 @@ header h1, header h2 {
 margin: 0;
 padding: 0 0 0 30px;
 line-height: normal;
-}
-
-header h1 { 	
-float: left;
-padding-top: 10px; 
 }
 
 header h1 a:link, header h1 a:visited {
