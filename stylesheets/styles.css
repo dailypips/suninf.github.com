@@ -87,7 +87,7 @@ padding-top: 5px;
 
 h1 a, h2 a, h3 a {
 	text-decoration: none;
-	font-style: italic;
+	font-style: normal;
 }
 
 a:link, a:visited {
@@ -148,6 +148,7 @@ text-decoration: none;
 color: #FFF;
 text-shadow: 0px 2px 3px #777;
 font-size: 48px;
+font-family: courier New;
 }
 
 header h1 a:hover { 
