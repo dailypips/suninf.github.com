@@ -33,7 +33,7 @@ nav {
 width: 940px;
 height: 30px;
 margin: 0 auto;
-background: #9CCB47;
+background: #BEC3C6;
 }
 
 header {
@@ -52,7 +52,7 @@ width: 940px;
 margin: 0 auto;
 padding-top: 10px;
 padding-bottom: 10px;
-background: #9CCB47;
+background: #BEC3C6;
 overflow: hidden;
 }
 
@@ -229,7 +229,7 @@ color: #000;
 aside section {
 margin: 10px 0 0 0;
 padding: 10px 10px;
-background-color: #F5E9DF;
+background-color: #F7F7F7;
 
 /* curved border radius */
 -moz-border-radius: 10px;
