@@ -11,6 +11,15 @@ header, footer, section, aside, nav, article {
 display: block;
 }
 
+#desc_line {
+    color: #FFF;
+    border-top: 1px solid #FFF;
+    text-decoration: none;
+    font-size: 10px;
+    float: left;
+    padding: 0 3px;
+}
+
 body {
 line-height: 1;
 background-color: #BEC3C6;
