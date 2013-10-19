@@ -144,11 +144,12 @@ line-height: normal;
 }
 
 header h1 a:link, header h1 a:visited {
-text-decoration: none;
-color: #FFF;
-text-shadow: 0px 2px 3px #777;
-font-size: 48px;
-font-family: courier New;
+    text-decoration: none;
+    color: #FFF;
+    text-shadow: 0px 2px 3px #777;
+    font-size: 48px;
+    font-family: courier New;
+    font-style: italic;
 }
 
 header h1 a:hover { 
