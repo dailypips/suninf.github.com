@@ -228,6 +228,13 @@ color: #000;
     text-decoration: none;
 }
 
+.articlecontent .blog_summary .blog_title {
+    background: #ccc;
+    height: 25px;
+    text-align: -webkit-left;
+    font-size: 20px;
+}
+
 /* box shadow on pics */
 .articlecontent img {
 /* curved border radius */
