@@ -5,9 +5,10 @@
         <a href="{{post.url}}" target="_blank">{{post.title}}</a>
     </div>
     <div class="blog_content">
-        {{post.content}}
+        {{post.content limit:200}}
     </div>
-    {% if post.index != post.length %}
+
+    {% if forloop.index != forloop.length %}
         <br>
         <br>
     {% endif %}
