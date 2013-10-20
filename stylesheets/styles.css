@@ -13,7 +13,7 @@ display: block;
 
 body {
 line-height: 1;
-background-color: #BEC3C6;
+background-color: #3d3d3d;
 font-family:  Arial, Helvetica, sans-serif;
 color: #333;
 font-size: 14px;
@@ -33,7 +33,7 @@ nav {
 width: 940px;
 height: 30px;
 margin: 0 auto;
-background: #BEC3C6;
+background: #3d3d3d;
 }
 
 header {
@@ -60,7 +60,7 @@ width: 940px;
 margin: 0 auto;
 padding-top: 10px;
 padding-bottom: 10px;
-background: #BEC3C6;
+background: #3d3d3d;
 overflow: hidden;
 }
 
