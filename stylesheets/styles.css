@@ -223,6 +223,11 @@ color: #307437;
 color: #000;
 }
 
+/* homepage */
+.articlecontent .blog_summary .blog_title a {
+    text-decoration: none;
+}
+
 /* box shadow on pics */
 .articlecontent img {
 /* curved border radius */
