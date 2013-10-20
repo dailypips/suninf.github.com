@@ -91,11 +91,11 @@ h1 a, h2 a, h3 a {
 }
 
 a:link, a:visited {
-color:#6D9D30;
+color:#2970A6;
 }
 
 a:hover, a:active {
-color: #333;
+    text-decoration: underline;
 }
 
 p {
@@ -160,7 +160,7 @@ header h2 {
 padding: 20px 0 0 30px;
 font-style: italic;
 font-size: 14px;
-color: #6D9D30;
+color: #2970A6;
 }
 
 /** ARTICLES **/
@@ -254,7 +254,7 @@ margin-bottom: 10px;
 
 
 #footer-area {
-background: #6D9D30;
+background: #2970A6;
 color: #FFF;
 font-size: 90%;
 padding: 18px 0;
