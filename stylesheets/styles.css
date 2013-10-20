@@ -50,9 +50,9 @@ background: url(/images/header.jpg) no-repeat left top;
     color: #FFF;
     border-top: 1px solid #FFF;
     text-decoration: none;
-    font-size: 10px;
+    font-size: 14px;
     float: left;
-    padding: 0 3px;
+    padding: 0 30px;
 }
 
 #main {
@@ -147,8 +147,8 @@ header h1 a:link, header h1 a:visited {
     text-decoration: none;
     color: #FFF;
     text-shadow: 0px 2px 3px #777;
-    font-size: 48px;
-    font-family: courier New;
+    font-size: 40px;
+    font-family: Arial, Helvetica, sans-serif;
     font-style: italic;
 }
 
