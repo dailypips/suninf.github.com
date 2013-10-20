@@ -231,9 +231,11 @@ color: #000;
 .articlecontent .blog_summary .blog_title {
     border-bottom: 1px solid #CCC;
     text-align: -webkit-left;
-    font-size: 20px;
 }
 
+.articlecontent .blog_summary .blog_content {
+
+}
 /* box shadow on pics */
 .articlecontent img {
 /* curved border radius */
