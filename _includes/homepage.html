@@ -1,7 +1,7 @@
 {% for post in site.posts limit:5 %}
 <div class="blog_summary">
-    <span>{{post.date | date: "%Y-%m-%d"}}&nbsp;&nbsp;</span>
     <div class="blog_title">
+        <span>{{post.date | date: "%Y-%m-%d"}}&nbsp;&nbsp;</span>
         <a href="{{post.url}}" target="_blank">{{post.title}}</a>
     </div>
     <div class="blog_content">
