@@ -1,6 +1,6 @@
 ---
 layout: article
-title: pic测试
+title: pic测试2
 category: iphone
 ---
 
