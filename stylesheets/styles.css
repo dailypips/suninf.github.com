@@ -229,8 +229,7 @@ color: #000;
 }
 
 .articlecontent .blog_summary .blog_title {
-    background: #ccc;
-    height: 25px;
+    border-bottom: 1px solid #CCC;
     text-align: -webkit-left;
     font-size: 20px;
 }
