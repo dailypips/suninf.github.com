@@ -9,12 +9,7 @@
         <span style="float: right;">{{post.date | date: "%Y-%m-%d"}}</span>
     </div>
     <div class="blog_content" style="margin-top: 10px">
-        <span>data: </span>
-        {{post.data}}
-        <br>
-        <span>output: </span>
-        {{post.output}}
-        <br>
+        {{post.content}}
     </div>
 
     {% if forloop.index != forloop.length %}
