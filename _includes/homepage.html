@@ -1,15 +1,15 @@
-{% for post in site.posts limit:5 %}
+{% for page in site.pages limit:5 %}
 <div class="blog_summary">
     <div class="blog_title">
         <h1>
-            <a href="{{post.url}}" target="_blank">{{post.title}}</a>
+            <a href="{{page.url}}" target="_blank">{{page.title}}</a>
         </h1>
     </div>
     <div class="info">
-        <span style="float: right;">{{post.date | date: "%Y-%m-%d"}}</span>
+        <span style="float: right;">{{page.date | date: "%Y-%m-%d"}}</span>
     </div>
     <div class="blog_content" style="margin-top: 10px">
-        {{post.content}}
+        {{page.content}}
     </div>
 
     {% if forloop.index != forloop.length %}
