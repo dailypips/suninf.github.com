@@ -225,12 +225,11 @@ color: #000;
 
 /* homepage */
 .articlecontent .blog_summary .blog_title a {
-    text-decoration: none;
-    font-size: 85%!important;
+    font-size: 1.7em;
+    color: #222;
 }
 
 .articlecontent .blog_summary .blog_title {
-    border-bottom: 1px solid #CCC;
     text-align: -webkit-left;
 }
 
