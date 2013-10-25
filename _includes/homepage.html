@@ -10,7 +10,7 @@
         <span style="float: right;">{{post.date | date: "%Y-%m-%d"}}</span>
     </div>
     <div class="blog_content" style="margin-top: 30px">
-        {{post.content}}
+        {{ post.content | xml_escape }}
     </div>
 
     {% if forloop.index != forloop.length %}
