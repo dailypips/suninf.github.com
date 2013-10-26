@@ -23,7 +23,7 @@ int main()
     std::vector<int> vect;
     vect.push_back( 5 );
 
-	return 0;
+    return 0;
 }
 {% endhighlight %}
 
