@@ -12,13 +12,13 @@
     </div>
     <div class="blog_content" style="margin-top: 30px">
         <div>
-            <p>
-                {{ post.content | strip_html | truncate:50 }}
+            <p style="text-indent:2em;">
+                {{ post.content | strip_html | truncate:200 }}
             </p>
         </div>
 
         <div>
-            <a href="{{post.url}} target="_blank"">View Detail...</a>
+            <a href="{{post.url}} target="_blank"">View Detail &gt;&gt;</a>
         </div>
     </div>
 
