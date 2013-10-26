@@ -7,4 +7,8 @@ category: iphone
 when I was young, I'd listen to the radio, waiting for my favourite songs.
 when they say, I feel happy.
 
-
+{% highlight ruby linenos %}
+def foo
+  puts 'foo'
+end
+{% endhighlight %}
