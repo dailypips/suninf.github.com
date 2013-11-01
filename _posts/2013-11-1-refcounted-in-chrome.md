@@ -55,7 +55,7 @@ scoped_refptrs< RefCountedData<std::string> >
 ##scoped_refptr
 A smart pointer class for reference counted objects.  Use this class instead of calling **AddRef** and **Release** manually on a reference counted object to avoid common memory leaks caused by forgetting to Release an object
  reference.
- 
+
 scoped_refptrs is almost same with boost::intrusive_ptr, both need objects which are wrapped with AddRef and Release functions.
 
 {% highlight c++ %}
