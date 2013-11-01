@@ -16,8 +16,8 @@ class MyFoo : public base::RefCounted<MyFoo>
 
 
 ##RefCountedThreadSafe
-A thread-safe variant of RefCounted\<T>
-\&
+A thread-safe variant of RefCounted&lt;T>
+
 
 {% highlight c++ %}
 template <class T, typename Traits = DefaultRefCountedThreadSafeTraits<T> >
