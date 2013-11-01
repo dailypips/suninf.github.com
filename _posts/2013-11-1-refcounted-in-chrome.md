@@ -3,7 +3,7 @@ layout: article
 title: Chrome Source Analyse - RefCount / SmartPtr
 category: chrome
 ---
-This article introduce RefCounted and scoped_refptrs in chrome source code.
+This article introduce RefCount and scoped_refptr in chrome source code.
 
 ##RefCounted
 A base class for reference counted classes.
@@ -30,8 +30,7 @@ class MyFoo : public base::RefCountedThreadSafe<MyFoo>
 
 
 ##RefCountedData
-A thread-safe wrapper for some piece of data so we can place other
-things in scoped_refptrs&lt;>.
+A thread-safe wrapper for some piece of data so we can place other things in scoped_refptrs&lt;>.
 
 {% highlight c++ %}
 template<typename T>
@@ -54,9 +53,10 @@ scoped_refptrs< RefCountedData<std::string> >
 
 
 ##scoped_refptr
-A smart pointer class for reference counted objects.  Use this class instead of calling *AddRef* and *Release* manually on a reference counted object to avoid common memory leaks caused by forgetting to Release an object
+A smart pointer class for reference counted objects.  Use this class instead of calling **AddRef** and **Release** manually on a reference counted object to avoid common memory leaks caused by forgetting to Release an object
  reference.
-scoped_refptrs is almost same with boost::intrusive_ptr, both need the object wrapped with AddRef / Release functions.
+ 
+scoped_refptrs is almost same with boost::intrusive_ptr, both need objects which are wrapped with AddRef and Release functions.
 
 {% highlight c++ %}
 template <class T>
