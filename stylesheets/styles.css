@@ -223,6 +223,10 @@ color: #307437;
 color: #000;
 }
 
+.highlight {
+    font-family: "courier new";
+}
+
 /* homepage */
 .articlecontent .blog_summary .blog_title a {
 
