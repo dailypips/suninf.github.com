@@ -1,9 +1,11 @@
 ---
 layout: article
-title: Chrome Source Analyse - RefCount and SmartPtr
+title: Chrome Source Analyse - RefCount / SmartPtr
 category: chrome
 ---
-#RefCounted
+This article introduce RefCounted and scoped_refptrs in chrome source code.
+
+##RefCounted
 A base class for reference counted classes.
 
 {% highlight c++ %}
@@ -70,8 +72,6 @@ void some_function() {
  // |foo| is released when this function returns
 }
 {% endhighlight %}
-
-
 
 
 
