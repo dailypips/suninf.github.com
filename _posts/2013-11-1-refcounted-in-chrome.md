@@ -1,6 +1,6 @@
 ---
 layout: article
-title: Chrome Source Analyse - RefCount/SmartPtr
+title: Chrome Source Analyse - RefCount and SmartPtr
 category: chrome
 ---
 #RefCounted
