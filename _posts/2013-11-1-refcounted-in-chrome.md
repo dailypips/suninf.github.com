@@ -1,6 +1,6 @@
 ---
 layout: article
-title: Chrome Source Analyse - RefCount / SmartPtr
+title: Chrome - RefCounted
 category: chrome
 ---
 This article introduce RefCount and scoped_refptr in chrome source code.
