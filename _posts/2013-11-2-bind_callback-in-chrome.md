@@ -32,6 +32,7 @@ public:
 
 
 ##Passing parameters and run
+
 * Callbacks can be run with their "Run" method, which has the same signature as the template argument to the callback. Unbound parameters are specified at the time a callback is Run(). They are specified in the Callback template type.
 * Callbacks can be run more than once (they don't get deleted or marked when run). However, this precludes using base::Passed.
 * Bound parameters are specified when you create the callback as arguments to Bind(). They will be passed to the function and the Run() of the callback doesn't see those values or even know that the function it's calling.
@@ -51,13 +52,14 @@ cb.Run();
 
 
 ##Advanced binding usage
-* base::Unretained : binding a class method with manual management
+
+* **base::Unretained : binding a class method with manual management**
 {% highlight c++ %}
 base::Bind(&MyClass::Foo, base::Unretained(this));
 {% endhighlight %}
 This disables all lifetime management on the object. You're responsible for making sure the object is alive at the time of the call. You break it, you own it!
 
-* base::Owned :  binding a class method and having the callback own the class
+* **base::Owned :  binding a class method and having the callback own the class**
 {% highlight c++ %}
 MyClass* myclass = new MyClass;
 base::Bind(&MyClass::Foo, base::Owned(myclass));
@@ -65,14 +67,14 @@ base::Bind(&MyClass::Foo, base::Owned(myclass));
 
 The object will be deleted when the callback is destroyed, even if it's not run (like if you post a task during shutdown). Potentially useful for "fire and forget" cases.
 
-* base::IgnoreResult : ignore return values
+* **base::IgnoreResult : ignore return values**
 {% highlight c++ %}
 int DoSomething(int arg) { cout << arg << endl; }
 base::Callback<void<int>) cb =
    base::Bind(base::IgnoreResult(&DoSomething));
 {% endhighlight %}
 
-* base::Passed : passing ownership of scope_ptr to the callback
+* **base::Passed : passing ownership of scope_ptr to the callback**
 Ownership of the parameter will be with the callback until the it is run, when ownership is passed to the callback function. This means the callback can only be run once. If the callback is never run, it will delete the object when it's destroyed.
 {% highlight c++ %}
 void TakesOwnership(scoped_ptr<Foo> arg) {}
@@ -81,7 +83,7 @@ scoped_ptr<Foo> f(new Foo);
 base::Closure cb = base::Bind(&TakesOwnership, base::Passed(&f));
 {% endhighlight %}
 
-* passing parameters as a scoped_refptr
+* **passing parameters as a scoped_refptr**
 {% highlight c++ %}
 void TakesOneRef(scoped_refptr<Foo> arg) {}
 scoped_refptr<Foo> f(new Foo)
@@ -89,7 +91,7 @@ base::Closure cb = base::Bind(&TakesOneRef, f);
 {% endhighlight %}
 The closure will take a reference as long as it is alive, and another reference will be taken for the called function.
 
-* base::ConstRef
+* **base::ConstRef**
 {% highlight c++ %}
 void foo(int arg) { cout << arg << endl }
 int n = 1;
@@ -99,7 +101,7 @@ has_ref.Run();  // Prints "2"
 {% endhighlight %}
 Normally parameters are copied in the closure. DANGER: ConstRef stores a const reference instead, referencing the original parameter. This means that you must ensure the object outlives the callback!
 
-* GetWeakPtr
+* **GetWeakPtr**
 {% highlight c++ %}
 base::Bind(&MyClass::Foo, GetWeakPtr());
 {% endhighlight %}
