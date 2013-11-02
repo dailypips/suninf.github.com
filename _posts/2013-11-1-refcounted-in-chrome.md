@@ -3,7 +3,7 @@ layout: article
 title: Chrome - RefCounted
 category: chrome
 ---
-This article introduce RefCount and scoped_refptr in chrome source code.
+*This article introduce RefCount and scoped_refptr in chrome source code.*
 
 ##RefCounted
 A base class for reference counted classes.

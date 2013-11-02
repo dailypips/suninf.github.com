@@ -9,7 +9,7 @@ article h2{font-size:150%!important;margin-top:1.5em!important;border-top:4px so
 article h3{margin-top:1em!important;color:#2970A6;}
 article p{margin:1em 0!important;line-height:1.5em!important;}
 article ul{margin:1em 0 1em 1.3em!important;}
-article ul{margin-top:0!important;margin-bottom:0!important;}
+article ul{margin-bottom:0!important;}
 article ol{margin:1em 0 1em 1.5em!important;}
 article ol ol{margin-top:0!important;margin-bottom:0!important;}
 article blockquote{margin:1em 0!important;border-left:5px solid #ddd!important;padding-left:.6em!important;color:#555!important;}
