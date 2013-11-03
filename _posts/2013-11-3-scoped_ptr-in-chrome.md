@@ -1,15 +1,14 @@
 ---
 layout: article
-title: Chrome - scoped_ptr
+title: Chrome - Scoped_ptr
 category: chrome
 ---
 *This article introduce `scoped_ptr` in chrome source code.*
 
 
-* Scopers help you manage ownership of a pointer, helping you easily manage the a pointer within a scope, and automatically destroying the pointer at the end of a scope.
-* There are two main classes you will use, which correspond to the operators new/delete and new[]/delete[].
+Scopers help you manage ownership of a pointer, helping you easily manage the a pointer within a scope, and automatically destroying the pointer at the end of a scope.
 
-## Scope : auto management of ownership
+## Auto management of ownership
 {% highlight c++ %}
 
 // scoped_ptr<T>
@@ -40,9 +39,9 @@ category: chrome
 {% endhighlight %}
 
 
-## Movable but not copyable : (see detail in move.h)
-Scoped_ptr also implements `movable but not copyable`. You can use the scoped_ptr in the parameter and return types of functions to signify ownership transfer in to and out of a function. When calling a function that has a scoper as the argument type, it must be called with the result of an analogous
- scoper's Pass() function or another function that generates a temporary; passing by copy will NOT work.
+## Movable but not copyable : (see detail in `move.h`)
+* Scoped_ptr also implements `movable but not copyable`. You can use the scoped_ptr in the parameter and return types of functions to signify ownership transfer in to and out of a function.
+* When calling a function that has a scoper as the argument type, it must be called with the result of an analogous scoper's **Pass()** function or another function that generates a **temporary**; passing by copy will NOT work.
 
 Here is an example using scoped_ptr:
 {% highlight c++ %}
@@ -73,9 +72,9 @@ scoped_ptr<Foo> PassThru(scoped_ptr<Foo> arg)
 {% endhighlight %}
 
 
-Notice that if you do not call Pass() when returning from PassThru(), or when invoking TakesOwnership(), the code will not compile because scopers are not copyable; they only implement move semantics which require calling the Pass() function to signify a destructive transfer of state.
+* Notice that if you do not call Pass() when returning from PassThru(), or when invoking TakesOwnership(), the code will not compile because scopers are not copyable; they only implement move semantics which require calling the Pass() function to signify a destructive transfer of state.
 
-CreateFoo() is different though because we are constructing a temporary on the return line and thus can avoid needing to call Pass().
+* CreateFoo() is different though because we are constructing a temporary on the return line and thus can avoid needing to call Pass().
 
 ## Upcast
 Pass() properly handles upcast in assignment.
