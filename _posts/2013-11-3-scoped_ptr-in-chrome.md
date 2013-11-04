@@ -23,10 +23,11 @@ Scopers help you manage ownership of a pointer, helping you easily manage the a 
     foo.reset(new Foo("wee3"));   // Foo("wee2") was destroyed.
     foo->Method();                // Foo::Method() called.
     foo.get()->Method();          // Foo::Method() called.
-    SomeFunc(foo.release());      // SomeFunc takes ownership, foo no longer
+    // SomeFunc takes ownership, foo no longer
+    SomeFunc(foo.release());
                                // manages a pointer.
     foo.reset(new Foo("wee4"));   // foo manages a pointer again.
-    foo.reset();                  // Foo("wee4") destroyed, foo no longer
+    foo.reset();       // Foo("wee4") destroyed, foo no longer
                                // manages a pointer.
 }  // foo wasn't managing a pointer, so nothing was destroyed.
 
@@ -86,7 +87,8 @@ scoped_ptr<FooParent> parent = foo.Pass();
 {% endhighlight %}
 
 {% highlight c++ %}
-// PassAs<>() should be used to upcast return value in return statement:
+// PassAs<>()
+// should be used to upcast return value in return statement:
 scoped_ptr<Foo> CreateFoo()
 {
     scoped_ptr<FooChild> result(new FooChild());

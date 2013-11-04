@@ -21,7 +21,11 @@ class MyFoo : public base::RefCounted<MyFoo>
 A thread-safe variant of RefCounted&lt;T>
 
 {% highlight c++ %}
-template <class T, typename Traits = DefaultRefCountedThreadSafeTraits<T> >
+template
+<
+    class T,
+    typename Traits = DefaultRefCountedThreadSafeTraits<T>
+>
 class RefCountedThreadSafe;
 
 class MyFoo : public base::RefCountedThreadSafe<MyFoo>
@@ -35,16 +39,17 @@ A thread-safe wrapper for some piece of data so we can place other things in sco
 {% highlight c++ %}
 template<typename T>
 class RefCountedData
-    : public base::RefCountedThreadSafe< base::RefCountedData<T> > {
- public:
-  RefCountedData() : data() {}
-  RefCountedData(const T& in_value) : data(in_value) {}
+    : public base::RefCountedThreadSafe< base::RefCountedData<T> >
+{
+public:
+    RefCountedData() : data() {}
+    RefCountedData(const T& in_value) : data(in_value) {}
 
-  T data;
+    T data;
 
- private:
-  friend class base::RefCountedThreadSafe<base::RefCountedData<T> >;
-  ~RefCountedData() {}
+private:
+    friend class base::RefCountedThreadSafe<base::RefCountedData<T> >;
+    ~RefCountedData() {}
 };
 
 scoped_refptrs< RefCountedData<std::string> >
@@ -62,14 +67,16 @@ scoped_refptrs is almost same with boost::intrusive_ptr, both need objects which
 template <class T>
 class scoped_refptr;
 
-class MyFoo : public RefCounted<MyFoo> {
+class MyFoo : public RefCounted<MyFoo>
+{
 ...
 };
 
-void some_function() {
- scoped_refptr<MyFoo> foo = new MyFoo();
- foo->Method(param);
- // |foo| is released when this function returns
+void some_function()
+{
+    scoped_refptr<MyFoo> foo = new MyFoo();
+    foo->Method(param);
+    // |foo| is released when this function returns
 }
 {% endhighlight %}
 
@@ -80,8 +87,9 @@ Handy utility for creating a scoped_refptr&lt;T> out of a T* explicitly without 
 
 {% highlight c++ %}
 template <typename T>
-scoped_refptr<T> make_scoped_refptr(T* t) {
-  return scoped_refptr<T>(t);
+scoped_refptr<T> make_scoped_refptr(T* t)
+{
+    return scoped_refptr<T>(t);
 }
 {% endhighlight %}
 
