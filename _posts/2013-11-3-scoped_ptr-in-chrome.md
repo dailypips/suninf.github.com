@@ -53,8 +53,7 @@ void TakesOwnership(scoped_ptr<Foo> arg)
 
 scoped_ptr<Foo> CreateFoo()
 {
-    // No need for calling Pass() because we are constructing a temporary
-    // for the return value.
+    // No need for calling Pass() for a temporary return value.
     return scoped_ptr<Foo>(new Foo("new"));
 }
 
@@ -64,11 +63,11 @@ scoped_ptr<Foo> PassThru(scoped_ptr<Foo> arg)
 }
 
 {
-    scoped_ptr<Foo> ptr(new Foo("yay"));  // ptr manages Foo("yay").
-    TakesOwnership(ptr.Pass());           // ptr no longer owns Foo("yay").
-    scoped_ptr<Foo> ptr2 = CreateFoo();   // ptr2 owns the return Foo.
-    scoped_ptr<Foo> ptr3 =                // ptr3 now owns what was in ptr2.
-        PassThru(ptr2.Pass());            // ptr2 is correspondingly NULL.
+    scoped_ptr<Foo> ptr(new Foo("yay")); // ptr manages Foo("yay").
+    TakesOwnership(ptr.Pass());   // ptr no longer owns Foo("yay").
+    scoped_ptr<Foo> ptr2 = CreateFoo();  // ptr2 owns the return Foo.
+    scoped_ptr<Foo> ptr3 =        // ptr3 now owns what was in ptr2.
+        PassThru(ptr2.Pass());    // ptr2 is correspondingly NULL.
 }
 {% endhighlight %}
 
