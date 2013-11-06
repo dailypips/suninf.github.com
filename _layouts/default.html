@@ -4,105 +4,106 @@ desc: Creative thinking、Happy sharing！ If not now, when? If not you, who?
 ---
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>{{ page.desc }} - {{ page.author }}</title>
-	
-    <link rel="stylesheet" href="/stylesheets/default.css" type="text/css" media="screen" charset="utf-8"/>
-    <link rel="stylesheet" href="/stylesheets/styles.css" type="text/css" media="screen" charset="utf-8"/>
-    <link rel="stylesheet" href="/stylesheets/syntax.css" type="text/css" media="screen" charset="utf-8"/>
-    <link rel="stylesheet" href="/stylesheets/print.css" type="text/css" media="print" charset="utf-8"/>
-  </head>
-  <body>
-    <div id="wrapper"><!-- #wrapper -->
+    <head>
+        <meta charset="utf-8" />
+        <title>{{ page.desc }} - {{ page.author }}</title>
 
-      <header><!-- header -->
-      <h1><a href="/">Rich living & Sunny life</a></h1>
-      <div id="desc_line">{{ page.desc }}</div>
-      </header><!-- end of header -->
+        <link rel="stylesheet" href="/stylesheets/default.css" type="text/css" media="screen" charset="utf-8"/>
+        <link rel="stylesheet" href="/stylesheets/styles.css" type="text/css" media="screen" charset="utf-8"/>
+        <link rel="stylesheet" href="/stylesheets/syntax.css" type="text/css" media="screen" charset="utf-8"/>
+        <link rel="stylesheet" href="/stylesheets/print.css" type="text/css" media="print" charset="utf-8"/>
+    </head>
 
-      <nav><!-- top nav -->
-      <div class="menu">
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/blogs.html">Articles</a></li>
-          <li><a href="/about.html">About</a></li>
-        </ul>
-      </div>
-      </nav><!-- end of top nav -->
+    <body>
+        <div id="wrapper"><!-- #wrapper -->
 
-      <section id="main"><!-- #main content and sidebar area -->
-      <div id="content">
-        <article class="articlecontent">
-          {{ content }}
-        </article>
-      </div>
+            <header><!-- header -->
+                <h1><a href="/">Rich living & Sunny life</a></h1>
+                <div id="desc_line">{{ page.desc }}</div>
+            </header><!-- end of header -->
 
-      <aside>
-      <section>
-      <h3>Who's suninf</h3>
-      <img src="/images/suninf.jpg" width="100" height="100" />
-      <p>Email:<a href="mailto:suninf@yeah.net">suninf@yeah.net</a></p>
-      <p>Weibo:<a href="http://weibo.com/suninf">weibo.com/suninf</a></p>
-      <p>Github:<a href="http://github.com/suninf">github.com/suninf</a></p>
-      </section>
+            <nav><!-- top nav -->
+                <div class="menu">
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/blogs.html">Articles</a></li>
+                        <li><a href="/about.html">About</a></li>
+                    </ul>
+                </div>
+            </nav><!-- end of top nav -->
 
-      <section>
-      <h3>Categories</h3>
-      <ul>
-        {% for category in site.categories %}
-        <li><a href="/{{category | first}}.html">{{category | first}} ({{category | last | size }})</a></li>
-        {% endfor %}
-      </ul>
-      </section>
+            <section id="main"><!-- #main content and sidebar area -->
+                <div id="content">
+                    <article class="articlecontent">
+                        {{ content }}
+                    </article>
+                </div>
 
-      <section>
-      <h3>Opensource</h3>
-      <ul>
-        <li><a href="http://www.boost.org">boost</a></li>
-        <li><a href="http://v3.bootcss.com/">Bootstrap-zh</a></li>
-        <li><a href="http://www.w3school.com.cn/index.html">W3School</a></li>
-        <li><a href="http://www.w3.org/html/ig/zh/wiki/HTML5">HTML5 zh-doc</a></li>
-        <li><a href="http://docs.kissyui.com/">kissy</a></li>
-        <li><a href="http://jquery.com/">jquery</a></li>
-        <li><a href="http://www.w3school.com.cn/jquery/">w3school-jquery</a></li>
-      </ul>
-      </section>
-	  
-	  <section>
-      <h3>blogs</h3>
-      <ul>
-        <li><a href="http://blog.sina.com.cn/suninf">sina-blog</a></li>
-        <li><a href="http://www.erlang.org/">erlang</a></li>
-        <li><a href="https://github.com/lifesinger">lifesinger</a></li>
-        <li><a href="http://boost-spirit.com/home/">boost-spirit</a></li>
-        <li><a href="http://mindhacks.cn/">mind hacks</a></li>
-        <li><a href="http://blog.csdn.net/cenwenchu79">fangweng</a></li>
-        <li><a href="http://mogoweb.net/">mogoweb</a></li>
-        <li><a href="http://www.ruanyifeng.com/blog/">ruanyifeng</a></li>
-        <li><a href="http://erdani.com/">Andrei Alexandrescu</a></li>
-        <li><a href="http://www.gotw.ca/">Herb Sutter</a></li>
-        <li><a href="https://parasol.tamu.edu/~jarvi/">Jaakko Järvi</a></li>
-      </ul>
-      </section>
+                <aside>
+                    <section>
+                        <h3>Who's suninf</h3>
+                        <img src="/images/suninf.jpg" width="100" height="100" />
+                        <p>Email:<a href="mailto:suninf@yeah.net">suninf@yeah.net</a></p>
+                        <p>Weibo:<a href="http://weibo.com/suninf">weibo.com/suninf</a></p>
+                        <p>Github:<a href="http://github.com/suninf">github.com/suninf</a></p>
+                    </section>
 
-      </aside>
+                    <section>
+                        <h3>Categories</h3>
+                        <ul>
+                        {% for category in site.categories %}
+                        <li><a href="/{{category | first}}.html">{{category | first}} ({{category | last | size }})</a></li>
+                        {% endfor %}
+                        </ul>
+                    </section>
 
-      </section><!-- end of #main content and sidebar-->
+                    <section>
+                        <h3>Opensource</h3>
+                        <ul>
+                            <li><a href="http://www.boost.org">boost</a></li>
+                            <li><a href="http://v3.bootcss.com/">Bootstrap-zh</a></li>
+                            <li><a href="http://www.w3school.com.cn/index.html">W3School</a></li>
+                            <li><a href="http://www.w3.org/html/ig/zh/wiki/HTML5">HTML5 zh-doc</a></li>
+                            <li><a href="http://docs.kissyui.com/">kissy</a></li>
+                            <li><a href="http://jquery.com/">jquery</a></li>
+                            <li><a href="http://www.w3school.com.cn/jquery/">w3school-jquery</a></li>
+                            <li><a href="http://www.erlang.org/">erlang</a></li>
+                        </ul>
+                    </section>
 
+                    <section>
+                        <h3>blogs</h3>
+                        <ul>
+                            <li><a href="http://blog.sina.com.cn/suninf">sina-blog</a></li>
+                            <li><a href="http://blog.sina.com.cn/s/blog_88cb82f60101gsin.html">windeln</a></li>
+                            <li><a href="https://github.com/lifesinger">lifesinger</a></li>
+                            <li><a href="http://boost-spirit.com/home/">boost-spirit</a></li>
+                            <li><a href="http://mindhacks.cn/">mind hacks</a></li>
+                            <li><a href="http://blog.csdn.net/cenwenchu79">fangweng</a></li>
+                            <li><a href="http://mogoweb.net/">mogoweb</a></li>
+                            <li><a href="http://www.ruanyifeng.com/blog/">ruanyifeng</a></li>
+                            <li><a href="http://erdani.com/">Andrei Alexandrescu</a></li>
+                            <li><a href="http://www.gotw.ca/">Herb Sutter</a></li>
+                            <li><a href="https://parasol.tamu.edu/~jarvi/">Jaakko Järvi</a></li>
+                        </ul>
+                    </section>
 
-    </div><!-- #wrapper -->
+                </aside>
 
-    <script>
-      var _gaq = [['_setAccount', 'UA-12120506-1'], ['_trackPageview']];
-      (function(d, t) {
-        var g = d.createElement(t),
-        s = d.getElementsByTagName(t)[0];
-        g.async = true;
-        g.src = '//www.google-analytics.com/ga.js';
-        s.parentNode.insertBefore(g, s);
-      })(document, 'script');
-    </script>
+            </section><!-- end of #main content and sidebar-->
+
+        </div><!-- #wrapper -->
+
+        <script>
+            var _gaq = [['_setAccount', 'UA-12120506-1'], ['_trackPageview']];
+                (function(d, t) {
+                    var g = d.createElement(t),
+                    s = d.getElementsByTagName(t)[0];
+                    g.async = true;
+                    g.src = '//www.google-analytics.com/ga.js';
+                    s.parentNode.insertBefore(g, s);
+                })(document, 'script');
+        </script>
     <!-- Free template created by http://freehtml5templates.com -->
-  </body>
+    </body>
 </html>
