@@ -33,11 +33,11 @@ struct rvalue_type { \
 
 We see that the `MOVE_ONLY_TYPE_FOR_CPP_03` macro has 4 parts:
 * rvalue_type typedef: can hold the host type
-* private reference copy constructor and assign operator
-* auto convert to rvalue_type
+* host defines private reference copy constructor and assign operator
+* host can auto convert to rvalue_type
 * Pass() method:
-	** host should implment constructor with argument of rvalue_type, which is the key of `MOVE semantic`
-	** Pass() return `type(rvalue_type(this))` which is a temporary, it don't match type&, so as to auto convert to rvalue_type
+    * host should implement constructor with argument of rvalue_type, which is the key of `MOVE semantic`
+    * Pass() return `type(rvalue_type(this))` which is a temporary, it don't match type&, so as to auto convert to rvalue_type
 
 
 ## Example:
@@ -56,8 +56,8 @@ public:
 	Foo(){}
 
 	Foo(RValue other)
-	{
-		// finally using vector::swap
+	{// finally using vector::swap
+		// move ownership from other
 		std::swap( m_vect, other.object->m_vect );
 		std::swap( std::vector<int>(), other.object->m_vect );
 	}
@@ -118,7 +118,7 @@ a:
 b:
 5 6
 
-Thus, the content of a has moved to b.
+Thus,  we see that the content of a has moved to b.
 
 
 
