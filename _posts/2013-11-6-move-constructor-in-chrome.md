@@ -36,8 +36,8 @@ We see that the `MOVE_ONLY_TYPE_FOR_CPP_03` macro has 4 parts:
 * host defines private reference copy constructor and assign operator
 * host can auto convert to rvalue_type
 * Pass() method:
-    > host should implement constructor with argument of rvalue_type, which is the key of `MOVE semantic`
-    > Pass() return `type(rvalue_type(this))` which is a temporary, it don't match type&, so as to auto convert to rvalue_type
+   *    host should implement constructor with argument of rvalue_type, which is the key of `MOVE semantic`
+   *    Pass() return `type(rvalue_type(this))` which is a temporary, it don't match type&, so as to auto convert to rvalue_type
 
 
 ## Example:
@@ -59,7 +59,8 @@ public:
 	{// finally using vector::swap
 		// move ownership from other
 		std::swap( m_vect, other.object->m_vect );
-		std::swap( std::vector<int>(), other.object->m_vect );
+		std::swap( std::vector<int>(),
+		    other.object->m_vect );
 	}
 
 	Foo& operator=(RValue rhs)
@@ -67,7 +68,8 @@ public:
 		if ( this != rhs.object )
 		{
 			std::swap( m_vect, rhs.object->m_vect );
-			std::swap( std::vector<int>(), rhs.object->m_vect );
+			std::swap( std::vector<int>(),
+			    rhs.object->m_vect );
 		}
 		return *this;
 	}
