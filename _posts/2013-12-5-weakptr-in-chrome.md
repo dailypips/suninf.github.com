@@ -43,7 +43,7 @@ category: chrome
 
 * Weak pointers **must always be dereferenced and invalidated on the same thread** otherwise checking the pointer would be racey.  WeakPtrFactory enforces this by binding itself to the current thread when a WeakPtr is first created and un-binding only when those pointers are invalidated.  WeakPtrs may still be handed off to other threads, however, so long as they are only actually dereferenced on the originating thread. This includes posting tasks to the thread using base::Bind() to invoke a method on the object via the WeakPtr.
 
-*Calling SupportsWeakPtr::DetachFromThread() can work around the limitations above and cancel the thread binding of the object and all WeakPtrs pointing to it, but it's **not recommended** and unsafe.*
+*Calling SupportsWeakPtr::DetachFromThread() can work around the limitations above and cancel the thread binding of the object and all WeakPtrs pointing to it, but it's `not recommended` and unsafe.*
 
 
 
