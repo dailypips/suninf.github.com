@@ -6,9 +6,9 @@ category: chrome
 *This article introduce the use of `WeakPtr` and `WeakPtrFactory` in chrome source code.*
 
 
-* Weak pointers are pointers to an object that **do not affect its lifetime**, and which may be invalidated (i.e. reset to NULL) by the object, or its owner, at any time, most commonly when the object is about to be deleted.
+* **Weak pointers** are pointers to an object that **do not affect its lifetime**, and which may be invalidated (i.e. reset to NULL) by the object, or its owner, at any time, most commonly when the object is about to be deleted.
 
-* Weak pointers are useful when an object needs to be accessed safely by one or more objects other than its owner, and those callers can cope with the object vanishing and e.g. tasks posted to it being silently dropped. Reference-counting such an object would complicate the ownership graph and make it harder to reason about the object's lifetime.
+* **Weak pointers are useful when an object needs to be accessed safely by one or more objects other than its owner**, and those callers can cope with the object vanishing and e.g. tasks posted to it being silently dropped. Reference-counting such an object would complicate the ownership graph and make it harder to reason about the object's lifetime.
 
 ## Normal Usage Example:
 {% highlight c++ %}
@@ -48,7 +48,8 @@ category: chrome
 
 
 ## WeakPtr Class:
-The WeakPtr class holds a weak reference to T * , which is created by **WeakPtrFactory**, with the reference auto managed. This class is designed to be used like a normal pointer. You should `always null-test` an object of this class before using it or invoking a method that may result in the underlying object being destroyed.
+* The WeakPtr class holds a weak reference to T * , which is created by **WeakPtrFactory**, with the reference auto managed. This class is designed to be used like a normal pointer.
+* You should **always null-test** an object of this class before using it or invoking a method that may result in the underlying object being destroyed.
 
 {% highlight c++ %}
 // EXAMPLE:
@@ -110,7 +111,9 @@ class WeakPtr : public internal::WeakPtrBase {
 
 
 ## WeakPtrFactory Class:
-A class may be composed of a WeakPtrFactory and thereby **control how it exposes weak pointers to itself**. This is helpful if you only need weak pointers within the implementation of a class.  This class is also useful when working with primitive types. For example, you could have a WeakPtrFactory&lt;bool> that is used to pass around a weak reference to a bool.
+A class may be composed of a WeakPtrFactory and thereby **control how it exposes weak pointers to itself**.
+* This is helpful if you only need weak pointers within the implementation of a class.
+* This class is also useful when working with primitive types. For example, you could have a WeakPtrFactory&lt;bool> that is used to pass around a weak reference to a bool.
 
 {% highlight c++ %}
 // WeakPtrFactory implement
@@ -141,8 +144,8 @@ class WeakPtrFactory {
     return weak_reference_owner_.HasRefs();
   }
 
-  // Indicates that this object will be used on another thread from now on.
-  // Do not use this in new code. See crbug.com/232143.
+  // Indicates that this object will be used on another thread.
+  // Do not use this in new code.
   void DetachFromThread() {
     DCHECK(ptr_);
     weak_reference_owner_.DetachFromThread();
