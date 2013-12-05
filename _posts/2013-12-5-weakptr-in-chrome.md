@@ -10,7 +10,7 @@ category: chrome
 
 * Weak pointers are useful when an object needs to be accessed safely by one or more objects other than its owner, and those callers can cope with the object vanishing and e.g. tasks posted to it being silently dropped. Reference-counting such an object would complicate the ownership graph and make it harder to reason about the object's lifetime.
 
-## Normal usage EXAMPLE:
+## Normal Usage Example:
 {% highlight c++ %}
   class Controller {
    public:
@@ -48,15 +48,6 @@ category: chrome
 
 ## WeakPtr Class:
 The WeakPtr class holds a weak reference to T*, which is created by **WeakPtrFactory**, with the reference auto managed. This class is designed to be used like a normal pointer. You should `always null-test` an object of this class before using it or invoking a method that may result in the underlying object being destroyed.
-
-{% highlight c++ %}
-// EXAMPLE:
-class Foo { ... };
-WeakPtr<Foo> foo;
-if (foo)
-  foo->method();
-{% endhighlight %}
-
 
 
 
