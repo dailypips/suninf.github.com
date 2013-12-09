@@ -3,9 +3,11 @@ layout: article
 title: Chrome - Value / JsonParser
 category: chrome
 ---
-*This article introduce the use of `base::Value` and `JsonParser` in chrome source code.*
+*This article introduce the use of `base::Value` in chrome source code.*
 
 
+## base::Value
+The Value class is the base class for Values. A Value can be instantiated via the Create*Value() factory methods, or by directly creating instances of the subclasses.
 
 {% highlight c++ %}
 
@@ -16,9 +18,7 @@ class ListValue;
 class StringValue;
 class Value;
 
-// The Value class is the base class for Values. A Value can be
-// instantiated via the Create*Value() factory methods, or by
-// directly creating instances of the subclasses.
+
 class BASE_EXPORT Value {
 public:
   enum Type {
@@ -58,9 +58,12 @@ public:
 private:
   Type type_;
 };
+{% endhighlight %}
 
 
-// FundamentalValue represents the simple fundamental types.
+## FundamentalValue
+FundamentalValue represents the simple fundamental types.
+{% highlight c++ %}
 class BASE_EXPORT FundamentalValue : public Value {
 public:
   explicit FundamentalValue(bool in_value);
@@ -81,8 +84,11 @@ private:
     double double_value_;
   };
 };
+{% endhighlight %}
 
 
+## StringValue
+{% highlight c++ %}
 class BASE_EXPORT StringValue : public Value {
 public:
   // Initializes a StringValue with a UTF-8 narrow character string.
@@ -101,8 +107,11 @@ public:
 private:
   std::string value_;
 };
+{% endhighlight %}
 
 
+## BinaryValue
+{% highlight c++ %}
 class BASE_EXPORT BinaryValue: public Value {
 public:
   // Creates a BinaryValue with a null buffer and size of 0.
@@ -136,10 +145,13 @@ private:
 
   DISALLOW_COPY_AND_ASSIGN(BinaryValue);
 };
+{% endhighlight %}
 
-// DictionaryValue provides a key-value dictionary with (optional)
-// "path" parsing for recursive access; see the comment at the top
-// of the file. Keys are |std::string|s and should be UTF-8 encoded.
+
+## DictionaryValue
+DictionaryValue provides a key-value dictionary with (optional) "path" parsing for recursive access; see the comment at the top of the file. Keys are |std::string|s and should be UTF-8 encoded.
+
+{% highlight c++ %}
 class BASE_EXPORT DictionaryValue : public Value {
 public:
   DictionaryValue();
@@ -227,8 +239,13 @@ private:
 
   DISALLOW_COPY_AND_ASSIGN(DictionaryValue);
 };
+{% endhighlight %}
 
-// This type of Value represents a list of other Value values.
+
+## ListValue
+This type of Value represents a list of other Value values.
+
+{% highlight c++ %}
 class BASE_EXPORT ListValue : public Value {
 public:
   typedef ValueVector::iterator iterator;
@@ -300,7 +317,5 @@ private:
 
   DISALLOW_COPY_AND_ASSIGN(ListValue);
 };
-
-
 
 {% endhighlight %}
