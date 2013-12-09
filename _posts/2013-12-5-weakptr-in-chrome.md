@@ -48,7 +48,7 @@ category: chrome
 
 
 ## WeakPtr Class:
-* The WeakPtr class holds a weak reference to T * , which is created by **WeakPtrFactory**, with the reference auto managed. This class is designed to be used like a normal pointer.
+* The WeakPtr class holds a weak reference to T\*, which is created by **WeakPtrFactory**, with the reference auto managed. This class is designed to be used like a normal pointer.
 * You should **always null-test** an object of this class before using it or invoking a method that may result in the underlying object being destroyed.
 
 {% highlight c++ %}
