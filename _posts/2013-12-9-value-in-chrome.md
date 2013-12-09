@@ -7,7 +7,7 @@ category: chrome
 
 
 ## base::Value
-The Value class is the base class for Values. A Value can be instantiated via the Create*Value() factory methods, or by directly creating instances of the subclasses.
+The Value class is the base class for Values. A Value can be instantiated via the Create\*Value() factory methods, or by directly creating instances of the subclasses.
 
 {% highlight c++ %}
 
