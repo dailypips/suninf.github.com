@@ -1,6 +1,6 @@
 ---
 layout: article
-title: Chrome - Value
+title: Chrome - Value / JsonParser
 category: chrome
 ---
 *This article introduce the use of `base::Value` in chrome source code.*
@@ -61,7 +61,7 @@ private:
 {% endhighlight %}
 
 
-## FundamentalValue
+### FundamentalValue
 FundamentalValue represents the simple fundamental types.
 {% highlight c++ %}
 class BASE_EXPORT FundamentalValue : public Value {
@@ -87,7 +87,7 @@ private:
 {% endhighlight %}
 
 
-## StringValue
+### StringValue
 {% highlight c++ %}
 class BASE_EXPORT StringValue : public Value {
 public:
@@ -110,7 +110,7 @@ private:
 {% endhighlight %}
 
 
-## BinaryValue
+### BinaryValue
 {% highlight c++ %}
 class BASE_EXPORT BinaryValue: public Value {
 public:
@@ -148,7 +148,7 @@ private:
 {% endhighlight %}
 
 
-## DictionaryValue
+### DictionaryValue
 DictionaryValue provides a key-value dictionary with (optional) "path" parsing for recursive access; see the comment at the top of the file. Keys are |std::string|s and should be UTF-8 encoded.
 
 {% highlight c++ %}
@@ -242,7 +242,7 @@ private:
 {% endhighlight %}
 
 
-## ListValue
+### ListValue
 This type of Value represents a list of other Value values.
 
 {% highlight c++ %}
@@ -317,5 +317,35 @@ private:
 
   DISALLOW_COPY_AND_ASSIGN(ListValue);
 };
+
+{% endhighlight %}
+
+
+## JsonParser
+{% highlight c++ %}
+
+#include "base/values.h"
+#include "base/json/json_writer.h"
+#include "base/json/json_reader.h"
+
+
+base::DictionaryValue dict;
+
+dict.SetWithoutPathExpansion("resId", new base::FundamentalValue(100) );
+dict.SetWithoutPathExpansion("fileName", new base::StringValue("hello.txt") );
+
+base::ListValue * users = new base::ListValue();
+users->AppendString( "suninf" );
+users->AppendString( "zhenshan" );
+dict.SetWithoutPathExpansion("users", users );
+
+// writer
+std::string json;
+base::JSONWriter::Write(&dict, &json);
+
+// reader
+base::Value * val = base::JSONReader::Read(json);
+
+assert( dict.Equals(val) );
 
 {% endhighlight %}
