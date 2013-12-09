@@ -322,6 +322,8 @@ private:
 
 
 ## JsonParser
+Json reader and writer can operate base::Value type.
+
 {% highlight c++ %}
 
 #include "base/values.h"
@@ -331,8 +333,10 @@ private:
 
 base::DictionaryValue dict;
 
-dict.SetWithoutPathExpansion("resId", new base::FundamentalValue(100) );
-dict.SetWithoutPathExpansion("fileName", new base::StringValue("hello.txt") );
+dict.SetWithoutPathExpansion("resId",
+        new base::FundamentalValue(100) );
+dict.SetWithoutPathExpansion("fileName",
+        new base::StringValue("hello.txt") );
 
 base::ListValue * users = new base::ListValue();
 users->AppendString( "suninf" );
