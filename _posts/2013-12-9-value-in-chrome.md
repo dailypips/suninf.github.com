@@ -1,6 +1,6 @@
 ---
 layout: article
-title: Chrome - Value / JsonParser
+title: Chrome - Value
 category: chrome
 ---
 *This article introduce the use of `base::Value` in chrome source code.*
