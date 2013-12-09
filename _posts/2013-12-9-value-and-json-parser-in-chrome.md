@@ -16,9 +16,9 @@ class ListValue;
 class StringValue;
 class Value;
 
-// The Value class is the base class for Values. A Value can be instantiated
-// via the Create*Value() factory methods, or by directly creating instances of
-// the subclasses.
+// The Value class is the base class for Values. A Value can be
+// instantiated via the Create*Value() factory methods, or by
+// directly creating instances of the subclasses.
 class BASE_EXPORT Value {
 public:
   enum Type {
@@ -44,9 +44,7 @@ public:
   virtual bool GetAsString(std::string* out_value) const;
   virtual bool GetAsString(string16* out_value) const;
   virtual bool GetAsList(ListValue** out_value);
-  virtual bool GetAsList(const ListValue** out_value) const;
   virtual bool GetAsDictionary(DictionaryValue** out_value);
-  virtual bool GetAsDictionary(const DictionaryValue** out_value) const;
 
   // Subclasses return their own type directly in their overrides;
   virtual Value* DeepCopy() const;
@@ -62,7 +60,7 @@ private:
 };
 
 
-// FundamentalValue represents the simple fundamental types of values.
+// FundamentalValue represents the simple fundamental types.
 class BASE_EXPORT FundamentalValue : public Value {
 public:
   explicit FundamentalValue(bool in_value);
@@ -70,11 +68,11 @@ public:
   explicit FundamentalValue(double in_value);
 
   // Overridden from Value:
-  virtual bool GetAsBoolean(bool* out_value) const OVERRIDE;
-  virtual bool GetAsInteger(int* out_value) const OVERRIDE;
-  virtual bool GetAsDouble(double* out_value) const OVERRIDE;
-  virtual FundamentalValue* DeepCopy() const OVERRIDE;
-  virtual bool Equals(const Value* other) const OVERRIDE;
+  virtual bool GetAsBoolean(bool* out_value) const;
+  virtual bool GetAsInteger(int* out_value) const;
+  virtual bool GetAsDouble(double* out_value) const;
+  virtual FundamentalValue* DeepCopy() const;
+  virtual bool Equals(const Value* other) const;
 
 private:
   union {
@@ -94,11 +92,11 @@ public:
   explicit StringValue(const string16& in_value);
 
   // Overridden from Value:
-  virtual bool GetAsString(std::string* out_value) const OVERRIDE;
-  virtual bool GetAsString(string16* out_value) const OVERRIDE;
+  virtual bool GetAsString(std::string* out_value) const;
+  virtual bool GetAsString(string16* out_value) const;
 
-  virtual StringValue* DeepCopy() const OVERRIDE;
-  virtual bool Equals(const Value* other) const OVERRIDE;
+  virtual StringValue* DeepCopy() const;
+  virtual bool Equals(const Value* other) const;
 
 private:
   std::string value_;
@@ -110,16 +108,17 @@ public:
   // Creates a BinaryValue with a null buffer and size of 0.
   BinaryValue();
 
-  // Creates a BinaryValue, taking ownership of the bytes pointed to by
-  // |buffer|.
+  // Creates a BinaryValue, taking ownership of the bytes
+  // pointed to by |buffer|.
   BinaryValue(scoped_ptr<char[]> buffer, size_t size);
 
   virtual ~BinaryValue();
 
-  // For situations where you want to keep ownership of your buffer, this
-  // factory method creates a new BinaryValue by copying the contents of the
-  // buffer that's passed in.
-  static BinaryValue* CreateWithCopiedBuffer(const char* buffer, size_t size);
+  // For situations where you want to keep ownership of your buffer,
+  // this factory method creates a new BinaryValue by copying the
+  // contents of the buffer that's passed in.
+  static BinaryValue* CreateWithCopiedBuffer(const char* buffer,
+        size_t size);
 
   size_t GetSize() const { return size_; }
 
@@ -128,8 +127,8 @@ public:
   const char* GetBuffer() const { return buffer_.get(); }
 
   // Overridden from Value:
-  virtual BinaryValue* DeepCopy() const OVERRIDE;
-  virtual bool Equals(const Value* other) const OVERRIDE;
+  virtual BinaryValue* DeepCopy() const;
+  virtual bool Equals(const Value* other) const;
 
 private:
   scoped_ptr<char[]> buffer_;
@@ -138,20 +137,19 @@ private:
   DISALLOW_COPY_AND_ASSIGN(BinaryValue);
 };
 
-// DictionaryValue provides a key-value dictionary with (optional) "path"
-// parsing for recursive access; see the comment at the top of the file. Keys
-// are |std::string|s and should be UTF-8 encoded.
+// DictionaryValue provides a key-value dictionary with (optional)
+// "path" parsing for recursive access; see the comment at the top
+// of the file. Keys are |std::string|s and should be UTF-8 encoded.
 class BASE_EXPORT DictionaryValue : public Value {
 public:
   DictionaryValue();
   virtual ~DictionaryValue();
 
   // Overridden from Value:
-  virtual bool GetAsDictionary(DictionaryValue** out_value) OVERRIDE;
+  virtual bool GetAsDictionary(DictionaryValue** out_value);
   virtual bool GetAsDictionary(
-    const DictionaryValue** out_value) const OVERRIDE;
+    const DictionaryValue** out_value) const;
 
-  // Returns true if the current dictionary has a value for the given key.
   bool HasKey(const std::string& key) const;
 
   // Returns the number of Values in this dictionary.
@@ -163,18 +161,22 @@ public:
   // Clears any current contents of this dictionary.
   void Clear();
 
-  // A path has the form "<key>" or "<key>.<key>.[...]", where "." indexes
-  // into the next DictionaryValue down.
+  // A path has the form "<key>" or "<key>.<key>.[...]",
+  // where "." indexes into the next DictionaryValue down.
   void Set(const std::string& path, Value* in_value);
   // ...
 
   // Normal usage:
   // Like Set(), but without special treatment of '.'
-  void SetWithoutPathExpansion(const std::string& key, Value* in_value);
+  void SetWithoutPathExpansion(const std::string& key,
+        Value* in_value);
 
-  void SetBooleanWithoutPathExpansion(const std::string& path, bool in_value);
-  void SetIntegerWithoutPathExpansion(const std::string& path, int in_value);
-  void SetDoubleWithoutPathExpansion(const std::string& path, double in_value);
+  void SetBooleanWithoutPathExpansion(const std::string& path,
+        bool in_value);
+  void SetIntegerWithoutPathExpansion(const std::string& path,
+        int in_value);
+  void SetDoubleWithoutPathExpansion(const std::string& path,
+        double in_value);
   void SetStringWithoutPathExpansion(const std::string& path,
     const std::string& in_value);
   void SetStringWithoutPathExpansion(const std::string& path,
@@ -184,7 +186,8 @@ public:
   // Like Get(), but without special treatment of '.'
   bool GetWithoutPathExpansion(const std::string& key,
     const Value** out_value) const;
-  bool GetWithoutPathExpansion(const std::string& key, Value** out_value);
+  bool GetWithoutPathExpansion(const std::string& key,
+        Value** out_value);
   bool GetBooleanWithoutPathExpansion(const std::string& key,
     bool* out_value) const;
   bool GetIntegerWithoutPathExpansion(const std::string& key,
@@ -216,8 +219,8 @@ public:
   virtual void Swap(DictionaryValue* other);
 
   // Overridden from Value:
-  virtual DictionaryValue* DeepCopy() const OVERRIDE;
-  virtual bool Equals(const Value* other) const OVERRIDE;
+  virtual DictionaryValue* DeepCopy() const;
+  virtual bool Equals(const Value* other) const;
 
 private:
   ValueMap dictionary_;
@@ -254,9 +257,7 @@ public:
   bool GetString(size_t index, string16* out_value) const;
   bool GetBinary(size_t index, const BinaryValue** out_value) const;
   bool GetBinary(size_t index, BinaryValue** out_value);
-  bool GetDictionary(size_t index, const DictionaryValue** out_value) const;
   bool GetDictionary(size_t index, DictionaryValue** out_value);
-  bool GetList(size_t index, const ListValue** out_value) const;
   bool GetList(size_t index, ListValue** out_value);
 
   virtual bool Remove(size_t index, Value** out_value);
@@ -289,10 +290,10 @@ public:
   const_iterator end() const { return list_.end(); }
 
   // Overridden from Value:
-  virtual bool GetAsList(ListValue** out_value) OVERRIDE;
-  virtual bool GetAsList(const ListValue** out_value) const OVERRIDE;
-  virtual ListValue* DeepCopy() const OVERRIDE;
-  virtual bool Equals(const Value* other) const OVERRIDE;
+  virtual bool GetAsList(ListValue** out_value);
+  virtual bool GetAsList(const ListValue** out_value) const;
+  virtual ListValue* DeepCopy() const;
+  virtual bool Equals(const Value* other) const;
 
 private:
   ValueVector list_;
