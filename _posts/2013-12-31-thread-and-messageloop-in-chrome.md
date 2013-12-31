@@ -30,22 +30,22 @@ Please be SURE your task is reentrant (nestable) and all global variables are st
 ### MessageLoop class
  A **MessageLoop** has a particular type, which indicates the set of asynchronous events it may process in addition to tasks and timers.
 
-* TYPE_DEFAULT
+* **TYPE_DEFAULT**
     This type of ML only supports tasks and timers.
 
-* TYPE_UI
+* **TYPE_UI**
     This type of ML also supports native UI events (e.g., Windows messages).
     See also MessageLoopForUI.
 
-* TYPE_IO
+* **TYPE_IO**
     This type of ML also supports asynchronous IO.
     See also MessageLoopForIO.
 
-  enum Type {
-    TYPE_DEFAULT,
-    TYPE_UI,
-    TYPE_IO
-  };
+    enum Type {
+        TYPE_DEFAULT,
+        TYPE_UI,
+        TYPE_IO
+    };
 
 
 `The "PostTask" family of methods` call the task's Run method asynchronously from within a message loop at some point in the future.
