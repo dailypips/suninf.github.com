@@ -3,23 +3,23 @@ layout: article
 title: Chrome - Thread / MessageLoop
 category: chrome
 ---
-*Threads are very useful in application to deal with multi-thread problems, and chrome wrapped a series of excellent classes: base::Thread, MessageLoopForIO, MessageLoopProxy etc.*
+*Threads are very useful in application to deal with multi-thread problems, and chrome wrapped a series of excellent classes: `base::Thread`, MessageLoop and so on.*
 
 
 ## MessageLoop
-* A MessageLoop is used to process events for a particular thread.  There is at most one MessageLoop instance per thread.
-* Events include at a minimum Task instances submitted to PostTask and its variants.  Depending on the type of message pump used by the MessageLoop other events such as UI messages may be processed.  On Windows APC calls (as time permits) and signals sent to a registered set of HANDLEs may also be processed.
+* A MessageLoop is used to process events for a particular thread. There is at most one MessageLoop instance per thread.
+* Events include at a minimum Task instances submitted to PostTask and its variants. Depending on the type of message pump used by the MessageLoop, other events such as UI messages may be processed.
+* On Windows APC calls (as time permits) and signals sent to a registered set of HANDLEs may also be processed.
 
-NOTE: MessageLoop has task reentrancy protection.  This means that if a task is being processed, a second task cannot start until the first task is finished.  Reentrancy can happen when processing a task, and an inner
- message pump is created. That inner pump then processes native messages which could implicitly start an inner task.  Inner message pumps are created with dialogs (DialogBox), common dialogs (GetOpenFileName), OLE functions
- (DoDragDrop), printer functions (StartDoc) and *many* others.
+NOTE:
+MessageLoop has task reentrancy protection. This means that if a task is being processed, a second task cannot start until the first task is finished. Reentrancy can happen when processing a task, and an inner message pump is created. That inner pump then processes native messages which could implicitly start an inner task.  Inner message pumps are created with dialogs (DialogBox), common dialogs (GetOpenFileName), OLE functions (DoDragDrop), printer functions (StartDoc) and *many* others.
 
 Sample workaround when inner task processing is needed:
 
     HRESULT hr;
     {
-        MessageLoop::ScopedNestableTaskAllower allow(MessageLoop::current());
-        hr = DoDragDrop(...); // Implicitly runs a modal message loop.
+      MessageLoop::ScopedNestableTaskAllower allow(MessageLoop::current());
+      hr = DoDragDrop(...); // Implicitly runs a modal message loop.
     }
     // Process |hr| (the result returned by DoDragDrop()).
 
@@ -28,18 +28,18 @@ Please be SURE your task is reentrant (nestable) and all global variables are st
 
 
 ### MessageLoop class
- A MessageLoop has a particular type, which indicates the set of asynchronous events it may process in addition to tasks and timers.
+ A **MessageLoop** has a particular type, which indicates the set of asynchronous events it may process in addition to tasks and timers.
 
- TYPE_DEFAULT
-   This type of ML only supports tasks and timers.
+* TYPE_DEFAULT
+    This type of ML only supports tasks and timers.
 
- TYPE_UI
-   This type of ML also supports native UI events (e.g., Windows messages).
-   See also MessageLoopForUI.
+* TYPE_UI
+    This type of ML also supports native UI events (e.g., Windows messages).
+    See also MessageLoopForUI.
 
- TYPE_IO
-   This type of ML also supports asynchronous IO.  See also
-   MessageLoopForIO.
+* TYPE_IO
+    This type of ML also supports asynchronous IO.
+    See also MessageLoopForIO.
 
   enum Type {
     TYPE_DEFAULT,
@@ -48,7 +48,7 @@ Please be SURE your task is reentrant (nestable) and all global variables are st
   };
 
 
-The "PostTask" family of methods call the task's Run method asynchronously from within a message loop at some point in the future.
+`The "PostTask" family of methods` call the task's Run method asynchronously from within a message loop at some point in the future.
 * With the PostTask variant, tasks are invoked in FIFO order, inter-mixed with normal UI or IO event processing.  With the PostDelayedTask variant, tasks are called after at least approximately 'delay_ms' have elapsed.
 * The NonNestable variants work similarly except that they promise never to dispatch the task from a nested invocation of MessageLoop::Run. Instead, such tasks get deferred until the top-most MessageLoop::Run is executing.
 * The MessageLoop takes ownership of the Task, and deletes it after it has been Run(). PostTask(from_here, task) is equivalent to PostDelayedTask(from_here, task, 0).
@@ -167,9 +167,10 @@ class BASE_EXPORT MessageLoopForIO : public MessageLoop {
 
 
 ## Thread
-A simple thread abstraction that establishes a MessageLoop on a new thread. The consumer uses the MessageLoop of the thread to cause code to execute on the thread.  When this object is destroyed the thread is terminated.  All pending tasks queued on the thread's message loop will run to completion before the thread is terminated.
+* A simple thread abstraction that establishes a MessageLoop on a new thread. The consumer uses the MessageLoop of the thread to cause code to execute on the thread.
+* When this object is destroyed the thread is terminated.  All pending tasks queued on the thread's message loop will run to completion before the thread is terminated.
 
- **WARNING! SUBCLASSES MUST CALL Stop() IN THEIR DESTRUCTORS!  See ~Thread().**
+ *WARNING! SUBCLASSES MUST CALL Stop() IN THEIR DESTRUCTORS!  See ~Thread().*
 
 After the thread is stopped, the destruction sequence is:
 (1) Thread::CleanUp()
