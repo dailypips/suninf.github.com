@@ -3,7 +3,7 @@ layout: article
 title: Chrome - RefCounted / Scoped_refptr
 category: chrome
 ---
-*This article introduce `RefCount` and `scoped_refptr` in chrome source code.*
+*RefCount is a useful and common technique in c++, this article introduce `RefCount` and `scoped_refptr` in chrome source code.*
 
 ##RefCounted
 A base class for reference counted classes.
