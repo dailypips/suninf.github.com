@@ -11,10 +11,11 @@ category: chrome
 base::Thread* g_cache_thread = NULL;
 g_cache_thread = new base::Thread("cache");
 g_cache_thread->StartWithOptions(
-      base::Thread::Options(MessageLoop::TYPE_IO, 0));
+    base::Thread::Options(MessageLoop::TYPE_IO, 0));
 
 // Post task
-g_cache_thread->message_loop_proxy()->PostTask( FROM_HERE, base::Bind(&ThisClass::SomeFunc, this, args) );
+g_cache_thread->message_loop_proxy()->PostTask( FROM_HERE,
+    base::Bind(&ThisClass::SomeFunc, this, args) );
 {% endhighlight %}
 
 
