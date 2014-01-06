@@ -259,7 +259,7 @@ color: #307437;
 }
 
 aside section ul li a {
-display: block;
+/*display: block;*/
 text-decoration: none;
 color: #000;
 }
