@@ -32,12 +32,12 @@ struct rvalue_type { \
 {% endhighlight %}
 
 We see that the `MOVE_ONLY_TYPE_FOR_CPP_03` macro has 4 parts:
-* rvalue_type typedef: can hold the host type
-* host defines private reference copy constructor and assign operator
-* host can auto convert to rvalue_type
-* Pass() method:
-   *    host should implement constructor with argument of rvalue_type, which is the key of `MOVE semantic`
-   *    Pass() return `type(rvalue_type(this))` which is a temporary, it don't match type&, so as to auto convert to rvalue_type
+1. rvalue_type typedef: can hold the host type
+2. host defines private reference copy constructor and assign operator
+3. host can auto convert to rvalue_type
+4. Pass() method:
+    * host should implement constructor with argument of rvalue_type, which is the key of `MOVE semantic`
+    * Pass() return `type(rvalue_type(this))` which is a temporary, it don't match type&, so as to auto convert to rvalue_type
 
 
 ## Example:
