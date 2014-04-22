@@ -32,6 +32,7 @@ struct rvalue_type { \
 {% endhighlight %}
 
 We see that the `MOVE_ONLY_TYPE_FOR_CPP_03` macro has 4 parts:
+
 1. rvalue_type typedef: can hold the host type
 2. host defines private reference copy constructor and assign operator
 3. host can auto convert to rvalue_type
