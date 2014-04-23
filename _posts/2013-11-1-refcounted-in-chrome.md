@@ -3,7 +3,7 @@ layout: article
 title: Chrome - RefCounted / Scoped_refptr
 category: chrome
 ---
-*RefCount is a useful and common technique in c++, this article introduce `RefCount` and `scoped_refptr` in chrome source code.*
+*RefCount is a useful and common technique in c++, this article introduce `RefCount` and `scoped_refptr` in chrome source code ( [**ref_counted.h**{: style="color:#2970A6"}](http://src.chromium.org/viewvc/chrome/trunk/src/base/memory/ref_counted.h){: target="_blank"} ).*
 
 ##RefCounted
 A base class for reference counted classes.
@@ -118,13 +118,13 @@ namespace boost {
 // example
 class MyFoo : public RefCounted<MyFoo>
 {
-	// ...
+    // ...
 };
 
 scoped_refptr<MyFoo> foo = new MyFoo();	// ref_count 1
 {
-	boost::intrusive_ptr<MyFoo> spFoo( foo.get() ); // ref_count 2
-	// spFoo destroy out of the scope
+    boost::intrusive_ptr<MyFoo> spFoo( foo.get() ); // ref_count 2
+    // spFoo destroy out of the scope
 }
 // ref_count 1
 
