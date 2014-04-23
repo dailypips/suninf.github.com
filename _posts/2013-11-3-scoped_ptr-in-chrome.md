@@ -40,7 +40,7 @@ Scopers help you manage ownership of a pointer, helping you easily manage the a 
 {% endhighlight %}
 
 
-## Movable but not copyable : (see detail in [`move.h`{: style="color:#2970A6"}](http://suninf.net/move-constructor-in-chrome/))
+## Movable but not copyable : (see detail in [**Move Constructor**{: style="color:#2970A6"}](http://suninf.net/move-constructor-in-chrome/))
 * Scoped_ptr also implements `movable but not copyable`. You can use the scoped_ptr in the parameter and return types of functions to signify ownership transfer in to and out of a function.
 * When calling a function that has a scoper as the argument type, it must be called with the result of an analogous scoper's **Pass()** function or another function that generates a **temporary**; passing by copy will NOT work.
 
