@@ -94,6 +94,42 @@ scoped_refptr<T> make_scoped_refptr(T* t)
 {% endhighlight %}
 
 
+## Link with boost::intrusive_ptr
+As base::RefCounted&lt;T> class has AddRef and Release methods to manage ref count, we can easily wrap template functions `intrusive_ptr_add_ref` and `intrusive_ptr_release` to satisfy the requirements of intrusive_ptr.
+
+{% highlight c++ %}
+// Wrap add_ref or release for base::RefCounted Objects
+#include <boost/intrusive_ptr.hpp>
+namespace boost {
+   template<typename T>
+   inline void intrusive_ptr_add_ref( base::RefCounted<T> * p )
+   {
+      p->AddRef();
+   }
+
+   template<typename T>
+   inline void intrusive_ptr_release( base::RefCounted<T> * p )
+   {
+      p->Release();
+   }
+}// namespace boost
+
+
+// example
+class MyFoo : public RefCounted<MyFoo>
+{
+	// ...
+};
+
+scoped_refptr<MyFoo> foo = new MyFoo();	// ref_count 1
+{
+	boost::intrusive_ptr<MyFoo> spFoo( foo.get() ); // ref_count 2
+	// spFoo destroy out of the scope
+}
+// ref_count 1
+
+{% endhighlight %}
+
 
 
 
