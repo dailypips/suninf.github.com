@@ -14,7 +14,7 @@
     <div class="blog_content" style="margin-top: 30px">
         <div>
             <p style="text-indent:2em;">
-                {{ post.content | strip_html | truncate:300 }}
+                {{ post.description }}
             </p>
         </div>
 
@@ -29,7 +29,7 @@
 </div>
 
 {% endfor %}
-        
+
 {% if total_posts > limit_posts %}
     <div style="float: right;">
         <a href="/blogs.html">Reading More &gt;&gt;</a>
