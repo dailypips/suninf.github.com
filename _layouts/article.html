@@ -1,4 +1,18 @@
 ---
 layout: default
 ---
-{% include post.html %}
+<div class='post' style="padding-bottom: 3em;">
+    <h1><a href='{{page.url}}' id="article_title">{{page.title}}</a></h1>
+    <span class='date' style="margin-top: 3px;">{{page.date | date: "%Y-%m-%d"}}</span>
+    <div class='body' style="padding-top: 1em;">{{ content }}</div>
+</div>
+<script type="text/javascript" charset="utf-8">
+    var disqus_url = "http://suninf.github.com{{page.url}}";
+    var disqus_developer = 1;
+</script>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript" src="http://disqus.com/forums/suninf/embed.js"></script>
+<noscript><a href="http://disqus.com/forums/suninf/?url=ref">View the discussion thread.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
