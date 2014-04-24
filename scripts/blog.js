@@ -61,12 +61,13 @@ function naviBarInit() {
     // parse url
     var path_arg = location.pathname;
 
-    if( path_arg.indexOf("articles.html") >= 0 ) {
-        $("#nav_articles_id").addClass("on");
+    if( path_arg == "/" ) {
+        $("#nav_home_id").addClass("on");
     } else if( path_arg.indexOf("about.html") >= 0 ) {
         $("#nav_about_id").addClass("on");
     } else {
-        $("#nav_home_id").addClass("on");
+        // articles.html or posts
+        $("#nav_articles_id").addClass("on");
     }
 
     $('.cate-bar').css( {visibility:"visible"} );
