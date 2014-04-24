@@ -1,0 +1,71 @@
+- name: sina-blog
+  url: http://blog.sina.com.cn/suninf
+
+- name: lifesinger
+  url: https://github.com/lifesinger
+  
+- name: boost-spirit
+  url: http://boost-spirit.com/home/
+  
+- name: mind hacks
+  url: http://mindhacks.cn/
+
+- name: fangweng
+  url: http://blog.csdn.net/cenwenchu79
+
+- name: mogoweb
+  url: http://mogoweb.net/
+  
+- name: ruanyifeng
+  url: http://www.ruanyifeng.com/blog/
+
+- name: Andrei Alexandrescu
+  url: http://erdani.com/
+
+- name: Herb Sutter
+  url: http://www.gotw.ca/
+  
+- name: Jaakko Järvi
+  url: https://parasol.tamu.edu/~jarvi/
+
+- name: miloyip
+  url: http://www.cnblogs.com/miloyip/
+
+- name: milado_nju
+  url: http://blog.csdn.net/milado_nju
+
+- name: shapeshed
+  url: http://shapeshed.com/
+
+- name: martinfowler
+  url: http://martinfowler.com/intro.html
+  
+- name: MacTalk
+  url: http://macshuo.com/
+
+- name: fens
+  url: http://blog.fens.me/series-nodejs/
+
+- name: Ted's ios
+  url: http://wufawei.com/
+  
+- name: dirk mac
+  url: http://dirk.sh/
+
+- name: pluskid emacs
+  url: http://lifegoo.pluskid.org/wiki/Emacs.html
+
+- name: erlang-china
+  url: http://erlang-china.org/
+
+- name: w3school-jquery
+  url: http://www.w3school.com.cn/jquery/
+
+- name: W3
+  url: http://www.w3.org/TR/Window/
+
+- name: HTML5 zh-doc
+  url: http://www.w3.org/html/ig/zh/wiki/HTML5
+
+  
+  

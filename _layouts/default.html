@@ -63,51 +63,23 @@ desc: Creative thinking、Happy sharing！ If not now, when? If not you, who?
                     <section>
                         <h3>Opensource</h3>
                         <ul>
-                            <li><a href="http://www.chromium.org/Home" target="_blank">chromium</a></li>
-                            <li><a href="https://developers.google.com/v8/?hl=zh-CN" target="_blank">V8</a></li>
-                            <li><a href="http://nodejs.org/api/all.html" target="_blank">Node.js</a></li>
-                            <li><a href="http://kramdown.gettalong.org/index.html" target="_blank">kramdown</a></li>
-                            <li><a href="http://jekyllrb.com/docs/home/" target="_blank">Jekyll</a></li>
-                            <li><a href="http://v3.bootcss.com/" target="_blank">Bootstrap-zh</a></li>
-                            <li><a href="http://www.boost.org" target="_blank">boost</a></li>
-                            <li><a href="http://www.w3school.com.cn/index.html" target="_blank">W3School</a></li>
-                            <li><a href="http://docs.kissyui.com/" target="_blank">kissy</a></li>
-                            <li><a href="http://jquery.com/" target="_blank">jquery</a></li>
-                            <li><a href="http://www.erlang.org/" target="_blank">erlang</a></li>
+                            {% for open_source in site.data.open_sources %}
+                                <li><a href="{{ open_source.url }}" target="_blank">{{ open_source.name }}</a></li>
+                            {% endfor %}
                         </ul>
                     </section>
 
                     <section>
-                        <h3>blogs</h3>
+                        <h3>Blogs</h3>
                         <ul>
-                            <li><a href="http://blog.sina.com.cn/suninf" target="_blank">sina-blog</a></li>
-                            <li><a href="https://github.com/lifesinger" target="_blank">lifesinger</a></li>
-                            <li><a href="http://boost-spirit.com/home/" target="_blank">boost-spirit</a></li>
-                            <li><a href="http://mindhacks.cn/" target="_blank">mind hacks</a></li>
-                            <li><a href="http://blog.csdn.net/cenwenchu79" target="_blank">fangweng</a></li>
-                            <li><a href="http://mogoweb.net/" target="_blank">mogoweb</a></li>
-                            <li><a href="http://www.ruanyifeng.com/blog/" target="_blank">ruanyifeng</a></li>
-                            <li><a href="http://erdani.com/" target="_blank">Andrei Alexandrescu</a></li>
-                            <li><a href="http://www.gotw.ca/" target="_blank">Herb Sutter</a></li>
-                            <li><a href="https://parasol.tamu.edu/~jarvi/" target="_blank">Jaakko Järvi</a></li>
-                            <li><a href="http://www.cnblogs.com/miloyip/" target="_blank">miloyip</a></li>
-                            <li><a href="http://blog.csdn.net/milado_nju" target="_blank">milado_nju</a></li>
-                            <li><a href="http://shapeshed.com/" target="_blank">shapeshed</a></li>
-                            <li><a href="http://martinfowler.com/intro.html" target="_blank">martinfowler</a></li>
-                            <li><a href="http://macshuo.com/" target="_blank">MacTalk</a></li>
-                            <li><a href="http://blog.fens.me/series-nodejs/" target="_blank">fens</a></li>
-                            <li><a href="http://wufawei.com/" target="_blank">Ted's ios</a></li>
-                            <li><a href="http://dirk.sh/" target="_blank">dirk mac</a></li>
-                            <li><a href="http://lifegoo.pluskid.org/wiki/Emacs.html" target="_blank">pluskid emacs</a></li>
-                            <li><a href="http://erlang-china.org/" target="_blank">erlang-china</a></li>
-                            <li><a href="http://www.w3school.com.cn/jquery/" target="_blank">w3school-jquery</a></li>
-                            <li><a href="http://www.w3.org/TR/Window/" target="_blank">W3</a></li>
-                            <li><a href="http://www.w3.org/html/ig/zh/wiki/HTML5" target="_blank">HTML5 zh-doc</a></li>
+                            {% for blog in site.data.blogs %}
+                                <li><a href="{{ blog.url }}" target="_blank">{{ blog.name }}</a></li>
+                            {% endfor %}
                         </ul>
                     </section>
 
                     <section>
-                        <h3>links</h3>
+                        <h3>Links</h3>
                         <ul>
                             {% for link in site.data.links %}
                                 <li><a href="{{ link.url }}" target="_blank">{{ link.name }}</a></li>

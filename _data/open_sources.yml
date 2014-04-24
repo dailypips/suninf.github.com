@@ -1,0 +1,36 @@
+- name: chromium
+  url: http://www.chromium.org/Home
+
+- name: V8
+  url: https://developers.google.com/v8/?hl=zh-CN
+  
+- name: Node.js
+  url: http://nodejs.org/api/all.html
+
+- name: github
+  url: https://github.com/suninf
+  
+- name: kramdown
+  url: http://kramdown.gettalong.org/index.html
+
+- name: Jekyll
+  url: http://jekyllrb.com/docs/home/
+  
+- name: Bootstrap-zh
+  url: http://v3.bootcss.com/
+      
+- name: boost
+  url: http://www.boost.org
+
+- name: W3School
+  url: http://www.w3school.com.cn/index.html
+  
+- name: kissy
+  url: http://docs.kissyui.com/
+      
+- name: jquery
+  url: http://jquery.com/
+
+- name: erlang
+  url: http://www.erlang.org/
+  
