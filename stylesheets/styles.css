@@ -228,7 +228,7 @@ color: #000;
     color:#000000;
 }
 
-.articlecontent .blog_summary .blog_title a:hover, a:visited {
+.articlecontent .blog_summary .blog_title a:hover a:active {
     color:#2970A6;
 }
 
