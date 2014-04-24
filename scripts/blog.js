@@ -11,6 +11,7 @@ function addLoadEvent(func) {
     }
 }
 
+// animate bar function
 function animateBar($item,noAni){
 	var spanLeft = $item.find('span').offset().left;
 	var conLeft = $item.parent().offset().left;
@@ -49,9 +50,11 @@ $(function(){
 			animateBar($('.artical-cate .on'));
 		})
 	})
-	//animateBar($('.artical-cate .on'),true);
+
+    animateBar($('.artical-cate .on'),true);
 });
 
+// bar status depends on location.pathname
 function naviBarInit() {
     // remove class 'on'
 	$(".artical-cate li").removeClass( "on" );
