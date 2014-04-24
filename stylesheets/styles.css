@@ -224,8 +224,12 @@ color: #000;
 }
 
 /* homepage */
-.articlecontent .blog_summary .blog_title a {
+.articlecontent .blog_summary .blog_title a:link {
+    color:#000000;
+}
 
+.articlecontent .blog_summary .blog_title a:hover, a:visited {
+    color:#2970A6;
 }
 
 .articlecontent .blog_summary .blog_title {
