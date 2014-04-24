@@ -109,14 +109,9 @@ desc: Creative thinking、Happy sharing！ If not now, when? If not you, who?
                     <section>
                         <h3>links</h3>
                         <ul>
-                            <li><a href="http://www.chromi.org/" target="_blank">chromi</a></li>
-                            <li><a href="http://www.developereconomics.com/reports/" target="_blank">developereconomics</a></li>
-                            <li><a href="http://www.techpaste.com" target="_blank">techpaste</a></li>
-                            <li><a href="http://blog.sina.com.cn/s/blog_88cb82f60101gsin.html" target="_blank">windeln</a></li>
-                            <li><a href="http://news.ios-wiki.com/news" target="_blank">IOS News</a></li>
-                            <li><a href="https://news.ycombinator.com/" target="_blank">Hacker News</a></li>
-                            <li><a href="http://www.buildyourownlisp.com/contents" target="_blank">buildyourownlisp</a></li>
-                            <li><a href="http://paulgraham.com/articles.html" target="_blank">Paul Graham</a></li>
+                            {% for link in site.data.links %}
+                                <li><a href="{{ link.url }}" target="_blank">{{ link.name }}</a></li>
+                            {% endfor %}
                         </ul>
                     </section>
 

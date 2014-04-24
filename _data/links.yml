@@ -1,0 +1,25 @@
+- name: chromi
+  url: http://www.chromi.org/
+
+- name: developereconomics
+  url: http://www.developereconomics.com/reports/
+  
+- name: techpaste
+  url: http://www.techpaste.com
+  
+- name: windeln
+  url: http://blog.sina.com.cn/s/blog_88cb82f60101gsin.html
+  
+- name: IOS News
+  url: http://news.ios-wiki.com/news
+
+- name: Hacker News
+  url: https://news.ycombinator.com/
+  
+- name: buildyourownlisp
+  url: http://www.chromi.org/
+  
+- name: Paul Graham
+  url: http://paulgraham.com/articles.html
+      
+  
