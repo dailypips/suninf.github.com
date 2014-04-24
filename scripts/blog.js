@@ -51,7 +51,6 @@ $(function(){
 		})
 	})
 
-    animateBar($('.artical-cate .on'),true);
 });
 
 // bar status depends on location.pathname
