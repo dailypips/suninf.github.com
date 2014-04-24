@@ -225,10 +225,10 @@ color: #000;
 
 /* homepage */
 .articlecontent .blog_summary .blog_title a:link {
-    color:#000000;
+    color:#3d3d3d;
 }
 
-.articlecontent .blog_summary .blog_title a:hover a:active {
+.articlecontent .blog_summary .blog_title a:hover {
     color:#2970A6;
 }
 
