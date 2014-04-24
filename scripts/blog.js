@@ -69,6 +69,7 @@ function naviBarInit() {
         $("#nav_home_id").addClass("on");
     }
 
+    $('.cate-bar').css( {visibility:"visible"} );
     animateBar($('.artical-cate .on'),true);
 }
 
