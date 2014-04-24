@@ -1,6 +1,6 @@
 <h1><a href="#">Category: {{ page.name }}</a></h1>
 <div class="size">total {{ site.categories[page.name] | size }} articles</div>
-<ul id="blogs">
+<ul id="articles">
   {% for post in site.categories[page.name] %}
   <li>
     <span>{{post.date | date: "%Y-%m-%d"}}</span>
