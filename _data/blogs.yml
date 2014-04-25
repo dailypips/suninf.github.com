@@ -55,6 +55,12 @@
 - name: pluskid emacs
   url: http://lifegoo.pluskid.org/wiki/Emacs.html
 
+- name: yinwang
+  url: http://www.yinwang.org/
+
+- name: matrix67
+  url: http://www.matrix67.com/blog/
+
 - name: erlang-china
   url: http://erlang-china.org/
 
