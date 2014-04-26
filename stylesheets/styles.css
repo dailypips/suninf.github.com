@@ -246,6 +246,11 @@ color: #000;
 }
 
 /* homepage */
+.articlecontent .homepage {
+    border-bottom: 2px solid #d3d3d3;
+    padding-bottom: 10px;
+}
+
 .articlecontent .blog_summary .blog_title a {
 }
 
