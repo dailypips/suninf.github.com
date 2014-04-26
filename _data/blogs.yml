@@ -43,6 +43,9 @@
 - name: MacTalk
   url: http://macshuo.com/
 
+- name: coolshell
+  url: http://coolshell.cn/
+
 - name: fens
   url: http://blog.fens.me/series-nodejs/
 

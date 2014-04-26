@@ -25,6 +25,9 @@ layout: default
             </p>
         </div>
     </div>
+    <div style="float: right;">
+        <a href="{{ first_post.url }}">Continue reading &gt;&gt;</a>
+    </div>
 </div>
 {% endfor %}
 
@@ -45,7 +48,7 @@ layout: default
     {% assign total_posts = site.posts | size %}
     {% if total_posts > recent_posts_limit %}
     <div style="float: right;">
-        <a href="/articles.html">Reading More &gt;&gt;</a>
+        <a href="/articles.html">More &gt;&gt;</a>
     </div>
     {% endif %}
 </div>
