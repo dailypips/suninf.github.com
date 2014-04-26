@@ -8,8 +8,8 @@ layout: default
 
 {% for first_post in site.posts limit:1 %}
 
-<div class="blog_summary" style="margin: 2em 2em 6em 2em;">
-    <div class="blog_title" style="margin-top: 2px;">
+<div class="blog_summary" style="margin: 2em 2em 5em 2em;">
+    <div class="blog_title" style="font-size: 1.2em;font-weight: bold;">
         <a href="{{ first_post.url }}" target="_blank">{{ first_post.title }}</a>
     </div>
     <div class="info">
@@ -28,7 +28,7 @@ layout: default
 
 {% assign recent_posts_limit = 6 %}
 
-<div class="recent_posts" style="margin: 2em 2em 4em 2em; border-top: 2px solid #d3d3d3;">
+<div class="recent_posts" style="margin: 2em 2em 2em 2em; border-top: 2px solid #d3d3d3;">
     <h3>Recent articles:</h3>
     <ul>
         {% for post in site.posts limit:recent_posts_limit %}
