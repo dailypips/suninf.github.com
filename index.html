@@ -6,8 +6,7 @@ layout: default
     <h1>suninf's homepage</h1>
 </div>
 
-{{% assign first_post = site.posts | first %}}
-first_post.content
+{% for first_post in site.posts limit:1 %}
 
 <div class="blog_summary" style="margin: 1em 0 6em 0;">
     <div class="blog_title" style="margin-top: 2px;">
@@ -25,8 +24,8 @@ first_post.content
             </p>
         </div>
     </div>
-
 </div>
+{% endfor %}
 
 
 {% assign recent_posts_limit = 5 %}
