@@ -13,9 +13,10 @@ layout: default
         <a href="{{ first_post.url }}" target="_blank">{{ first_post.title }}</a>
     </div>
     <div class="info">
-        <span style="float: right;">category: </span>
+
+        <span style="float: right;">&bnsp;&bnsp; {{ first_post.date | date: "%Y-%m-%d" }}</span>
         <a href="/{{ first_post.category }}.html" style="float: right;">{{ first_post.category }}</a>
-        <span style="float: right;">{{ first_post.date | date: "%Y-%m-%d" }}</span>
+        <span style="float: right;">category:&bnsp;</span>
     </div>
     <div class="blog_content" style="margin-top: 25px">
         <div>
