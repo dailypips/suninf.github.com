@@ -194,6 +194,7 @@ class BASE_EXPORT MessageLoopForIO : public MessageLoop {
  *WARNING! SUBCLASSES MUST CALL Stop() IN THEIR DESTRUCTORS!  See ~Thread().*
 
 After the thread is stopped, the destruction sequence is:
+
 (1) Thread::CleanUp()
 (2) MessageLoop::~MessageLoop
 (3) MessageLoop::DestructionObserver::WillDestroyCurrentMessageLoop
