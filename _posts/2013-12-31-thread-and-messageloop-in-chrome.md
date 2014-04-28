@@ -195,9 +195,9 @@ class BASE_EXPORT MessageLoopForIO : public MessageLoop {
 
 After the thread is stopped, the destruction sequence is:
 
-(1) Thread::CleanUp()
-(2) MessageLoop::~MessageLoop
-(3) MessageLoop::DestructionObserver::WillDestroyCurrentMessageLoop
+1. Thread::CleanUp()
+2. MessageLoop::~MessageLoop
+3. MessageLoop::DestructionObserver::WillDestroyCurrentMessageLoop
 
 {% highlight c++ %}
 class BASE_EXPORT Thread : PlatformThread::Delegate {
