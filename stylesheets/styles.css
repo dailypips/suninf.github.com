@@ -112,13 +112,13 @@ padding-left: 5px;
 nav .menu {
     font-size: 14px;
     font-weight: bold;
-    width:35%
+    width:35% /*width of webview*/
 }
 
 nav .menu .artical-cate li {
     display:inline-block;
     zoom:1;
-    width:30%;
+    width:30%; /* must < 100/N % */
     cursor:pointer;
 }
 
