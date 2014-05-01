@@ -65,6 +65,8 @@ function naviBarInit() {
         $("#nav_home_id").addClass("on");
     } else if( path_arg.indexOf("about.html") >= 0 ) {
         $("#nav_about_id").addClass("on");
+    } else if( path_arg.indexOf("works.html") >= 0 ) {
+        $("#nav_works_id").addClass("on");
     } else {
         // articles.html or posts
         $("#nav_articles_id").addClass("on");
