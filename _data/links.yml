@@ -18,8 +18,15 @@
   
 - name: buildyourownlisp
   url: http://www.chromi.org/
-  
-- name: Paul Graham
-  url: http://paulgraham.com/articles.html
       
-  
+- name: erlang-china
+  url: http://erlang-china.org/
+
+- name: w3school-jquery
+  url: http://www.w3school.com.cn/jquery/
+
+- name: W3
+  url: http://www.w3.org/TR/Window/
+
+- name: HTML5 zh-doc
+  url: http://www.w3.org/html/ig/zh/wiki/HTML5
