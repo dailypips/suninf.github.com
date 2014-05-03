@@ -1,6 +1,6 @@
 ---
 layout: article
-title: Chrome - Bind / Callback
+title: Bind / Callback in chrome
 category: chrome
 description: Class base::Bind and base::Callback in chrome are just like bind/function in boost, which are used to bind and store functions.
 ---

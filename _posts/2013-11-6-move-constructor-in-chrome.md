@@ -1,6 +1,6 @@
 ---
 layout: article
-title: Chrome - Move Constructor
+title: Move Constructor in chrome
 category: chrome
 description: Move constructor is a idiom in C++ for efficiency( use move if possible instead of copy ), this article introduce the implement of move constructor in chrome source code.
 ---

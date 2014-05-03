@@ -1,6 +1,6 @@
 ---
 layout: article
-title: Chrome - Value / JsonParser
+title: Value / JsonParser in chrome
 category: chrome
 description: Class base::Value is a variant type to holder complex data, this article introduce the use of base::Value in chrome source code.
 ---
