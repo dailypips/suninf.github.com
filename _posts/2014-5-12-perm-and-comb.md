@@ -2,15 +2,17 @@
 layout: article
 title: Permutation And Combination
 category: other
-description: Lazy instance is an object which is created on the first time it's accessed. And chrome implements a very powerful LazyInstance template class, which is very fast and thread safe.
+description: Permutation and combination are traditional maths problems, both of which have to do with lists recursively.
 ---
-Permutation and combination are traditional maths problems, both of which have to do with lists recursively. It can test the expressive ability to process lists of a language. This article compares Erlang, Javascript, Python and Lisp.
+Permutation and combination are traditional maths problems, both of which have to do with lists recursively. This article compares Erlang, Javascript, Python and Scheme, each of which implements both of the problems, and it can test **the expressive ability to process lists** of a language.
 
 ## Theory
 List permutation:
+
 [1,2,3] -> [1,2,3], [1,3,2], [2,1,3], [2,3,1], [3,1,2], [3,2,1]
 
 Thinking:
+
 To list L:
 
 1. Choose any one element of L as the first element `Head`
@@ -18,9 +20,11 @@ To list L:
 3. Recognize the recursive feature: every item of the permutation of `the left list`, should be added to `Head` to build a complete item result.
 
 List combination:
+
 [1,2,3] -> [1,2,3], [1,2], [1,3], [1], [2,3], [2], [3]
 
 Thinking:
+
 To list L:
 
 1. Every element of L has two choices, use it or not
@@ -28,7 +32,6 @@ To list L:
 
 
 ## Erlang
-
 Erlang has the ability of list comprehension, so as to deal with list recursively easily. And the problem solved by erlang is very simple and direct.
 
 
@@ -46,12 +49,13 @@ combination( L ) -> combination_helper(L) -- [[]].
 
 combination_helper( [] ) -> [ [] ];
 combination_helper( [H | T] ) ->
-         [ [H | Tail] || Tail <- combination_helper(T) ] ++ combination_helper(T).
+         [ [H | Tail] || Tail <- combination_helper(T) ]
+         ++ combination_helper(T).
+{% endhighlight %}
 
 %% test:
 > c(maths).
 > maths:combination([1,2,3,4] ).
-{% endhighlight %}
 
 
 ## Javascript
@@ -116,4 +120,121 @@ console.log( 'combination:' );
 console.log( combination( [1,2,3,4] ) );
 
 {% endhighlight %}
+
+
+
+## Scheme
+Scheme is a kind of lisp.
+
+{% highlight lisp %}
+(define nil '())
+
+; map
+(define (map func items)
+  (if (null? items)
+      nil
+      (cons (func (car items)) (map func (cdr items)))
+      ))
+
+; filter
+(define (filter pred seq)
+  (cond ((null? seq) nil)
+        ((pred (car seq))
+         (cons (car seq)
+               (filter pred (cdr seq))))
+        (else (filter pred (cdr seq)))))
+
+; accumulate
+(define (accumulate op init seq)
+  (if (null? seq)
+      init
+      (op (car seq) (accumulate op init (cdr seq)))))
+
+; append
+(define (append L R)
+  (if (null? L)
+        R
+        (cons (car L) (append (cdr L) R))))
+
+  ; remove
+  (define (remove item seq)
+    (filter (lambda (x) (not (= x item))) seq))
+
+
+  ; permutation
+  (define (permutation L)
+    (if (null? L)
+        (list nil)
+        (accumulate append
+                    nil
+                    (map (lambda (H) (map (lambda (T) (cons H T))
+                                          (permutation (remove H L))))
+                         L))))
+
+  ; combination
+  (define (combination L)
+    (if (null? L)
+        (list nil)
+        (append (map (lambda (Tail) (cons (car L) Tail)) (combination (cdr L)))
+                (combination (cdr L)))))
+{% endhighlight %}
+
+; test：
+> (permutation '(1 2 3))
+'((1 2 3) (1 3 2) (2 1 3) (2 3 1) (3 1 2) (3 2 1))
+
+> (combination '(1 2 3))
+'((1 2 3) (1 2) (1 3) (1) (2 3) (2) (3) ())
+
+
+
+## Python
+Python is very powerful, it support list comprehension too.
+
+{% hightlight python %}
+def RemoveElem( L, E ):
+    k = L.index(E)
+    return L[0:k] + L[k+1:len(L)]
+
+def permutation( L ):
+    if len(L) == 0 :
+        return [[]]
+    else:
+        return [ ([H] + T) for H in L for T in permutation( RemoveElem(L,H) ) ]
+
+
+def combination(L):
+    Ret = combination_helper( L )
+    return Ret[ : -1 ]
+
+def combination_helper( L ):
+    if len(L) == 0:
+        return [[]]
+    else:
+        T = L[1:]
+        return [ ([L[0]] + Tail) for Tail in combination_helper( T ) ] + combination_helper( T )
+{% endhighlight %}
+
+test：
+for e in permutation( '123' ) :
+    print e
+
+['1', '2', '3']
+['1', '3', '2']
+['2', '1', '3']
+['2', '3', '1']
+['3', '1', '2']
+['3', '2', '1']
+
+
+for e in combination( '123' ):
+    print e
+
+['1', '2', '3']
+['1', '2']
+['1', '3']
+['1']
+['2', '3']
+['2']
+['3']
 
