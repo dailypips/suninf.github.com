@@ -44,11 +44,11 @@ combination( L ) -> combination_helper(L) -- [[]].
 combination_helper( [] ) -> [ [] ];
 combination_helper( [H | T] ) ->
          [ [H | Tail] || Tail <- combination_helper(T) ] ++ combination_helper(T).
-{% endhighlight %}
 
 %% test:
 > c(maths).
 > maths:combination([1,2,3,4] ).
+{% endhighlight %}
 
 
 ## Javascript
@@ -170,7 +170,6 @@ Scheme is a kind of lisp.
         (list nil)
         (append (map (lambda (Tail) (cons (car L) Tail)) (combination (cdr L)))
                 (combination (cdr L)))))
-{% endhighlight %}
 
 ; test：
 > (permutation '(1 2 3))
@@ -178,6 +177,7 @@ Scheme is a kind of lisp.
 
 > (combination '(1 2 3))
 '((1 2 3) (1 2) (1 3) (1) (2 3) (2) (3) ())
+{% endhighlight %}
 
 
 
