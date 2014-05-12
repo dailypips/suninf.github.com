@@ -16,7 +16,7 @@ To list L:
 2. Elements behind Head, should be chosen from a list which is excluded the `Head` element from L
 3. Recognize the recursive feature: every item of the permutation of `the left list`, should be added to `Head` to build a complete item result.
 
-**List combination**:
+**List combination**:  
 [1,2,3] -> [1,2,3], [1,2], [1,3], [1], [2,3], [2], [3]
 
 To list L:
