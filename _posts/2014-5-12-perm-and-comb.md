@@ -7,11 +7,8 @@ description: Permutation and combination are traditional maths problems, both of
 Permutation and combination are traditional maths problems, both of which have to do with lists recursively. This article compares Erlang, Javascript, Python and Scheme, each of which implements both of the problems, and it can test **the expressive ability to process lists** of a language.
 
 ## Theory
-List permutation:
-
+**List permutation**:
 [1,2,3] -> [1,2,3], [1,3,2], [2,1,3], [2,3,1], [3,1,2], [3,2,1]
-
-Thinking:
 
 To list L:
 
@@ -19,11 +16,8 @@ To list L:
 2. Elements behind Head, should be chosen from a list which is excluded the `Head` element from L
 3. Recognize the recursive feature: every item of the permutation of `the left list`, should be added to `Head` to build a complete item result.
 
-List combination:
-
+**List combination**:
 [1,2,3] -> [1,2,3], [1,2], [1,3], [1], [2,3], [2], [3]
-
-Thinking:
 
 To list L:
 
@@ -32,7 +26,7 @@ To list L:
 
 
 ## Erlang
-Erlang has the ability of list comprehension, so as to deal with list recursively easily. And the problem solved by erlang is very simple and direct.
+Erlang has the ability of **list comprehension**, so as to deal with list recursively easily. And the problem solved by erlang is very simple and direct.
 
 
 {% highlight erlang %}
@@ -49,8 +43,7 @@ combination( L ) -> combination_helper(L) -- [[]].
 
 combination_helper( [] ) -> [ [] ];
 combination_helper( [H | T] ) ->
-         [ [H | Tail] || Tail <- combination_helper(T) ]
-         ++ combination_helper(T).
+         [ [H | Tail] || Tail <- combination_helper(T) ] ++ combination_helper(T).
 {% endhighlight %}
 
 %% test:
@@ -213,9 +206,8 @@ def combination_helper( L ):
     else:
         T = L[1:]
         return [ ([L[0]] + Tail) for Tail in combination_helper( T ) ] + combination_helper( T )
-{% endhighlight %}
 
-test：
+# test：
 for e in permutation( '123' ) :
     print e
 
@@ -237,4 +229,7 @@ for e in combination( '123' ):
 ['2', '3']
 ['2']
 ['3']
+{% endhighlight %}
+
+
 
