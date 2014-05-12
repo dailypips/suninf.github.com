@@ -1,6 +1,6 @@
 ---
 layout: article
-title: RefCounted / Scoped_refptr in chrome
+title: RefCounted and Scoped_refptr in chrome
 category: chrome
 description: RefCount is a useful and common technique in c++, this article introduce RefCount and scoped_refptr in chrome source code.
 ---

@@ -1,6 +1,6 @@
 ---
 layout: article
-title: Thread / MessageLoop in chrome
+title: Thread and MessageLoop in chrome
 category: chrome
 description: Threads are very useful in application to deal with multi-thread problems, and chrome wrapped a series of excellent classes - base::Thread, MessageLoop and so on.
 ---

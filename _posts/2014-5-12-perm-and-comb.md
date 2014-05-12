@@ -1,13 +1,13 @@
 ---
 layout: article
-title: Permutation And Combination
+title: Permutation and Combination
 category: other
 description: Permutation and combination are traditional maths problems, both of which have to do with lists recursively.
 ---
 Permutation and combination are traditional maths problems, both of which have to do with lists recursively. This article compares Erlang, Javascript, Python and Scheme, each of which implements both of the problems, and it can test **the expressive ability to process lists** of a language.
 
 ## Theory
-**List permutation**:
+**List permutation**:  
 [1,2,3] -> [1,2,3], [1,3,2], [2,1,3], [2,3,1], [3,1,2], [3,2,1]
 
 To list L:
