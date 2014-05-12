@@ -3,7 +3,7 @@ layout: default
 ---
 
 <div class="homepage">
-    <h1>suninf's Programming Cafe</h1>
+    <h1>suninf's homepage</h1>
 </div>
 
 {% for first_post in site.posts limit:1 %}
@@ -40,7 +40,7 @@ layout: default
         {% for post in site.posts limit:recent_posts_limit %}
             {% if forloop.index == 1 %}
             {% else %}
-                <li><a href="{{post.url}}" style="margin-left: 5px; font-size: 16px;">{{post.title}}</a></li>
+                <li><a href="{{post.url}}" style="margin-left: 5px; line-height: 25px;">{{post.title}}</a></li>
             {% endif %}
         {% endfor %}
     </ul>
