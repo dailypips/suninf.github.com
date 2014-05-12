@@ -191,7 +191,7 @@ Scheme is a kind of lisp.
 ## Python
 Python is very powerful, it support list comprehension too.
 
-{% hightlight python %}
+{% highlight python %}
 def RemoveElem( L, E ):
     k = L.index(E)
     return L[0:k] + L[k+1:len(L)]
