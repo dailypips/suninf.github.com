@@ -1,6 +1,9 @@
+- name: coursera
+  url: https://www.coursera.org/
+  
 - name: chromi
   url: http://www.chromi.org/
-
+  
 - name: developereconomics
   url: http://www.developereconomics.com/reports/
   
