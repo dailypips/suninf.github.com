@@ -1,18 +1,19 @@
 ---
 layout: article
 title: Synchronization in chrome
-category: other
+category: chrome
 description: In Chrome code, message passing is far more common (via TaskRunner and PostTask) and low-level synchronization primitives like locks, condition variables and waitable_event should be used only when necessary. This article introduce the implement of synchronization mechanism in chrome source code.
 ---
 *In Chrome code, message passing is far more common (via TaskRunner and PostTask) and low-level synchronization primitives like **locks**, **condition variables** and **waitable_event** should be used only when necessary. This article introduce the implement of synchronization mechanism in chrome source code.*
 
 Some additional motivation:  
+
 * Condition variables are nearly impossible to implement correctly on Windows XP or earlier. Chrome's implementation is correct, but _very_ slow. 
 * Whenever you use a CV you are disproportionately harming our performance on Windows.
 * A lot of times people just want to wait on a boolean.  In such cases, if message passing cannot work, please use WaitableEvent instead.
 
 ## Lock
-The Lock class implements a mutual exclusion lock, or mutex for short. A mutex is used to permit only one thread at a time to have exclusive access to some resource, which is typically some variable or data structure. Mutexes are so common that many words have been coined to describe their operation.
+The Lock class implements a mutual exclusion lock, or mutex for short. `A mutex is used to permit only one thread at a time to have exclusive access to some resource`, which is typically some variable or data structure. Mutexes are so common that many words have been coined to describe their operation.
 
 {% highlight c++ %}
 // A convenient wrapper for an OS specific critical section.  The only real
@@ -61,8 +62,9 @@ class AutoLock {
 
 ## Condition variables
 Condition variables are a means for **blocking a thread until some condition has been satisfied**.   
+
 * Viewed in isolation, a condition variable allows threads to block and to be woken by other threads. 
-* However, condition variables are designed to be used in a specific way; **a condition variable interacts with a mutex to make it easy to wait for an arbitrary condition on state protected by the mutex**. 
+* However, condition variables are designed to be used in a specific way; `a condition variable interacts with a mutex to make it easy to wait for an arbitrary condition on state protected by the mutex`. 
 * Chrome's C++ condition variables have type ConditionVariable.
 
 {% highlight c++ %}
@@ -73,8 +75,8 @@ class BASE_EXPORT ConditionVariable {
 
   ~ConditionVariable();
 
-  // Wait() releases the caller's critical section atomically as it starts to
-  // sleep, and the reacquires it when it is signaled.
+  // Wait() releases the caller's critical section atomically as it 
+  // starts to sleep, and the reacquires it when it is signaled.
   void Wait();
   void TimedWait(const TimeDelta& max_time);
 
@@ -91,7 +93,8 @@ class BASE_EXPORT ConditionVariable {
   pthread_cond_t condition_;
   pthread_mutex_t* user_mutex_;
 #if !defined(NDEBUG)
-  base::Lock* user_lock_;     // Needed to adjust shadow lock state on wait.
+  // Needed to adjust shadow lock state on wait.
+  base::Lock* user_lock_;     
 #endif
 
 #endif
@@ -135,7 +138,7 @@ A single condition variable can be used by threads waiting for different conditi
 ## Waitable Event
 A WaitableEvent can be a useful thread synchronization tool when you want to allow one thread to wait for another thread to finish some work. For non-Windows systems, this can only be used from within a single address space.  
 
-* Use a WaitableEvent when you would otherwise use a Lock+ConditionVariable to protect a simple boolean value.  
+* Use a WaitableEvent when you would otherwise use a Lock + ConditionVariable to protect a simple boolean value.  
 * NOTE: On Windows, this class provides a subset of the functionality afforded by a Windows event object.  This is intentional.  If you are writing Windows specific code and you need other features of a Windows event, then you might be better off just using an Windows event directly.
 
 {% highlight c++ %}  
@@ -175,7 +178,7 @@ private:
 {% endhighlight %}
 
 ## Reference
-[http://www.chromium.org/developers/lock-and-condition-variable{: style="color:#2970A6"}](http://www.chromium.org/developers/lock-and-condition-variable){: target="_blank"}
+[http://www.chromium.org/developers/lock-and-condition-variable](http://www.chromium.org/developers/lock-and-condition-variable){: target="_blank"}
 
 
 
