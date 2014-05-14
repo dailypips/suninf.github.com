@@ -6,7 +6,94 @@ description: Threads are very useful in application to deal with multi-thread pr
 ---
 *Threads are very useful in application to deal with multi-thread problems, and chrome wrapped a series of excellent classes: `base::Thread`, MessageLoop and so on.*
 
-## Example
+
+## Thread
+* A simple thread abstraction that establishes a MessageLoop on a new thread. The consumer uses the MessageLoop of the thread to cause code to execute on the thread.
+* When this object is destroyed, the thread is terminated. All pending tasks queued on the thread's message loop will run to completion before the thread is terminated.
+
+*WARNING! SUBCLASSES MUST CALL Stop() IN THEIR DESTRUCTORS!  See ~Thread().*
+
+After the thread is stopped, the destruction sequence is:
+
+1. Thread::CleanUp()
+2. MessageLoop::~MessageLoop
+3. MessageLoop::DestructionObserver::WillDestroyCurrentMessageLoop
+
+### Thread class
+{% highlight c++ %}
+class BASE_EXPORT Thread : PlatformThread::Delegate {
+ public:
+  struct Options {
+    Options() : message_loop_type(MessageLoop::TYPE_DEFAULT), stack_size(0) {}
+    Options(MessageLoop::Type type, size_t size)
+        : message_loop_type(type), stack_size(size) {}
+
+    MessageLoop::Type message_loop_type;
+    size_t stack_size;
+  };
+
+  explicit Thread(const char* name);
+
+  // Destroys the thread, stopping it if necessary.
+  //
+  // NOTE: ALL SUBCLASSES OF Thread MUST CALL Stop() IN THEIR DESTRUCTORS (or
+  // guarantee Stop() is explicitly called before the subclass is destroyed).
+  // This is required to avoid a data race between the destructor modifying the
+  // vtable, and the thread's ThreadMain calling the virtual method Run().  It
+  // also ensures that the CleanUp() virtual method is called on the subclass
+  // before it is destructed.
+  virtual ~Thread();
+
+#if defined(OS_WIN)
+  // Causes the thread to initialize COM.
+  void init_com_with_mta(bool use_mta) {
+    DCHECK(!started_);
+    com_status_ = use_mta ? MTA : STA;
+  }
+#endif
+
+  bool Start();
+
+  bool StartWithOptions(const Options& options);
+
+  // Signals the thread to exit and returns once the thread has exited.
+  // NOTE: If you are a consumer of Thread, it is not necessary to call this
+  // before deleting your Thread objects, as the destructor will do it.
+  // IF YOU ARE A SUBCLASS OF Thread, YOU MUST CALL THIS IN YOUR DESTRUCTOR.
+  void Stop();
+
+  // Returns the message loop for this thread.  Use the MessageLoop's
+  // PostTask methods to execute code on the thread.  This only returns
+  // non-null after a successful call to Start.  After Stop has been called,
+  // this will return NULL.
+  MessageLoop* message_loop() const { return message_loop_; }
+
+  // Returns a MessageLoopProxy for this thread.  Use the MessageLoopProxy's
+  // PostTask methods to execute code on the thread.  This only returns
+  // non-NULL after a successful call to Start. After Stop has been called,
+  // this will return NULL. Callers can hold on to this even after the thread
+  // is gone.
+  scoped_refptr<MessageLoopProxy> message_loop_proxy() const {
+    return message_loop_ ? message_loop_->message_loop_proxy() : NULL;
+  }
+
+  // Returns the name of this thread (for display in debugger too).
+  const std::string& thread_name() const { return name_; }
+
+  // The native thread handle.
+  PlatformThreadHandle thread_handle() { return thread_; }
+
+  // The thread ID.
+  PlatformThreadId thread_id() const { return thread_id_; }
+
+  // Returns true if the thread has been started, and not yet stopped.
+  bool IsRunning() const;
+
+  //...
+}
+{% endhighlight %}
+
+### Example:
 {% highlight c++ %}
 // Init thread
 base::Thread* g_cache_thread = NULL;
@@ -29,14 +116,14 @@ NOTE:
 MessageLoop has task reentrancy protection. This means that if a task is being processed, a second task cannot start until the first task is finished. Reentrancy can happen when processing a task, and an inner message pump is created. That inner pump then processes native messages which could implicitly start an inner task.  Inner message pumps are created with dialogs (DialogBox), common dialogs (GetOpenFileName), OLE functions (DoDragDrop), printer functions (StartDoc) and *many* others.
 
 Sample workaround when inner task processing is needed:
-
-    HRESULT hr;
-    {
-      MessageLoop::ScopedNestableTaskAllower allow(MessageLoop::current());
-      hr = DoDragDrop(...); // Implicitly runs a modal message loop.
-    }
-    // Process |hr| (the result returned by DoDragDrop()).
-
+{% highlight c++ %}
+HRESULT hr;
+{
+  MessageLoop::ScopedNestableTaskAllower allow(MessageLoop::current());
+  hr = DoDragDrop(...); // Implicitly runs a modal message loop.
+}
+// Process |hr| (the result returned by DoDragDrop()).
+{% endhighlight %}
 
 Please be SURE your task is reentrant (nestable) and all global variables are stable and accessible before calling SetNestableTasksAllowed(true).
 
@@ -186,88 +273,56 @@ class BASE_EXPORT MessageLoopForIO : public MessageLoop {
 {% endhighlight %}
 
 
+## WorkerPool
+This is a facility that runs tasks that don't require a specific thread or a message loop.
 
-## Thread
-* A simple thread abstraction that establishes a MessageLoop on a new thread. The consumer uses the MessageLoop of the thread to cause code to execute on the thread.
-* When this object is destroyed the thread is terminated.  All pending tasks queued on the thread's message loop will run to completion before the thread is terminated.
+WARNING: **This shouldn't be used unless absolutely necessary**. We don't wait for the worker pool threads to finish on shutdown, so the tasks running inside the pool must be extremely careful about other objects they access (MessageLoops, Singletons, etc). 
 
- *WARNING! SUBCLASSES MUST CALL Stop() IN THEIR DESTRUCTORS!  See ~Thread().*
-
-After the thread is stopped, the destruction sequence is:
-
-1. Thread::CleanUp()
-2. MessageLoop::~MessageLoop
-3. MessageLoop::DestructionObserver::WillDestroyCurrentMessageLoop
-
+### WorkerPool class
 {% highlight c++ %}
-class BASE_EXPORT Thread : PlatformThread::Delegate {
+class BASE_EXPORT WorkerPool {
  public:
-  struct Options {
-    Options() : message_loop_type(MessageLoop::TYPE_DEFAULT), stack_size(0) {}
-    Options(MessageLoop::Type type, size_t size)
-        : message_loop_type(type), stack_size(size) {}
+  // This function posts |task| to run on a worker thread.  |task_is_slow|
+  // should be used for tasks that will take a long time to execute.  Returns
+  // false if |task| could not be posted to a worker thread.  Regardless of
+  // return value, ownership of |task| is transferred to the worker pool.
+  static bool PostTask(const tracked_objects::Location& from_here,
+                       const base::Closure& task, bool task_is_slow);
 
-    MessageLoop::Type message_loop_type;
-    size_t stack_size;
-  };
+  // Just like MessageLoopProxy::PostTaskAndReply, except the destination
+  // for |task| is a worker thread and you can specify |task_is_slow| just
+  // like you can for PostTask above.
+  static bool PostTaskAndReply(const tracked_objects::Location& from_here,
+                               const Closure& task,
+                               const Closure& reply,
+                               bool task_is_slow);
 
-  explicit Thread(const char* name);
+  // Return true if the current thread is one that this WorkerPool runs tasks
+  // on.  (Note that if the Windows worker pool is used without going through
+  // this WorkerPool interface, RunsTasksOnCurrentThread would return false on
+  // those threads.)
+  static bool RunsTasksOnCurrentThread();
 
-  // Destroys the thread, stopping it if necessary.
-  //
-  // NOTE: ALL SUBCLASSES OF Thread MUST CALL Stop() IN THEIR DESTRUCTORS (or
-  // guarantee Stop() is explicitly called before the subclass is destroyed).
-  // This is required to avoid a data race between the destructor modifying the
-  // vtable, and the thread's ThreadMain calling the virtual method Run().  It
-  // also ensures that the CleanUp() virtual method is called on the subclass
-  // before it is destructed.
-  virtual ~Thread();
-
-#if defined(OS_WIN)
-  // Causes the thread to initialize COM.
-  void init_com_with_mta(bool use_mta) {
-    DCHECK(!started_);
-    com_status_ = use_mta ? MTA : STA;
-  }
-#endif
-
-  bool Start();
-
-  bool StartWithOptions(const Options& options);
-
-  // Signals the thread to exit and returns once the thread has exited.
-  // NOTE: If you are a consumer of Thread, it is not necessary to call this
-  // before deleting your Thread objects, as the destructor will do it.
-  // IF YOU ARE A SUBCLASS OF Thread, YOU MUST CALL THIS IN YOUR DESTRUCTOR.
-  void Stop();
-
-  // Returns the message loop for this thread.  Use the MessageLoop's
-  // PostTask methods to execute code on the thread.  This only returns
-  // non-null after a successful call to Start.  After Stop has been called,
-  // this will return NULL.
-  MessageLoop* message_loop() const { return message_loop_; }
-
-  // Returns a MessageLoopProxy for this thread.  Use the MessageLoopProxy's
-  // PostTask methods to execute code on the thread.  This only returns
-  // non-NULL after a successful call to Start. After Stop has been called,
-  // this will return NULL. Callers can hold on to this even after the thread
-  // is gone.
-  scoped_refptr<MessageLoopProxy> message_loop_proxy() const {
-    return message_loop_ ? message_loop_->message_loop_proxy() : NULL;
-  }
-
-  // Returns the name of this thread (for display in debugger too).
-  const std::string& thread_name() const { return name_; }
-
-  // The native thread handle.
-  PlatformThreadHandle thread_handle() { return thread_; }
-
-  // The thread ID.
-  PlatformThreadId thread_id() const { return thread_id_; }
-
-  // Returns true if the thread has been started, and not yet stopped.
-  bool IsRunning() const;
-
-  //...
-}
+  // Get a TaskRunner wrapper which posts to the WorkerPool using the given
+  // |task_is_slow| behavior.
+  static const scoped_refptr<TaskRunner>& GetTaskRunner(bool task_is_slow);
+};
 {% endhighlight %}
+
+### Example
+{% highlight c++ %}
+  // Dispatch to worker pool, so we do not block the IO thread.
+  if (!base::WorkerPool::PostTask(
+           FROM_HERE,
+           base::Bind(
+               &RenderMessageFilter::OnKeygenOnWorkerThread, this,
+               key_size_in_bits, challenge_string, url, reply_msg),
+           true)) {
+    NOTREACHED() << "Failed to dispatch keygen task to worker pool";
+    ViewHostMsg_Keygen::WriteReplyParams(reply_msg, std::string());
+    Send(reply_msg);
+    return;
+  }
+{% endhighlight %}
+
+
