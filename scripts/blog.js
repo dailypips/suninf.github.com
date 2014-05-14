@@ -53,14 +53,6 @@ $(function(){
 
 });
 
-// update title for posts
-function updateTitle() {
-    var title = $('#article_title').text();
-    if ( title.length > 0 ) {
-        document.title = title;
-    }
-}
-
 // bar status depends on location.pathname
 function naviBarInit() {
     // remove class 'on'
@@ -78,7 +70,6 @@ function naviBarInit() {
     } else {
         // articles.html or posts
         $("#nav_articles_id").addClass("on");
-        updateTitle();
     }
 
     $('.cate-bar').css( {visibility:"visible"} );
