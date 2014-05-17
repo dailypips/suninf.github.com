@@ -81,46 +81,51 @@ An example about how to use notification registrar.
 
 namespace content {
 
-enum MyEventType {
-	MY_EVENT_INT,
-	MY_EVENT_STRING,
+enum MyEventType 
+{
+  MY_EVENT_INT,
+  MY_EVENT_STRING,
 
-	MY_EVENT_TOTAL
+  MY_EVENT_TOTAL
 };
 
-// some event observer
 class MyEventObserver : NotificationObserver
 {
 public:
-	MyEventObserver()
-	{
-		// register
-		registrar_.Add( this, MY_EVENT_INT, NotificationService::AllSources() );
-		registrar_.Add( this, MY_EVENT_STRING, NotificationService::AllSources() );
-	}
+  MyEventObserver()
+  {
+    registrar_.Add( this, 
+      MY_EVENT_INT, NotificationService::AllSources() );
 
-	virtual void Observe(int type, const NotificationSource& source, const NotificationDetails& details) {
-		switch(type) {
-		case MY_EVENT_INT:
-			{
-				int * piVal = Source<int>(source).ptr();
-				int n = *piVal;
-			}
+    registrar_.Add( this, 
+      MY_EVENT_STRING, NotificationService::AllSources() );
+  }
 
-			break;
+  virtual void Observe(int type, 
+    const NotificationSource& source, 
+    const NotificationDetails& details) 
+  {
+    switch(type) {
+    case MY_EVENT_INT:
+      {
+        int * piVal = Source<int>(source).ptr();
+        int n = *piVal;
+      }
 
-		case MY_EVENT_STRING:
-			{
-				std::string * pstrVal = Source<std::string>(source).ptr();
-				std::string str = *pstrVal;
-			}
+      break;
 
-			break;
-		}
-	}
+    case MY_EVENT_STRING:
+      {
+        std::string * pstrVal = Source<std::string>(source).ptr();
+        std::string str = *pstrVal;
+      }
+
+      break;
+    }
+  }
 
 private:
-	NotificationRegistrar registrar_;
+  NotificationRegistrar registrar_;
 };
 
 }// namespace content
