@@ -6,7 +6,7 @@ layout: default
     <h1>suninf's homepage</h1>
 </div>
 
-{% for first_post in site.posts limit:1 %}
+{% for first_post in site.posts limit:2 %}
 
 <div class="blog_summary" style="margin: 2em 2em 5em 2em;">
     <div class="blog_title" style="font-size: 1.2em;font-weight: bold;">
@@ -32,14 +32,13 @@ layout: default
 {% endfor %}
 
 
-{% assign recent_posts_limit = 7 %}
+{% assign recent_posts_limit = 8 %}
 
 <div class="recent_posts" style="margin: 2em 2em 2em 2em; border-top: 2px solid #d3d3d3;">
     <h3>Recent articles:</h3>
     <ul>
         {% for post in site.posts limit:recent_posts_limit %}
-            {% if forloop.index == 1 %}
-            {% else %}
+            {% if forloop.index > 2 %}
                 <li><a href="{{post.url}}" style="margin-left: 5px; line-height: 25px;">{{post.title}}</a></li>
             {% endif %}
         {% endfor %}
