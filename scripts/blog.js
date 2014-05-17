@@ -78,4 +78,7 @@ function naviBarInit() {
 
 
 // window.onload
-addLoadEvent( naviBarInit );
+// addLoadEvent( naviBarInit );
+
+// operator after DOM finished, may be faster
+$(document).ready( naviBarInit );
