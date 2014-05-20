@@ -2,9 +2,9 @@
 layout: article
 title: ObserverList in chrome
 category: chrome
-description: ObserverList<ObserverType> is a container for a list of observers, it is a easy-to-use observer pattern for two related objects.  Unlike a normal STL vector or list, this container can be modified during iteration without invalidating the iterator.
+description: ObserverList is a container for a list of observers, it is an easy-to-use observer pattern for two related objects.  Unlike a normal STL vector or list, this container can be modified during iteration without invalidating the iterator.
 ---
-*`ObserverList<ObserverType>` is a container for a list of observers, it is a easy-to-use observer pattern for two related objects.  Unlike a normal STL vector or list, this container can be modified during iteration without invalidating the iterator.*
+*`ObserverList<ObserverType>` is a container for a list of observers, it is an easy-to-use observer pattern for two related objects.  Unlike a normal STL vector or list, this container can be modified during iteration without invalidating the iterator.*
 
 * So, it safely handles the case of an observer removing itself or other observers from the list while observers are being notified.
 * If you want to deal with observer_list in multi-thread, just use ObserverListThreadSafe.
@@ -26,6 +26,7 @@ class ObserverList : public ObserverListBase<ObserverType> {
     }                                                                \
   } while (0)
 {% endhighlight %}
+
 
 ## Example  
 {% highlight c++ %}
