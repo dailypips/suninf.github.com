@@ -31,5 +31,8 @@
 - name: W3
   url: http://www.w3.org/TR/Window/
 
+- name: HTTP/1.1
+  url: http://www.w3.org/Protocols/rfc2616/rfc2616.html
+
 - name: HTML5 zh-doc
   url: http://www.w3.org/html/ig/zh/wiki/HTML5
