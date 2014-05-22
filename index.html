@@ -7,6 +7,12 @@ title: suninf's homepage
     <h1>suninf's homepage</h1>
 </div>
 
+{% for cat in site.categories %}
+{% for name in cat %}
+        <p>{{ name }}</p>
+{% endfor %}
+{% endfor %}        
+        
 {% for first_post in site.posts limit:2 %}
 
 <div class="blog_summary" style="margin: 2em 2em 5em 2em;">
