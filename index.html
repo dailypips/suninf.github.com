@@ -5,13 +5,7 @@ title: suninf's homepage
 
 <div class="homepage">
     <h1>suninf's homepage</h1>
-</div>
-
-{% for cat in site.categories %}
-{% for name in cat %}
-        <p>{{ name }}</p>
-{% endfor %}
-{% endfor %}        
+</div>   
         
 {% for first_post in site.posts limit:2 %}
 
