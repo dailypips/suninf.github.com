@@ -1,6 +1,6 @@
 ---
 layout: article
-title: C++0x: Type Alias and Alias Template
+title: C%2B%2B0x: Type Alias and Alias Template
 category: chrome
 description: Type alias is a name that refers to a previously defined type (similar to typedef), and alias template is a name that refers to a family of types.
 ---
