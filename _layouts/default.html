@@ -55,7 +55,7 @@ desc: Creative thinking、Happy sharing！ If not now, when? If not you, who?
                     <section>
                         <h3>Categories</h3>
                         <ul>
-                        {% for category in site.categories %}
+                        {% for category in site.categories | sort: 'first' %}
                         <li><a href="/category/{{category | first}}.html">{{category | first}} ({{category | last | size }})</a></li>
                         {% endfor %}
                         </ul>
