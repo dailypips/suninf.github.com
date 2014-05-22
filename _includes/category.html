@@ -1,7 +1,7 @@
-<h1><a href="#">Category: {{ page.name }}</a></h1>
-<div class="size">total {{ site.categories[page.name] | size }} articles</div>
+<h1><a href="#">Category: {{ page.category }}</a></h1>
+<div class="size">total {{ site.categories[page.category] | size }} articles</div>
 <ul id="articles">
-  {% for post in site.categories[page.name] %}
+  {% for post in site.categories[page.category] %}
   <li>
     <span>{{post.date | date: "%Y-%m-%d"}}</span>
     <a href="{{post.url}}" style="margin-left: 5px; line-height: 20px;">{{post.title}}</a>
