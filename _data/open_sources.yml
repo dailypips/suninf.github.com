@@ -10,6 +10,9 @@
 - name: github
   url: https://github.com/suninf
   
+- name: gitlab
+  url: http://gitlab.alibaba-inc.com/
+    
 - name: kramdown
   url: http://kramdown.gettalong.org/index.html
 
