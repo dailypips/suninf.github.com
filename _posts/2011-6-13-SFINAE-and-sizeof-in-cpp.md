@@ -173,83 +173,39 @@ int main()
 {% highlight c++ %}
 #include <iostream>
 using namespace std;
- 
+
 // foo 可以是成员函数或者成员对象
 char check_member_foo(...);
- 
+
 template <typename T>
-auto check_member_foo(T const& t, decltype(&(t.foo)) p = 0)->decltype(p);
- 
+auto check_member_foo(T const& t, decltype(&T::foo) p = 0)->decltype(p);
+
 template<typename T>
 struct has_member_fun_or_property
 {
     static const bool value =
-       sizeof(char) != sizeof( check_member_foo( *static_cast<T*>(0) ) );
+    sizeof(char) != sizeof( check_member_foo( *static_cast<T*>(0) ) );
 };
- 
+
 struct test
 {
     void foo(int, double);
 };
- 
+
 struct test2
 {
-    int foo;
+    //int foo;
 };
- 
+
 int main()
 {
     cout << has_member_fun_or_property<test>::value << endl;
     cout << has_member_fun_or_property<test2>::value << endl;
- 
+    
     return 0;
 }
 {% endhighlight %}
- 
-### 实现一个has_member_的结构 `has_member_fun<T>::value`
-检查一个类型是否有指定签名的成员函数
 
-{% highlight c++ %}
-#include <iostream>
-using namespace std;
- 
-// 要求T具有成员函数 void fun(int,double)
-template<typename T>
-struct has_member_fun
-{
-    typedef char yes;    // sizeof(yes) == 1
-    typedef char(&no)[2] ;   // sizeof(no) == 2
- 
-    static yes helper( void (T::*)( int, double ) );
-    static no helper(...);
- 
-    static const bool value =
-       sizeof(yes) == sizeof( helper( &T::fun ) );
-};
- 
-struct test
-{
-    void fun(int, double);
-};
- 
-struct test2
-{
-    void fun(int, int);
-    void fun2(int, double);
-};
- 
-int main()
-{
-    cout << has_member_fun<test>::value << endl;
-    cout << has_member_fun<test2>::value << endl;
- 
-    return 0;
-}
-
-// 输出：
-1
-0
-{% endhighlight %}
  
 
 
