@@ -54,7 +54,8 @@ struct funwrap2 : Fun
 {
     funwrap2();
     
-    typedef private_type const &(*pointer_to_function)(dont_care, dont_care);
+    typedef 
+      private_type const &(*pointer_to_function)(dont_care, dont_care);
     
     // 转型为二元任意参数的函数指针，来保证编译通过
     operator pointer_to_function() const; 
@@ -88,16 +89,18 @@ struct funTest2
 int main()
 {
     cout << "can be called: " <<
-       (can_be_called< funTest, int, string >::type::value ? "yes" : "no" ) 
+       (can_be_called< funTest, int, string >::type::value ? 
+            "yes" : "no" ) 
        << endl;
    
     cout << "can be called: " <<
-       (can_be_called< funTest2, int, string >::type::value ? "yes" : "no" ) 
+       (can_be_called< funTest2, int, string >::type::value ? 
+            "yes" : "no" ) 
        << endl;
     return 0;
 }
  
-输出：
+// 输出：
 can be called: yes
 can be called: no
 {% endhighlight %}
@@ -111,7 +114,7 @@ can be called: no
 * 则我们可以使用has_type<T>::value来判断是否T类型是否具有typedef的type类型。
  
 {% highlight c++ %}
-一个简单的实现：
+// 一个简单的实现：
 #include <iostream>
 using namespace std;
  
@@ -155,8 +158,10 @@ int main()
  
     return 0;
 }
-输出：1
-     0
+
+// 输出：
+1
+0
 {% endhighlight %}
 
 注意：关键是一个默认模板参数，一个是借助T萃取类型的模板偏特化，编译器先去尝试从T类型萃取类型，进行偏特化，如果T具有对应的type，则偏特化成功，优先选择偏特化；若T没有对应的type，则萃取失败，但SFINAE（替换失败不是错误原则），会选择默认的模板，则value为false。
@@ -240,8 +245,10 @@ int main()
  
     return 0;
 }
-输出：1
-     0
+
+// 输出：
+1
+0
 {% endhighlight %}
  
 
