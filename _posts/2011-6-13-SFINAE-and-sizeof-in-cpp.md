@@ -1,6 +1,6 @@
 ---
 layout: article
-title: SFINAE与sizeof的使用
+title: SFINAE与enable_if的使用
 category: c++
 description: C++中“类型敏感的”模板函数重载依赖于SFINAE(substitution-failure-is-not-an-error，替换失败不是错误)，原则：在函数模板的实例化过程中，如果形成的某个参数或返回值类型无效那么这个实例将从重载决议集中去掉而不是引发一个编译错误。而boost::enable_if使得SFINAE原则成为一个惯用法。
 ---
@@ -9,8 +9,22 @@ description: C++中“类型敏感的”模板函数重载依赖于SFINAE(substi
 ## SFINAE原则
 * 在**函数模板的实例化**过程中，如果**推断形成的某个参数或返回值类型无效**，那么这个实例将从重载决议集中去掉而不是引发一个编译错误
 * 而`boost::enable_if`使得SFINAE原则成为一个惯用法。*
- 
- 
+
+例如：
+{% highlight c++ %}
+int negate(int i) { return -i; }
+
+template <class F>
+typename F::result_type negate(const F& f) { return -f(); }
+{% endhighlight %}
+
+假设编译器遇到了`negate(1)`的调用。很明显第一个定义是个好选择，但是编译器必须在检查所有的定义后才能作出决定，这个检查过程包含对模板的实例化。使用 int 作为类型 F 对第二个定义进行实例化将产生：  
+
+`int::result_type negate(const int&);`  
+
+这里的返回值类型是无效的。 如果把这种情况看作是一种错误，那么添加一个无关的函数模板（从来不会被调用）也将导致原本有效的代码无法通过编译。由于 SFINAE 原则的存在，上面的例子不会产生编译错误，在这种情况下编译器会简单地从重载决议集中抛弃后一个 negate 的定义。 
+
+
 ## SFINAE的应用例子
 
 ### 判断一个类型是否可调用
@@ -207,5 +221,157 @@ int main()
 {% endhighlight %}
 
  
+## enable_if
+使用 enable_if 系列模板可以控制一个函数模板或类模板偏特化是否包含在基于模板参数属性的一系列匹配函数或偏特化中。
 
+### enable_if系列模板的使用
+
+{% highlight c++ %}
+namespace boost {
+  template <class Cond, class T = void> struct enable_if;
+  template <class Cond, class T = void> struct disable_if;
+  template <class Cond, class T> struct lazy_enable_if;
+  template <class Cond, class T> struct lazy_disable_if;
+
+  template <bool B, class T = void> struct enable_if_c;
+  template <bool B, class T = void> struct disable_if_c;
+  template <bool B, class T> struct lazy_enable_if_c;
+  template <bool B, class T> struct lazy_disable_if_c;
+}
+{% endhighlight %}
+
+
+### 函数模板，存在两种方法：
+* 返回值类型使用`enable_if<Cond, T>::type`来指定，Cond则是检测当前函数模板参数的谓词模板（具有静态的value常量值）。这样函数重载实例化的时候会计算返回值类型，如果Cond对应value值为false，则从重载协议列表中删除。
+
+{% highlight c++ %}
+template <class T>
+typename boost::enable_if<boost::is_arithmetic<T>, T >::type
+foo(T t);// 限制T为算术类型
+{% endhighlight %}
+ 
+* 增加一个额外的函数参数来协助，比如
+{% highlight c++ %}
+string foo(string);
+ 
+template <class T>
+T foo(T t, typename enable_if<is_arithmetic<T> >::type* dummy = 0);
+{% endhighlight %}
+
+仅对于算术类型会选择第二个函数重载，而dummy默认参数不真正使用
+ 
+注意事项：  
+
+1. 大部分情况下，还是选择指定返回类型的方式比较好，因为指定默认函数参数，引起接口函数的参数数量的变更。
+2. 运算符重载的参数个数是固定的，所以 enable_if 只能用作返回值。
+3. 构造函数和析构函数没有返回值，所以只能添加一个额外的参数。
+
+
+### 对于类模板，决策模板偏特化
+类模板偏特化可以使用 enable_if 来控制其启用与禁用。为达到这个目的，需要为模板添加一个额外的模板参数用于控制启用与禁用。这个参数的默认值是 void。比如：
+ 
+{% highlight c++ %}
+template <class T, class Enable = void>
+class A { ... };
+ 
+template <class T>
+class A<T, typename enable_if<is_integral<T> >::type> { ... };
+{% endhighlight %}
+ 
+例如：
+{% highlight c++ %}
+#include <iostream>
+#include <string>
+using namespace std;
+ 
+#include <boost/utility.hpp>
+#include <boost/type_traits.hpp>
+using namespace boost;
+ 
+template <class T, class Enable = void>
+class A
+{
+public:
+    static void pt() { cout << "default" << endl; }
+};
+ 
+template <class T>
+class A<T, typename enable_if<is_integral<T> >::type>
+{
+public:
+    static void pt() { cout << "integral" << endl; }
+};
+int main()
+{
+    A<string>::pt();
+    A<int>::pt();
+    return 0;
+}
+
+//输出：
+default
+integral
+{% endhighlight %}
+
+关于lazy版本的注意点：
+lazy_enable_if 的第二个参数必须是一个在第一个参数（条件）为 true 时定义了一个名字为 type 的的内嵌类型。
+
+
+### enable_if 实现的源码（取自boost，非常精炼的代码）：
+{% highlight c++ %}
+namespace boost
+{
+ 
+  template <bool B, class T = void>
+  struct enable_if_c {
+    // 定义嵌套的可选的T为type
+    typedef T type;
+  };
+ 
+  // 特化false，bool型值取用时无法获取type
+  template <class T>
+  struct enable_if_c<false, T> {};
+
+ 
+  // Cond是内嵌value常量的类型，特别适合配合type_traits库来使用。
+  template <class Cond, class T = void>
+  struct enable_if : public enable_if_c<Cond::value, T> {};
+ 
+  // Lazy情况下，第二个模板参数必须使用，并且要求其具有嵌套的type类型，否则就算为true也无效。
+  template <bool B, class T>
+  struct lazy_enable_if_c {
+    typedef typename T::type type;
+  };
+ 
+  template <class T>
+  struct lazy_enable_if_c<false, T> {};
+ 
+  template <class Cond, class T>
+  struct lazy_enable_if : public lazy_enable_if_c<Cond::value, T> {};
+ 
+  // 以下disable版本只是默认false时，能取到对应的结果
+  template <bool B, class T = void>
+  struct disable_if_c {
+    typedef T type;
+  };
+ 
+  template <class T>
+  struct disable_if_c<true, T> {};
+ 
+  template <class Cond, class T = void>
+  struct disable_if : public disable_if_c<Cond::value, T> {};
+ 
+  template <bool B, class T>
+  struct lazy_disable_if_c {
+    typedef typename T::type type;
+  };
+ 
+  template <class T>
+  struct lazy_disable_if_c<true, T> {};
+ 
+  template <class Cond, class T>
+  struct lazy_disable_if : public lazy_disable_if_c<Cond::value, T> {};
+ 
+} // namespace boost
+{% endhighlight %}
 
