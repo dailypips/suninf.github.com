@@ -8,7 +8,7 @@ description: C++中“类型敏感的”模板函数重载依赖于SFINAE(substi
 
 ## SFINAE原则
 * 在**函数模板的实例化**过程中，如果**推断形成的某个参数或返回值类型无效**，那么这个实例将从重载决议集中去掉而不是引发一个编译错误
-* 而`boost::enable_if`使得SFINAE原则成为一个惯用法。*
+* 而`boost::enable_if`使得SFINAE原则成为一个惯用法。
 
 例如：
 {% highlight c++ %}
@@ -26,6 +26,7 @@ typename F::result_type negate(const F& f) { return -f(); }
 
 
 ## SFINAE的应用例子
+SFINAE常常与sizeof配合使用来创建识别类型特征的traits模板类。
 
 ### 判断一个类型是否可调用
 {% highlight c++ %}
@@ -224,8 +225,7 @@ int main()
 ## enable_if
 使用 enable_if 系列模板可以控制一个函数模板或类模板偏特化是否包含在基于模板参数属性的一系列匹配函数或偏特化中。
 
-### enable_if系列模板的使用
-
+### enable_if系列模板
 {% highlight c++ %}
 namespace boost {
   template <class Cond, class T = void> struct enable_if;
@@ -242,7 +242,7 @@ namespace boost {
 
 
 ### 函数模板，存在两种方法：
-* 返回值类型使用`enable_if<Cond, T>::type`来指定，Cond则是检测当前函数模板参数的谓词模板（具有静态的value常量值）。这样函数重载实例化的时候会计算返回值类型，如果Cond对应value值为false，则从重载协议列表中删除。
+* **返回值类型**使用`enable_if<Cond, T>::type`来指定，Cond则是检测当前函数模板参数的谓词模板（具有静态的value常量值）。这样函数重载实例化的时候会计算返回值类型，如果Cond对应value值为false，则从重载协议列表中删除。
 
 {% highlight c++ %}
 template <class T>
@@ -250,7 +250,7 @@ typename boost::enable_if<boost::is_arithmetic<T>, T >::type
 foo(T t);// 限制T为算术类型
 {% endhighlight %}
  
-* 增加一个额外的函数参数来协助，比如
+* **增加一个额外的函数参数来协助**，比如
 {% highlight c++ %}
 string foo(string);
  
@@ -317,7 +317,7 @@ integral
 lazy_enable_if 的第二个参数必须是一个在第一个参数（条件）为 true 时定义了一个名字为 type 的的内嵌类型。
 
 
-### enable_if 实现的源码（取自boost，非常精炼的代码）：
+### enable_if 的源码参考（取自boost，非常精炼的代码）：
 {% highlight c++ %}
 namespace boost
 {
@@ -337,7 +337,8 @@ namespace boost
   template <class Cond, class T = void>
   struct enable_if : public enable_if_c<Cond::value, T> {};
  
-  // Lazy情况下，第二个模板参数必须使用，并且要求其具有嵌套的type类型，否则就算为true也无效。
+  // Lazy情况下，第二个模板参数必须使用，并且要求其具有嵌套的type类型，
+  // 否则就算为true也无效。
   template <bool B, class T>
   struct lazy_enable_if_c {
     typedef typename T::type type;
