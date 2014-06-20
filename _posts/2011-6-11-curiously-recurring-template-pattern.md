@@ -30,15 +30,14 @@ class X // 注意X本身也可以是模板类型
 3. 成员函数指针的结合，可以穿透派生类的protected的方法（只有派生类的this指针和成员函数指针`->* , .*`调用可以使用基类的protected方法），实现更好的封装。
  
 **注意事项：**  
-
 被递归模板模式使用的基类模板`base<T>`中，不能使用模板参数类型T的对象，只能使用T的指针或引用，因为在base中，T的类型是不完整的，因为T还要继承自`base<T>`。
 
 {% highlight c++ %}
 template< typename T >
 class base
 {
-T*  m_pVal; // ok
-T   m_Val; // error
+    T*  m_pVal; // ok
+    T   m_Val;  // error
 }
  
 struct test : public base<test> {}
@@ -53,8 +52,8 @@ template<class T>
 class Ccounter
 {
 private:
-    T* m_pt; // OK
-// T m_t; // Error
+    T* m_pt;  // OK
+    // T m_t; // Error
     static int m_nCount;
 public:
     Ccounter(){ ++m_nCount; }
@@ -66,7 +65,7 @@ public:
 template<class T>
 int Ccounter<T>::m_nCount = 0;
  
-class CcountInstance : public Ccounter<CcountInstance>{}; // 递归模板
+class CcountInstance : public Ccounter<CcountInstance>{};
  
 int main()
 {
@@ -79,14 +78,17 @@ int main()
 
  
 ## CRTP在封装性上的能力
-### 先看下简单的OOP框架下的动态多态：
+
+###先看下简单的OOP框架下的动态多态：
 {% highlight c++ %}
 // Library code
 class Base
 {
 public:
     virtual ~Base();
-    int foo() { return this->do_foo(); }   // 实现以来于派生类实现的虚函数do_foo()
+    
+    // 实现以来于派生类实现的虚函数do_foo()
+    int foo() { return this->do_foo(); }   
  
 protected:
     virtual int do_foo() = 0;
@@ -204,7 +206,8 @@ private:
     {
        static int foo(T& derived)
        {
-           int (T::*fn)() = &Accessor::do_foo; // 成员函数指针的技巧，其中Accessor写成T也是可以的
+           // 成员函数指针的技巧，其中Accessor写成T也是可以的
+           int (T::*fn)() = &Accessor::do_foo; 
            return (derived.*fn)();
        }
     };
@@ -290,9 +293,17 @@ private:
  
 int main()
 {
-    cout << ( string_wrap("ABc") >  string_wrap("AB") ? "yes" : "no" ) << endl;
-    cout << ( string_wrap("ABc") <= string_wrap("AB") ? "yes" : "no" ) << endl;
-    cout << ( string_wrap("AB") >=  string_wrap("AB") ? "yes" : "no" ) << endl;
+    cout << 
+        ( string_wrap("ABc") >  string_wrap("AB") ? "yes" : "no" ) 
+        << endl;
+        
+    cout << 
+        ( string_wrap("ABc") <= string_wrap("AB") ? "yes" : "no" )
+        << endl;
+        
+    cout << 
+        ( string_wrap("AB") >=  string_wrap("AB") ? "yes" : "no" )
+        << endl;
  
     return 0;
 }
