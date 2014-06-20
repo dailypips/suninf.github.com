@@ -2,8 +2,8 @@
 layout: default
 ---
 <div class='post' style="padding-bottom: 3em; margin-top: 10px;">
-    <h1><a href='{{page.url}}' id="article_title">{{page.title}}</a></h1>
-    <div class="info" style="margin-top: 3px;">
+    <h1 style="padding: 8px;"><a href='{{page.url}}' id="article_title">{{page.title}}</a></h1>
+    <div class="info">
         <span style="float: right;">&nbsp;|&nbsp;{{ page.date | date: "%Y-%m-%d" }}</span>
         <a href="/category/{{ page.category }}.html" style="float: right;">{{ page.category }}</a>
         <span style="float: right;">category&nbsp;:&nbsp;</span>
