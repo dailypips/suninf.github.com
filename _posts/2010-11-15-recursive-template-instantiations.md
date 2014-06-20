@@ -4,27 +4,10 @@ title: C++模板递归实例化
 category: c++
 description: 模板的递归实例化可以分为类模板和函数模板两种。关键是形成依赖，基本内容是编译期类型和常整型值的计算(或者借助于模板函数类型推导)。
 ---
-*C++中“类型敏感的”模板函数重载依赖于**SFINAE**(substitution-failure-is-not-an-error，替换失败不是错误)。*
-
-## SFINAE原则
-* 在**函数模板的实例化**过程中，如果**推断形成的某个参数或返回值类型无效**，那么这个实例将从重载决议集中去掉而不是引发一个编译错误
-* 而`boost::enable_if`使得SFINAE原则成为一个惯用法。
-
-例如：
-{% highlight c++ %}
-int negate(int i) { return -i; }
-
-template <class F>
-typename F::result_type negate(const F& f) { return -f(); }
-{% endhighlight %}
-
-
-
-
 *模板的递归实例化可以分为类模板和函数模板两种。关键是形成依赖，基本内容是编译期类型和常整型值的计算(或者借助于模板函数类型推导)。*
  
 ## 类模板
-对于类模板来说，使用自身的模板特化（模板参数递进）的成员而形成依赖，导致模板类递归实例化，需要用类模板的特化来指定递归终点。
+对于类模板来说，**使用自身的模板特化（模板参数递进）的成员而形成依赖，导致模板类递归实例化**，需要用**类模板的特化来指定递归终点**。
  
 例子（**编译期判断素数及打印**）：
 {% highlight c++ %}
@@ -58,7 +41,8 @@ template< int N, int P, bool Flag >
 struct Check
 {
 private:
-    static const bool tmp = IsPrime<N>::value ? (P%N != 0)&&Flag : Flag;
+    static const bool tmp = 
+        IsPrime<N>::value ? (P%N != 0)&&Flag : Flag;
  
 public:
     static const bool result = tmp ? Check<N-1,P,tmp>::result : false;
@@ -115,7 +99,7 @@ int main()
 {% endhighlight %}
  
 ## 函数模板
-对于函数模板来说，也是因为在函数中调用了同名模板函数（但是模板参数不同），也形成递归实例化，递归重点的设置，是写一个重载的函数即可（因为我们知道终点的特点，它能比模板函数匹配的更好）。
+对于函数模板来说，也是因为在函数中**调用了同名模板函数（但是模板参数不同），也形成递归实例化**，递归重点的设置，是写一个重载的函数即可（因为我们知道终点的特点，它能比模板函数匹配的更好）。
 
 例子（类型安全的format函数）：  
 
