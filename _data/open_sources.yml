@@ -25,9 +25,11 @@
 - name: boost
   url: http://www.boost.org
 
-- name: W3School
-  url: http://www.w3school.com.cn/index.html
+- name: w3schools-en
+  url: http://www.w3schools.com/
   
+- name: W3School-zh
+  url: http://www.w3school.com.cn/index.html  
 - name: kissy
   url: http://docs.kissyui.com/
       
