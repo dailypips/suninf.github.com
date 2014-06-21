@@ -63,11 +63,12 @@ int main()
 {% endhighlight %}
 
 输出：  
-void operator() ( T, U )
+void operator() ( T, U )  
 void operator() ( T )
 
 
-说明：  
+说明：
+
 1. 默认模板参数是为了达到重载的效果，即看起来是不同数量的模板参数
 2. 模板特化是为了针对不同情况实现不同的功能
 
