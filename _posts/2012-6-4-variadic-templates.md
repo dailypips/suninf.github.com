@@ -51,6 +51,7 @@ void fun( Ts const&... vs )
 size_t items = sizeof ...(Ts); // or vs
  
 2、参数包展开规则：  
+|---
 | 使用 | 扩展 
 |-|:-
 | `Ts…` | `T1, …, Tn` 
