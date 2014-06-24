@@ -51,14 +51,14 @@ void fun( Ts const&... vs )
 size_t items = sizeof ...(Ts); // or vs
  
 2、参数包展开规则：  
-~~~~~
-使用              扩展
-Ts…             T1, …, Tn
-Ts&&…           T1&&, …, Tn&&…
-X<Ts, Y>::z…    X<T1, Y>::z, …, X<Tn, Y>::z
-X<Ts&, Us>…     X<T1&,U1>, …, X<Tn&,Un>
-Func( 5, vs )…  Func(5, v1), …, Func( 5, vn )
-~~~~~
+| 使用 | 扩展 
+|-|:-
+| `Ts…` | `T1, …, Tn` 
+| `Ts&&…` |`T1&&, …, Tn&&…` 
+| `X<Ts, Y>::z…` |`X<T1, Y>::z, …, X<Tn, Y>::z` 
+| `X<Ts&, Us>…` | `X<T1&,U1>, …, X<Tn&,Un>`
+| `Func( 5, vs )…`  | `Func(5, v1), …, Func( 5, vn )`
+
 
 3、基于展开规则的使用的一些例子  
 * 初始化列表  
