@@ -119,19 +119,19 @@ using namespace std;
 
 void fun( int& a, int b )
 {
-	a += b;
-	cout << a << endl;
+    a += b;
+    cout << a << endl;
 }
 
 int main()
 {
-	int m = 1;
-	boost::bind( &fun, m, 2 )();
-	cout << m << endl; // 1
-
-	int n = 1;
-	boost::bind( &fun, boost::ref(n), 2 )();
-	cout << n << endl; // 3
-	return 0;
+    int m = 1;
+    boost::bind( &fun, m, 2 )();
+    cout << m << endl; // 1
+    
+    int n = 1;
+    boost::bind( &fun, boost::ref(n), 2 )();
+    cout << n << endl; // 3
+    return 0;
 }
 {% endhighlight %}
