@@ -1,6 +1,6 @@
 ---
 layout: article
-title: 变长模板参数 - Variadic Templates
+title: C++0x 变长模板参数
 category: c++
 description: 本质上，变长模板参数也是一种函数式编程中常用的列表模式匹配。
 ---
