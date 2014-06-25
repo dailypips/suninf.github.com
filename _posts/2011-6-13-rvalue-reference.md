@@ -39,7 +39,7 @@ v = vector<int>(10,1);
 
 * 初始化后rval_ref引用地址说明：
     * 对于是临时对象的右值，不会有任何问题；
-    * 对于基本内置类型的，如int，double，char等，rval_ref自己引用一块新的内存地址，比如
+    * 对于基本内置类型的，如int，double，char等，rval_ref自己引用一块新的内存地址，比如：
         {% highlight c++ %}
         int a = 5;
         int && b = move(a);
@@ -56,7 +56,9 @@ string&& t = move(s);// s和t的地址一样，对其中一方改变当然也就
  
  
 ## 右值引用函数参数类型
+
 ### 普通非模板函数
+
 如：`void f( Type&& t )`
 
 * 与初始化一致，t只能接受右值
