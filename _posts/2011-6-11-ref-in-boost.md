@@ -4,18 +4,6 @@ title: ref in boost
 category: boost
 description: boost::ref是为了实现模板推断过程中的引用实现，以减少拷贝带来的副作用。
 ---
-*CRTP（Curiously Recurring Template Pattern）是借助模板和继承来实现的一种技巧。*
-
-## 基本特征如下：
-{% highlight c++ %}
-class X // 注意X本身也可以是模板类型
-         : public base<X>
-{
-    //…
-};
-{% endhighlight %}
- 
-////////////////
 *boost::ref是为了实现模板推断过程中的实现通用的引用方式传递，以减少拷贝带来的副作用。*
 
 ## 背景
@@ -35,16 +23,14 @@ void fun( T t )
 template< typename T >
 void fun2( T const& t )
 {
-	cout << t << endl;
+    cout << t << endl;
 }
 {% endhighlight %}
 
 
-## 针对模板参数传递问题的boost::Ref的使用
+## 模板参数传递的boost.Ref使用
 
-### 利用boost.Ref可以使用另外一种方式：`boost::ref` 或者 `boost::cref`
-
-调用：  
+### 使用：`boost::ref` 或者 `boost::cref`
 {% highlight c++ %}
 string s("hello");
 fun( boost::ref( s ) );
@@ -76,12 +62,14 @@ private:
 };
 
 // 两个函数
-template<class T> inline reference_wrapper<T> BOOST_REF_CONST ref(T & t)
+template<class T> 
+inline reference_wrapper<T> BOOST_REF_CONST ref(T & t)
 { 
     return reference_wrapper<T>(t);
 }
 
-template<class T> inline reference_wrapper<T const> BOOST_REF_CONST cref(T const & t)
+template<class T> 
+inline reference_wrapper<T const> BOOST_REF_CONST cref(T const & t)
 {
     return reference_wrapper<T const>(t);
 }
@@ -98,19 +86,19 @@ using namespace std;
 template<typename T>
 void fun( T t )
 {
-	boost::unwrap_ref( t ) = 10;
+    boost::unwrap_ref( t ) = 10;
 }
 
 int main()
 {
-	int n = 0;
-	boost::unwrap_ref( n ) = 5;
-	cout << n << endl; // 5
-
-	fun( boost::ref(n) );
-	cout << n << endl; // 10
-
-	return 0;
+    int n = 0;
+    boost::unwrap_ref( n ) = 5;
+    cout << n << endl; // 5
+    
+    fun( boost::ref(n) );
+    cout << n << endl; // 10
+    
+    return 0;
 }
 {% endhighlight %}
 
