@@ -4,7 +4,7 @@ title: C++0x 右值引用
 category: c++
 description: 本文详细介绍下C++0x的右值应用的语言特性。
 ---
-*本文详细介绍下C++0x的右值应用的语言特性。*
+*本文详细介绍下C++0x的右值引用的语言特性。*
 
 ## 左值与右值的区分
 
@@ -14,7 +14,7 @@ description: 本文详细介绍下C++0x的右值应用的语言特性。
 2. 左值是指某个表达式，它指定一个对象（对象的名字可有可无），并且该对象的生命期在该表达式语句之后。右值是指某个表达式，它指定的对象是临时的，即在表达式结束后，对象被销毁。
  
  
-## 右值引用的由来和主要解决问题。
+## 右值引用的由来和主要解决问题
 举个例子：
 {% highlight c++ %}
 vector<int> v;
@@ -35,9 +35,9 @@ v = vector<int>(10,1);
 最初的C++0x打算让右值引用初始化可以绑定到左值，但是产生一个安全隐患，将它限制了，请参考：[《A Safety Problem with RValue References (and what to do about it)》](http://www.open-std.org/JTC1/SC22/WG21/docs/papers/2008/n2812.html)
 
 ### 注意事项：
-1. 初始化参数rval必须是右值，可以是临时对象，如果想用左值去初始化，需要用`std::move`将它变成无名的右值引用，而无名的右值引用是右值。
+* 初始化参数rval必须是右值，可以是临时对象，如果想用左值去初始化，需要用`std::move`将它变成无名的右值引用，而无名的右值引用是右值。
 
-2. 初始化后rval_ref引用地址说明：
+* 初始化后rval_ref引用地址说明：
     * 对于是临时对象的右值，不会有任何问题；
     * 对于基本内置类型的，如int，double，char等，rval_ref自己引用一块新的内存地址，比如
         {% highlight c++ %}
@@ -46,29 +46,28 @@ v = vector<int>(10,1);
         // a和b的地址不同，对a，b的改变也不会相互影响；
         {% endhighlight %}
         
-3. 对于类型对象，如vector, string，自定义类型等产生的对象，就像左值引用的行为一样，共用相同的地址，
+* 对于类型对象，如vector, string，自定义类型等产生的对象，就像左值引用的行为一样，共用相同的地址，
 {% highlight c++ %}
-string s = “zhenshan”;
+string s = "zhenshan";
 string&& t = move(s);// s和t的地址一样，对其中一方改变当然也就会影响另一方。
 {% endhighlight %}
 
-4. 初始化完成后，rval_ref是一个左值！（命名的右值引用是左值），以后要作为右值使用它的话，需要用move( rval_ref )得到。
+* 初始化完成后，rval_ref是一个左值！（命名的右值引用是左值），以后要作为右值使用它的话，需要用move( rval_ref )得到。
  
  
 ## 右值引用函数参数类型
-1. 普通非模板函数  
+### 普通非模板函数
 如：`void f( Type&& t )`
 
 * 与初始化一致，t只能接受右值
 * 注意：在函数f内部，t是一个左值，想要用到使用右值的场合，需要用move
 * 假设存在重载函数 `void f( const Type& t0 )`，由于该参数t0能接受任何类型的参数`（Type, const Type, Type&, const Type&）`，但是对于右值Type类型会优先选择`Type&&`的参数的函数。
  
-2. 模板函数
+### 模板函数
 C++0x给了模板函数的`T&&`的参数形式特殊的参数推断规则：  
 设T为模板参数，`T&&`为模板函数的参数，如果实参是类型为A的左值，则T被推断为`A&`，形参类型`T&&`也为`A&`；如果实参是类型为A的右值，则T被推断为A，形参类型`T&&`为`A&&`。
  
 根据这个规则，我们可以看一下，标准库的两个函数：
-
 {% highlight c++ %}
 template< class T >
 typename remove_reference<T>::type&& move( T&& t )
@@ -87,10 +86,9 @@ void swap( T& a, T& b )// move代替copy的高效实现
 {% endhighlight %}
  
 分析：  
-比如：  
 {% highlight c++ %}
-string s = “sjw”;
-string t = “zhenshan”;
+string s = "sjw";
+string t = "zhenshan";
 swap( s, t );
 {% endhighlight %}
 
@@ -285,7 +283,7 @@ int main()
 // class A &__thiscall A::operator =(class A &&)
 // a = yes
 // b = zhenshan
-// {% endhighlight %}
+{% endhighlight %}
 
 ## 在C++0x环境下关于自定义类的move语义注意事项
 Perfect Forwarding是重载函数类型准确识别和转调用的很好的机制，但使用显然没有move语义的拷贝构造函数和赋值运算符用的不知不觉和无声无息。
