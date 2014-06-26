@@ -152,7 +152,8 @@ struct result_of : get_result_of<F, FArgs, (has_result_type<F>::value)> {};
 {% endhighlight %}
  
 注：
-1、`BOOST_MPL_HAS_XXX_TRAIT_DEF(result_type)`定义了模板类型has_result_type，`has_result_type<F>::value`表示F是否具有result_type的内嵌typedef
-2、result_of_iterate.hpp：针对模板参数的数目，文件迭代来写
-3、至于普通函数与成员函数类型的实现，细节被包含在BOOST_MPL_HAS_XXX_TRAIT_DEF中。
+
+1. `BOOST_MPL_HAS_XXX_TRAIT_DEF(result_type)`定义了模板类型has_result_type，`has_result_type<F>::value`表示F是否具有result_type的内嵌typedef
+2. result_of_iterate.hpp：针对模板参数的数目，文件迭代来写
+3. 至于普通函数与成员函数类型的实现，细节被包含在BOOST_MPL_HAS_XXX_TRAIT_DEF中。
  
