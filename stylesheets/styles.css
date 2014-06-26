@@ -336,3 +336,34 @@ text-decoration: underline;
 footer p {
 margin-top: -2px;
 }
+
+/*disqus*/
+.dsq-widget-user{
+    text-decoration:none;
+    display:block;
+}
+.dsq-widget-comment{
+    display:block;
+}
+.dsq-widget-meta a{
+    text-decoration:none;
+}
+.dsq-widget-item{
+    border-left:3px solid #a0a0a0;
+    padding-left:10px;
+    transition-property: background-color, color;
+    transition-duration: 1s;
+    transition-timing-function: ease-out;
+}
+.dsq-widget-item p a{
+    text-decoration:none;
+}
+.dsq-widget-item:hover{
+    border-left:3px solid #a0a0a0;
+    border-right:3px solid #a0a0a0;
+    padding-left:10px;
+    background-color:#eaeaea;
+}
+.dsq-widget-avatar{
+    border-radius:3px;
+}
