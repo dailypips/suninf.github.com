@@ -31,7 +31,9 @@ namespace func_types = boost::function_types;
  
 int main()
 {
-    cout << func_types::is_function< int(int,...), func_types::variadic >::value << endl; // 输出为1
+    cout << 
+    func_types::is_function<int(int,...), func_types::variadic>::value 
+    << endl; // 输出为1
    
     return 0;
 }
@@ -44,13 +46,13 @@ int main()
  
 * 当复合属性 tag 被指定为分析一个类型，它的所有组成属性都必须匹配。
 {% highlight c++ %}
-is_member_function_pointer< F, tag<const_qualified,default_cc> >::value
+is_member_function_pointer<F, tag<const_qualified,default_cc>>::value
 // true for
 //   F = void(a_class::*)() const
  
 // false for
-//   F = void(a_class::*)()                       // 非const
-//   F = void(__fastcall a_class::*)() const         // 非默认调用协stdcall
+//   F = void(a_class::*)()                     // 非const
+//   F = void(__fastcall a_class::*)() const    // 非默认调用协stdcall
 {% endhighlight %}
 
 ## 各个tag标识：
@@ -134,16 +136,15 @@ struct is_function;
 {% highlight c++ %}
 template<typename F>
 struct result_type;
+// result_type<F>::type 为 F的结果类型
 {% endhighlight %}
-`result_type<F>::type` 为 F的结果类型  
  
 * parameter_types
 {% highlight c++ %}
 template<typename F, class ClassTransform = add_reference<_> >
 struct parameter_types;
+// 取出一个可调用内建类型的参数类型。function_arity<F>::type得到类型序列：mpl::vector<>   
 {% endhighlight %}
-取出一个可调用内建类型的参数类型。  
-`function_arity<F>::type`得到类型序列：`mpl::vector<>`   
 
 {% highlight c++ %}
 #include <iostream>
@@ -206,7 +207,7 @@ class Test {};
  
 int main()
 {
-// mpl::vector3<int,int,string>
+    // mpl::vector3<int,int,string>
     cout << typeid( func_types::components<func>::types ).name() << endl;
  
     // mpl::vector3<void,Test const&,double>
