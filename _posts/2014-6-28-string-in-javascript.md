@@ -25,7 +25,6 @@ String(s);
 * 当不用 new 运算符调用 String() 时，它**只把 s 转换成原始的字符串**，并返回转换后的值。注意可以直接对原始的字符串进行属性和方法的调用，javascript会使用**包装对象**来保证程序的运行。
 
 
-
 ### String 对象属性
 
 * constructor 对创建该对象的函数的引用
@@ -35,10 +34,10 @@ String(s);
 
 ### String 对象方法
 
-* ‘+’ 连接字符串  
+* **'+'** 连接字符串  
 `var s = "hello" + " world";`
 
-* ‘[]’ 读取指定位置上的值，不能修改  
+* **'[]'** 读取指定位置上的值，不能修改  
 {% highlight javascript %}
 var s = '123';
 s[1]; // “2”
@@ -69,14 +68,15 @@ concat() 方法将把它的所有参数转换成字符串，然后按顺序连�
 `stringObject.match(regexp)`  
 在字符串内检索指定的值，或找到一个或多个正则表达式的匹配数组。它返回指定的值，而不是字符串的位置。
 
-
 * **replace()** 替换与正则表达式匹配的子串  
 `stringObject.replace(regexp/substr,replacement)`  
-在字符串中用一些字符替换另一些字符，或替换一个与正则表达式匹配的子串。
+在字符串中用一些字符替换另一些字符，或替换一个与正则表达式匹配的子串。  
+字符串 stringObject 的 replace() 方法执行的是查找并替换的操作。它将在 stringObject 中查找与 regexp 相匹配的子字符串，然后用 replacement 来替换这些子串。如果 regexp 具有全局标志 g，那么 replace() 方法将替换所有匹配的子串。否则，它只替换第一个匹配子串。
 
 * **search()** 检索与正则表达式相匹配的值  
 `stringObject.search(regexp)`  
-返回stringObject 中第一个与 regexp 相匹配的子串的起始位置；如果没有找到任何匹配的子串，则返回 -1。
+返回stringObject 中第一个与 regexp 相匹配的子串的起始位置；如果没有找到任何匹配的子串，则返回 -1。  
+search() 方法不执行全局匹配，它将忽略标志 g。它同时忽略 regexp 的 lastIndex 属性，并且总是从字符串的开始进行检索，这意味着它总是返回 stringObject 的第一个匹配的位置。
 
 * **slice()** 提取字符串的片断，并在新的字符串中返回被提取的部分  
 `stringObject.slice(start,end)`  
@@ -198,8 +198,7 @@ RegExp 对象表示正则表达式，它是对字符串执行模式匹配的强�
 |`?=n` | 匹配任何其后紧接指定字符串 n 的字符串。
 |`?!n` | 匹配任何其后没有紧接指定字符串 n 的字符串。
 
-### 小括号分组与引用
-小括号'()'的作用：
+### 小括号'()'的作用：
 
 * **分组**: 把单独项组合成子表达式统一处理，一般用于`？、+、*、{n,m}`等的重复处理
 * **向后引用**: 即在正则表达式中用 `\n` （n代表引用的序号数组）引用式中前面括号中匹配的文本
@@ -229,7 +228,11 @@ RegExp 对象表示正则表达式，它是对字符串执行模式匹配的强�
 ## 正则表达式配合String方法的使用
 
 ### search
-
+{% highlight javascript %}
+var s = '000123abc0N/A abcfds123sjw055 sjwjkgd';
+var reg = /\d{3}([a-zA-Z]+).(\d{2}|N\/A)\s\1/;
+s.search( reg ) // 3
+{% endhighlight %}
 
 ### match
 匹配模式：“3个数字，1个单词，1个任意的字符，2个数字或者字符串N/A，1个空格，然后重复第一个单词”
@@ -242,5 +245,16 @@ s.match(/\d{3}([a-z]+).(\d{2}|N\/A)\s\1/);
 {% endhighlight %}
 
 ### replace
+{% highlight javascript %}
+var reg = /(\w+)=(\w+)/;
+var str = 'hello live=exist world!';
+str.replace(reg,'$2=$1'); // "hello exist=live world!"
+{% endhighlight %}
 
 ### split
+{% highlight javascript %}
+"|a|b|c".split("|") // ["", "a", "b", "c"]
+
+var s = '1.hello2.world'
+s.split( /\d+\./ ) // ["", "hello", "world"]
+{% endhighlight %}
