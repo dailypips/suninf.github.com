@@ -2,7 +2,7 @@
 layout: article
 title: String in javascript
 category: javascript
-description: 本文详细介绍javascript中的字符串处理，包括String对象的使用，以及正则表达式RegExp的相关细节。
+description: 本文详细介绍javascript中的字符串处理，包括 String对象 的使用，以及 正则表达式RegExp 的相关细节。
 ---
 *本文详细介绍javascript中的字符串处理，包括**String对象**的使用，以及**正则表达式RegExp**的相关细节。*
 
@@ -44,41 +44,41 @@ var s = '123';
 s[1]; // “2”
 {% endhighlight %}
 
-* charAt() 返回在指定位置的字符  
+* **charAt()** 返回在指定位置的字符  
 请注意，JavaScript 并没有一种有别于字符串类型的字符数据类型，所以返回的字符是长度为 1 的字符串。
 
-* charCodeAt() 返回在指定的位置的字符的 Unicode 编码
+* **charCodeAt()** 返回在指定的位置的字符的 Unicode 编码
 
-* concat()	连接字符串  
+* **concat()**	连接字符串  
 `stringObject.concat(stringX,stringX,...,stringX)`  
 concat() 方法将把它的所有参数转换成字符串，然后按顺序连接到字符串 stringObject 的尾部，并返回连接后的字符串。请注意，stringObject 本身并没有被更改。
 
-* fromCharCode() 从字符编码创建一个字符串  
+* **fromCharCode()** 从字符编码创建一个字符串  
 `String.fromCharCode(numX,numX,...,numX)`  
 该方法是 String 的静态方法，字符串中的每个字符都由单独的数字 Unicode 编码指定，因此它的语法应该是 String.fromCharCode()。
 
-* indexOf() 检索字符串  
+* **indexOf()** 检索字符串  
 `stringObject.indexOf(searchvalue,fromindex)`  
 返回某个指定的字符串值在字符串中首次出现的位置。
 
-* lastIndexOf() 从后向前搜索字符串  
+* **lastIndexOf()** 从后向前搜索字符串  
 `stringObject.lastIndexOf(searchvalue,fromindex)`
 
-* match() 找到一个或多个正则表达式的匹配  
+* **match()** 找到一个或多个正则表达式的匹配  
 `stringObject.match(searchvalue)`  
 `stringObject.match(regexp)`  
 在字符串内检索指定的值，或找到一个或多个正则表达式的匹配数组。它返回指定的值，而不是字符串的位置。
 
 
-* replace() 替换与正则表达式匹配的子串  
+* **replace()** 替换与正则表达式匹配的子串  
 `stringObject.replace(regexp/substr,replacement)`  
 在字符串中用一些字符替换另一些字符，或替换一个与正则表达式匹配的子串。
 
-* search() 检索与正则表达式相匹配的值  
+* **search()** 检索与正则表达式相匹配的值  
 `stringObject.search(regexp)`  
 返回stringObject 中第一个与 regexp 相匹配的子串的起始位置；如果没有找到任何匹配的子串，则返回 -1。
 
-* slice() 提取字符串的片断，并在新的字符串中返回被提取的部分  
+* **slice()** 提取字符串的片断，并在新的字符串中返回被提取的部分  
 `stringObject.slice(start,end)`  
 **参数:**  
 start：要抽取的片断的起始下标。如果是负数，则该参数规定的是从字符串的尾部开始算起的位置。也就是说，-1 指字符串的最后一个字符，-2 指倒数第二个字符，以此类推。  
@@ -90,20 +90,20 @@ var str="Hello happy world!"
 str.slice(6) // “happy world!”
 {% endhighlight %}
 
-* split() 把字符串分割为字符串数组  
+* **split()** 把字符串分割为字符串数组  
 `stringObject.split(separator,howmany)`  
 separator：必需，字符串或正则表达式，从该参数指定的地方分割 stringObject。  
 howmany：可选，该参数可指定返回的数组的最大长度。如果设置了该参数，返回的子串不会多于这个参数指定的数组。如果没有设置该参数，整个字符串都会被分割，不考虑它的长度。
 
-* substr() 从起始索引号提取字符串中指定数目的字符  
+* **substr()** 从起始索引号提取字符串中指定数目的字符  
 `stringObject.substr(start,length)`
 
-* substring() 提取字符串中两个指定的索引号之间的字符  
+* **substring()** 提取字符串中两个指定的索引号之间的字符  
 `stringObject.substring(start,stop)`  
 返回一个新的字符串，该字符串值包含 stringObject 的一个子字符串，其内容是从 start 处到 stop-1 处的所有字符，其长度为 stop 减 start。与 slice() 和 substr() 方法不同的是，substring() 不接受负的参数。
 
-* toLowerCase() 把字符串转换为小写
-* toUpperCase() 把字符串转换为大写
+* **toLowerCase()** 把字符串转换为小写
+* **toUpperCase()** 把字符串转换为大写
 
 
 ## 正则表达式 RegExp 对象
