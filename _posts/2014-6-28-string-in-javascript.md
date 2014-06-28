@@ -110,10 +110,10 @@ howmany：可选，该参数可指定返回的数组的最大长度。如果设�
 RegExp 对象表示正则表达式，它是对字符串执行模式匹配的强大工具。
 
 ### 语法
-直接量语法:  
+**直接量语法:**  
 `/pattern/attributes`
 
-创建 RegExp 对象的语法:  
+**创建 RegExp 对象的语法:**  
 `new RegExp(pattern, attributes);`
 
 * 参数 pattern 是一个字符串，指定了正则表达式的模式或其他正则表达式。如果要**匹配字符`/`**，则需要使用`\/`
@@ -242,6 +242,34 @@ s.match(/\d{3}([a-z]+).(\d{2}|N\/A)\s\1/);
 
 // 输出总匹配串和两个分组
 // ["123abc0N/A abc", "abc", "N/A"]
+{% endhighlight %}
+
+## exec
+match和exec是正则表达式匹配字符串的常用方法。两者实现的功能差不多，有些细微的区别：
+
+1. 使用方式
+    * match是**字符串包装对象**的方法，用法：`String.match(RegExp);`
+    * exec是**正则表达式对象**的方法，用法：`RegExp.exec(String);`
+2. 返回的结果
+    * 当RegExp**没有设置全局标志 "g" **时，两者的返回结果相同。即无匹配值时返回null，有匹配值时返回一个数组（令array）。array[0]为匹配的字符串，array[1]、array[2]……则对应为正则表达式中圆括号匹配的子字符串$1、$2……。同时数组带有两个属性，array.index表示匹配字符串的初始位置，array.input表示正在检索的字符串。
+    * 当RegExp**有设置全局标志 "g" **时，**match**在有值时返回一个数组array。数组的每项依次表示匹配到的所有的字符串，因此不再有圆括号匹配的子字符串了。此时数组没有index属性和input属性；**exec**则与没有全局标示 "g" 的表现无异。此时返回的是数组array，array[0]为当前匹配的字符串，array[1]，array[2]……则为当前匹配下的圆括号匹配的字串。此时**要注意RegExp对象的lastIndex属性**，表示原字符串中匹配的字符串末尾的后一个位置，当没有进一步的匹配结果时，lastIndex属性置0。因此，可用lastIndex的循环找出所有的匹配字符串。
+
+{% highlight javascript %}
+var str = 'I love1 my job22';
+var reg = /\b[a-z]+(\d+)\b/g;
+
+var idx = 0, pos = 0;
+var sub_str = str;
+var ary = reg.exec( sub_str.substring(idx) );
+while( ary != null ) {
+	idx = reg.lastIndex;
+	pos += idx;
+	reg.lastIndex = 0;
+	console.log( 'value: ' + ary[0] + ' lastPos: ' + pos );
+	
+	sub_str = sub_str.substring(idx);
+	ary = reg.exec( sub_str );
+}
 {% endhighlight %}
 
 ### replace
