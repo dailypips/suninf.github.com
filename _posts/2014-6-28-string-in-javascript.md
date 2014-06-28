@@ -270,6 +270,9 @@ while( ary != null ) {
 	sub_str = sub_str.substring(idx);
 	ary = reg.exec( sub_str );
 }
+// 输出：
+// value: love1 lastPos: 7 VM299:11
+// value: job22 lastPos: 9
 {% endhighlight %}
 
 ### replace
