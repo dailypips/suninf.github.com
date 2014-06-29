@@ -8,28 +8,28 @@ description: 本文介绍Javascript的Object对象类型的重点内容。
 
 ## 对象创建
 
-* 对象直接量
+* **对象直接量**  
 `var point = { x:0, y:100 };`
 
-* new关键字
-`var o = new Object( {v:100} );`
+* **new关键字**  
+`var o = new Object( {v:100} );`  
 `var a = new Array([1,2,3]);`
 
-* 原型
+* **原型**  
 每个对象都是从**原型**继承属性，通过`{}`和`new Object()`创建的对象都是从`Obejct.prototype`继承。
 
 利用原型继承，可以从现有对象继承来创建新的对象，并且保证新对象的继承属性与原型属性隔离，对属性覆盖不会对原型产生影响。
 {% highlight javascript %}
 function inherit(p) {
-	if(p == null) throw TypeError();
-	var t = typeof(p);
-	if( t !== "object" && t !== "function" ) {
-	    throw TypeError();
-	}
-	
-	function f() {};
-	f.prototype = p;
-	return new f();
+    if(p == null) throw TypeError();
+    var t = typeof(p);
+    if( t !== "object" && t !== "function" ) {
+        throw TypeError();
+    }
+    
+    function f() {};
+    f.prototype = p;
+    return new f();
 }
 
 var o = { x : 'do not change' };
@@ -49,7 +49,7 @@ obj.property
 obj['property']
 {% endhighlight %}
 
-## 检测属性（6.4）
+## 检测属性
 检查某个属性是否在对象中，常用：in运算符、`hasOwnPorperty()`和`propertyIsEnumerable()`
 
 {% highlight javascript %}
@@ -67,10 +67,10 @@ o.propertyIsEnumerable('x'); //true
 ## 原型属性
 **对象的原型**属性prototype是用来继承属性的，原型属性是在实例对象创建之初就设置好的：
 
-* 通过直接量创建的对象，原型是Object.prototype
-* 使用new创建的对象，使用构造函数的prototype属性作为对象的原型。
+1. 通过直接量创建的对象，原型是Object.prototype
+2.使用new创建的对象，使用构造函数的prototype属性作为对象的原型。
 
-功能函数：
+**功能函数：**
 
 * `Object.getPrototypeOf(o)`可以查询对象o的原型
 * 可以通过`p.isPrototyoeOf(o)`来检测p是否是o的原型
