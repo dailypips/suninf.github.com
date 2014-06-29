@@ -77,3 +77,13 @@ o.propertyIsEnumerable('x'); //true
 * `Object.getPrototypeOf(o)` 可以查询对象o的原型
 * `o.constructor.prototype` 也常用于检测o的原型，但是对于`Object.create(p)`创建的对象，constructor会指代`Object()`构造函数，所以这种情况不适用。
 
+## 对象序列化
+对象序列化（serialization）是指将对象的状态转换为字符串，也可将字符串还原为对象。
+
+* 序列化对象：  
+`var json_str = JSON.stringify(obj);   `
+
+* 解析还原对象：  
+`var obj = JSON.parse(json_str);`
+
+
