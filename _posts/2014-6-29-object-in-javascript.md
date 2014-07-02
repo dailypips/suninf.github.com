@@ -81,7 +81,7 @@ o.propertyIsEnumerable('x'); //true
 对象序列化（serialization）是指将对象的状态转换为字符串，也可将字符串还原为对象。
 
 * 序列化对象：  
-`var json_str = JSON.stringify(obj);   `
+`var json_str = JSON.stringify(obj [, null, '\t']); `
 
 * 解析还原对象：  
 `var obj = JSON.parse(json_str);`
