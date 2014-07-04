@@ -50,7 +50,17 @@ obj['property']
 {% endhighlight %}
 
 ## 检测属性
-检查某个属性是否在对象中，常用：in运算符、`hasOwnPorperty()`和`propertyIsEnumerable()`
+检查某个属性是否在对象中，常用：**in运算符**、**hasOwnPorperty()**和**propertyIsEnumerable()**
+
+{% highlight javascript %}
+// 扩展或覆盖属性的工具类
+function extend(o, p) { 
+    for(prop in p) {
+        o[prop] = p[prop];
+    }
+    return o; 
+}
+{% endhighlight %}
 
 {% highlight javascript %}
 var o = { x : 1 };
