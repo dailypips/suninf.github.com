@@ -291,5 +291,55 @@ FilteredSet.prototype = {
 
 
 ## 关于属性描述
+{% highlight javascript %}
+Object.defineProperty( o, prop, {writable : false, configurable : false})
+var descriptor = Object.getOwnPropertyDescriptor(o, prop);
+{% endhighlight %}
+
+[defineProperty的可配置的属性描述参考](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty){: : target="_blank"}：
+
+* configurable：设为true，则属性描述可以修改，并且属性可以从对象删除。默认为false
+* enumerable：设为true，则属性可以被枚举到，默认false
+* value：属性值，默认为undefined
+* writable：设为true，则属性值可以用赋值运算符设置，默认false
+* get：属性读取函数，默认undefined
+* set：属性设置函数，默认undefined
+
 
 ## 模块化
+模块创建时，避免污染全局变量的一种方法时使用一个对象作为命名空间，它将函数和属性作为命名空间对象的属性存储起来。
+
+例如：命名空间为collections.sets
+{% highlight javascript %}
+var collections; // 声明（或重新声明）全局对象
+if( !collections )
+    collections = {};
+collections.sets = {}    
+{% endhighlight %}
+
+### 匿名函数执行模块惯用法
+{% highlight javascript %}
+var Set = ( function namespace(){
+    
+    // 构造函数
+    function Set() {
+        this.values = {};
+        this.n = 0;
+        this.add.apply( this, arguments );
+    }
+    
+    // 实例方法
+    Set.prototype.contains = function(value) {
+        return this.values.hasOwnProperty( v2s(value) );
+    }
+    
+    
+    // 内部辅助函数和变量
+    function v2s(val) { /* ... */ }
+    var nextId = 1;
+    
+    
+    return Set;
+}() );
+{% endhighlight %}
+
