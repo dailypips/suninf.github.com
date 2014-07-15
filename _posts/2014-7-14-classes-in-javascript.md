@@ -4,7 +4,7 @@ title: Classes in javascript
 category: javascript
 description: 在Javascript中，类的实现是基于原型继承来实现的，类的一个重要特征是“动态扩展”（dynamically extendable）的能力。这种动态扩展和自省的能力也是动态脚本语言的强大之处。
 ---
-*在Javascript中，类的实现是基于原型继承来实现的，类的一个重要特征是“动态扩展”（dynamically extendable）的能力。这种动态扩展和自省的能力也是动态脚本语言的强大之处。*
+*在Javascript中，类的实现是基于原型继承来实现的，类的一个重要特征是“动态扩展”（**dynamically extendable**）的能力。这种**动态扩展**和**自省**的能力也是动态脚本语言的强大之处。*
 
 
 ## 原型与工厂函数
@@ -36,7 +36,7 @@ r.foreach( function(x){console.log(x)} ); // 1 2 3
 
 ## 构造函数
 * 使用new关键字来调用构造函数，会自动创建一个新对象，构造函数仅需要初始化这个新对象的状态即可；
-* 构造函数的prototype属性将称为新对象的原型。
+* 构造函数的prototype属性将成为新对象的原型
 
 {% highlight javascript %}
 function Range(from, to) {
@@ -91,13 +91,13 @@ o.constructor === F // -> true，constructor属性指代这个类
 像C++中的面向对象类，具有实例字段，实例方法，类字段，类方法等概念。  
 javascript中，方法都是以值的形式出现的，方法和字段没有太大的区别。  
 
-javascript中类相关的几个概念：
+**javascript中类相关的几个概念**：
 
 * 构造函数对象：即构造函数（名），任何添加给构造函数的属性都是类字段或方法
 * 原型对象：原型对象的属性被类的所有实例所继承
 * 实例对象：类的每个实例都是一个对立的对象，直接给实例定义的属性不会为所有实例对象所共享
 
-javascript中定义类的三步走：
+**javascript中定义类的三步走**：
 
 1. 定义构造函数，并初始化新对象的实例属性
 2. 给构造函数的prototype对象定义实例方法
@@ -182,13 +182,13 @@ Coin.Dime == 10; // true
 
 1. toString：返回一个可以标识该对象的字符串，比如在'＋'运算符连接字符串时会自动调用该方法。
 2. toJSON：如果定义了，该方法将由JSON.stringify()自动调用。
-3. 可以定义准标准方法：'equals', 'compareTo'来实现对象的比较。
+3. 可以定义”准标准“方法：'equals', 'compareTo'来实现对象的比较。
 
 
 ### 关于私有状态
 经典面向对象语言中一般都有关键字private，表示字段或方法时私有的，外部无法访问。
 
-javascript中可以通过闭包来模拟私有字段，并用方法来访问这些字段；这个封装会让类实例看起来时不可修改的：  
+javascript中可以**通过闭包来模拟私有字段**，并用方法来访问这些字段；这个封装会让类实例看起来时不可修改的：  
 {% highlight javascript %}
 function Range(from, to) {
     this.from = function() { return from; };
@@ -213,7 +213,7 @@ r.includes(3); // true
 
 
 ### 构造函数重载
-构造函数重载（overload）在javascript中需要根据传入参数的不同来执行不同的初始化方法。
+构造函数重载（overload）在javascript中需要**根据传入参数的不同来执行不同的初始化方法**。
 
 比如：集合Set类型的初始化：
 {% highlight javascript %}
@@ -292,11 +292,12 @@ FilteredSet.prototype = {
 
 ## 关于属性描述
 {% highlight javascript %}
-Object.defineProperty( o, prop, {writable : false, configurable : false})
+Object.defineProperty( o, prop, 
+    {writable : false, configurable : false})
 var descriptor = Object.getOwnPropertyDescriptor(o, prop);
 {% endhighlight %}
 
-[defineProperty的可配置的属性描述参考](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty){: : target="_blank"}：
+[defineProperty](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty){: : target="_blank"}的可配置的属性描述参考：
 
 * configurable：设为true，则属性描述可以修改，并且属性可以从对象删除。默认为false
 * enumerable：设为true，则属性可以被枚举到，默认false
