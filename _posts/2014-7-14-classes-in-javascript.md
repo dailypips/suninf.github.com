@@ -8,7 +8,7 @@ description: 在Javascript中，类的实现是基于原型继承来实现的，
 
 
 ## 原型与工厂函数
-工厂函数也是创建对象的一种方式，借助与[inherit](http://www.suninf.net/object-in-javascript/)函数可以简单的实现工厂函数。
+工厂函数也是创建对象的一种方式，借助与[inherit](http://www.suninf.net/object-in-javascript/){: target="_blank"}函数可以简单的实现工厂函数。
 
 {% highlight javascript %}
 function range(from, to) {
@@ -36,7 +36,7 @@ r.foreach( function(x){console.log(x)} ); // 1 2 3
 
 ## 构造函数
 * 使用new关键字来调用构造函数，会自动创建一个新对象，构造函数仅需要初始化这个新对象的状态即可；
-* 构造函数的prototype属性将新对象的原型。
+* 构造函数的prototype属性将称为新对象的原型。
 
 {% highlight javascript %}
 function Range(from, to) {
@@ -87,7 +87,7 @@ o.constructor === F // -> true，constructor属性指代这个类
 `Range.prototype.includes = function(x) { return this.from <=x && x <= this.to; }`
 
 
-## 与通常面向对象语言的类的对比
+## 面向对象技术
 像C++中的面向对象类，具有实例字段，实例方法，类字段，类方法等概念。  
 javascript中，方法都是以值的形式出现的，方法和字段没有太大的区别。  
 
@@ -133,7 +133,9 @@ n.times( function(n) { console.log(n); } ); // 0 1 2
 ### 实例：实现枚举类型
 {% highlight javascript %}
 function enumeration( namesToValues ) {
-    var enumeration = function() { throw "can't instantiate enumeration"; };
+    var enumeration = function() {
+        throw "can't instantiate enumeration"; 
+    };
     
     var proto = enumeration.prototype = {
         constructor : enumeration,
@@ -175,10 +177,119 @@ Coin.Dime == 10; // true
 {% endhighlight %}
 
 
+### 标准方法  
+有些方法是javascript需要类型转换的时候自动调用的：
 
-## 类组合
+1. toString：返回一个可以标识该对象的字符串，比如在'＋'运算符连接字符串时会自动调用该方法。
+2. toJSON：如果定义了，该方法将由JSON.stringify()自动调用。
+3. 可以定义准标准方法：'equals', 'compareTo'来实现对象的比较。
+
+
+### 关于私有状态
+经典面向对象语言中一般都有关键字private，表示字段或方法时私有的，外部无法访问。
+
+javascript中可以通过闭包来模拟私有字段，并用方法来访问这些字段；这个封装会让类实例看起来时不可修改的：  
+{% highlight javascript %}
+function Range(from, to) {
+    this.from = function() { return from; };
+    this.to = function() { return to; };
+}
+
+Range.prototype = {
+    constructor : Range,
+    includes : function(x) { 
+       return this.from() <=x && x <= this.to(); 
+    },
+    foreach : function(f) { 
+       for(var x=Math.ceil(this.from()); x<=this.to(); x++) 
+           f(x); 
+    }
+};
+
+// test
+var r = new Range(1,5);
+r.includes(3); // true
+{% endhighlight %}
+
+
+### 构造函数重载
+构造函数重载（overload）在javascript中需要根据传入参数的不同来执行不同的初始化方法。
+
+比如：集合Set类型的初始化：
+{% highlight javascript %}
+function Set() {
+    this.values = {}; // 保存集合
+    this.n = 0;       // 保存个数
+    
+    // 如果转入数组，则其元素添加到集合中
+    // 否则，将所有参数都添加到集合中
+    if ( arguments.length == 1 && isArrayLike(arguments[0]) )
+        this.add.apply( this, arguments[0] );
+    else if( arguments.length > 0 )
+        this.add.apply( this, arguments );
+}
+{% endhighlight %}
 
 
 ## 子类
+类B继承自类A，则A称为父类（superclass），B称为子类（subclass）：
+
+* B的实例从A继承了所有的实例方法
+* B还可以定义自己的实例方法，并且可以重载A中的同名方法，而且B中的重载方法可能会调用A中的重载方法，这种情形称为“方法链”
+* 子类的构造函数B()有可能需要调用父类的构造函数A()，称为构造函数链
+
+### 实现子类的关键：原型继承  
+{% highlight javascript %}
+B.prototype = inherit(A.prototype);
+B.prototype.constructor = B;
+{% endhighlight %}
+
+### 构造函数与方法链  
+NonNullSet继承自Set，Set实现了构造函数和add方法：
+{% highlight javascript %}
+function NonNullSet() {
+    // 构造函数链
+    Set.apply( this, arguments );
+}
+
+// 子类
+NonNullSet.prototype = inherit( Set.prototype );
+NonNullSet.prototype.constructor = NonNullSet;
+
+// 重载add方法，用以过滤null
+NonNullSet.prototype.add = function() {
+    for ( var i=0; i<arguments.length; i++ )
+        if( arguments[i] == null )
+            throw new Error("can't add null");
+    
+    // 方法链
+    Set.prototype.add.apply(this, arguments);
+}
+{% endhighlight %}
+
+
+### 组合 vs. 继承  
+组合：持有成员，并重写相关的方法，并且可能会使用持有成员的方法：
+{% highlight javascript %}
+function FilteredSet( set, filter ) {
+    this.set = set;
+    this.filter = filter;
+}
+
+FilteredSet.prototype = {
+    constructor : FilteredSet,
+    add : function() {
+        if( this.filter ) {
+            // filter elements
+        }
+        
+        this.set.add.apply( this.set, arguments );
+        return this;
+    }
+};
+{% endhighlight %}
+
+
+## 关于属性描述
 
 ## 模块化
