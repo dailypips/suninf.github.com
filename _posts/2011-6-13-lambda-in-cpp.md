@@ -8,11 +8,12 @@ description: 本文详细介绍下C++0x的lambda表达式的语言特性。
 
 ## lambda表达式总体特点：
 
-1. Lambda函数作为临时的函数，最常要数用于STL算法了，我们的很多STL算法可以指定一个函数参数，比如：accumulate, for_each,  find_if, count_if, search, mismatch, sort等几十个算法函数。C++0x以前我们必须用有名的函数或者函数对象（bind,not等组合）来作为参数，现在无名的Lambda函数直接简单的嵌入到代码中了，方便简洁。
-2. 除了STL算法，当我们需要简单的函数，并且只在作用域出现不多次时，我们就可以直接用auto存储Lambda函数对象，避免使用有名的函数放到外层作用域。
-3. 利用boost的function库，我们可以保存同一类型的多个Lambda的函数对象，放到标准容器中，在局部生成lambda函数也能来实现回调。
+1. **Lambda函数作为临时的函数，最常要数用于STL算法了**，我们的很多STL算法可以指定一个函数参数，比如：accumulate, for_each,  find_if, count_if, search, mismatch, sort等几十个算法函数。C++0x以前我们必须用有名的函数或者函数对象（bind,not等组合）来作为参数，现在无名的Lambda函数直接简单的嵌入到代码中了，方便简洁。
+2. 除了STL算法，当我们需要简单的函数，并且只在作用域出现不多次时，我们就可以直接**用auto存储Lambda函数对象**，避免使用有名的函数放到外层作用域。
+3. **利用boost的function库，我们可以保存同一类型的多个Lambda的函数对象**，放到标准容器中，在局部生成lambda函数也能来实现回调。
 
 ## 语法解析
+
 ### 语法：  
 `[capture-list] ( argument-list ) -> ReturnType { function-body } `
 
@@ -42,15 +43,15 @@ auto y = [&r = x, x = x+1]()->int {
 // x:6, y:7
 {% endhighlight %}
 
-* 范型lambda表达式（**Generic (Polymorphic) Lambda Expressions**）
-`auto add = [](auto a,auto b){return a + b;}`
+* 范型lambda表达式（**Generic (Polymorphic) Lambda Expressions**）  
+`auto add = [](auto a,auto b){return a + b;}`  
 auto作为参数时，成为范型的lambda函数，能直接参数推导，而不需要指定返回类型。
 
 ### lambda语句返回函数对象的操作：
 
 1. 直接传给STL算法等可以接受函数对象的地方。
 2. 直接可以调用，右边加上括号、参数 ( real-argu-list )，语法和普通函数对象一致。
-3. 由于函数对象对应的类不是从标准库的unary_function, binary_function继承，所以无法使用bind1st, not1等绑定器。但是我们有更加强大的auto或者boost的bind和function库，分别可以用来部分绑定和存储返回的函数对象。
+3. 由于函数对象对应的类不是从标准库的unary_function, binary_function继承，所以无法使用bind1st, not1等绑定器。但是**我们有更加强大的auto或者boost的bind和function库，分别可以用来部分绑定和存储返回的函数对象**。
 
 注：auto还有一个**延迟指定函数返回值**的功能，常用于模板函数的定义中，如：
 {% highlight c++ %}
@@ -153,7 +154,8 @@ template< class T >
 void Print( const T& v )
 {
 	typedef typename T::const_reference CValRef;
-	for_each( v.begin(), v.end(), [](CValRef val){ cout << val << " "; } );
+	for_each( v.begin(), v.end(), 
+	    [](CValRef val){ cout << val << " "; } );
 	cout << endl;
 }
 
@@ -162,7 +164,8 @@ int main()
 	boost::function< int(int, int) > fun = 
 	    [](int x, int y){ return x*y; };
 	cout << fun(3,4) << endl; // 12
-	cout << boost::bind<int>( [](int x, int y){ return x+y; }, 5, _1 )(6) 
+	cout << 
+	    boost::bind<int>([](int x, int y){return x+y;}, 5, _1)(6) 
 	    << endl; // 11
 
 	vector<int> vect;
@@ -173,7 +176,8 @@ int main()
 	vect.push_back( 3 );
 	vect.push_back( 1 );
 
-	boost::function< bool(int,int) > f = [](int x, int y) { return x<y; };
+	boost::function< bool(int,int) > f = 
+	    [](int x, int y) { return x<y; };
 	
 	sort( vect.begin(), vect.end(), f );
 	Print(vect); //1 2 3 3 5 7
@@ -189,7 +193,10 @@ int main()
 	Print( intTest );
 	vector< function<void(int&)> > funcVect;
 	funcVect.push_back( [](int n){ cout << n+2<< endl; } );
-	funcVect.push_back( [](int& n){ n = 1000; cout << n << endl; } );
+	funcVect.push_back( [](int& n){
+	    n = 1000; 
+	    cout << n << endl; 
+	});
 	funcVect.push_back( [](int n){ cout << "yes" << endl; } );
 
 	vector<int>::iterator pos = intTest.begin();
