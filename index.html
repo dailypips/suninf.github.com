@@ -7,26 +7,26 @@ title: suninf's homepage
     <h1>suninf's homepage</h1>
 </div>   
         
-{% for first_post in site.posts limit:2 %}
+{% for post in site.posts limit:2 %}
 
 <div class="blog_summary" style="margin: 2em 2em 5em 2em;">
     <div class="blog_title" style="font-size: 1.2em;font-weight: bold;">
-        <a href="{{ first_post.url }}" target="_blank">{{ first_post.title }}</a>
+        <a href="{{ post.url }}" target="_blank">{{ post.title }}</a>
     </div>
     <div class="info">
-        <span style="float: right;">&nbsp;|&nbsp;{{ first_post.date | date: "%Y-%m-%d" }}</span>
-        <a href="/category/{{ first_post.category }}.html" style="float: right;">{{ first_post.category }}</a>
+        <span style="float: right;">&nbsp;|&nbsp;{{ post.date | date: "%Y-%m-%d" }}</span>
+        <a href="/category/{{ post.category }}.html" style="float: right;">{{ post.category }}</a>
         <span style="float: right;">category&nbsp;:&nbsp;</span>
     </div>
     <div class="blog_content" style="margin-top: 35px">
         <div>
             <p style="text-indent:2em; color: #555;">
-                {{ first_post.description }}
+                {{ post.description }}
             </p>
         </div>
     </div>
     <div style="float: right; margin-top: 15px;">
-        <a href="{{ first_post.url }}">Continue reading &gt;&gt;</a>
+        <a href="{{ post.url }}">Continue reading &gt;&gt;</a>
     </div>
 </div>
 {% endfor %}
