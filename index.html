@@ -14,7 +14,7 @@ title: suninf's homepage
         <a href="{{ post.url }}" target="_blank">{{ post.title }}</a>
     </div>
     <div class="info">
-        <span style="float: right;">&nbsp;|&nbsp;{{ post.date | date: "%Y-%m-%d" }}</span>
+        <span style="float: right;">&nbsp;|&nbsp;{{ post.date | date_to_string }}</span>
         <a href="/category/{{ post.category }}.html" style="float: right;">{{ post.category }}</a>
         <span style="float: right;">category&nbsp;:&nbsp;</span>
     </div>
