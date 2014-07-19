@@ -16,6 +16,22 @@ title: suninf's Articles
     {% assign new_year = post.date | date:"%Y" %}
     {% if new_year != cur_year %}
         {% assign cur_year = new_year %}
-        <div><p>{{cur_year}}</p></div>
+        <!-- get a new year -->
+        <section class="archives">
+            <h1 class="year">{{cur_year}}</h1>
+            <ul id="articles">
+                {% for tmp_post in site.posts %}
+                    <!-- list of the year -->
+                    {% assign tmp_year = tmp_post.date | date:"%Y" %}
+                    {% if cur_year == tmp_year %}
+                        <li>
+                            <span>{{tmp_post.date | date: "%Y-%m-%d"}}</span>
+                            <a href="{{tmp_post.url}}" style="margin-left: 5px; line-height: 20px;">{{tmp_post.title}}</a>
+                        </li>
+                    {% endif %}
+                
+                {% endfor %}
+            </ul>
+        </section>
     {% endif %}
 {% endfor %}
