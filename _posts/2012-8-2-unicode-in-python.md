@@ -4,30 +4,6 @@ title: Python之Unicode编码
 category: python
 description: Unicode编码是通用的宽字节编码，通常情况我们都只要直接使用Unicode编码即可，这样可以保证代码的通用。
 ---
-*列表解析（List Comprehensions）是针对列表的操作语法，使得处理列表的表达能力大大提升。*
- 
-## python中列表解析的基本语法
-
-`[ expr for iter_var in iterable if cond_expr ]`
- 
-注：
-
-- expr对应列表的每一项元素的任意表达式，返回每一次表达式计算值的列表
-- iter_var是可迭代对象iterable的迭代变量
-- 可以有多个并列的for迭代语句（`for iter_var in iterable`）
-- 有可选的if 判断
- 
-
-## 一些代表性的例子：
- 
-1、一列表元素的平方
-
-{% highlight python %}
->>> [x**2 for x in range(10) if not x%2 ]
-[0, 4, 16, 36, 64]
-{% endhighlight %}
- 
-//////////////////////////////
 *Unicode编码是通用的宽字节编码，通常情况我们都只要直接使用Unicode编码即可，这样可以保证代码的通用。然而，Unicode宽字节，稍微有些浪费，对于每个单字节可以表示的ASCII编码也是有双字节，因而在网络通信中为节省带宽，常常不是直接使用unicode，而是使用utf-8，gbk等紧凑的编码方式。*
  
 ## 编码转换的通用流程是：
@@ -62,15 +38,15 @@ print str_u
 print str_u2
  
 # 输出：
-<type 'unicode'>
-中国
-中国
-中国
-中国
+# <type 'unicode'>
+# 中国
+# 中国
+# 中国
+# 中国
 {% endhighlight %}
 
 注：
-python模块（.py文件）中直接使用Unicode才能表示的字符（如中文）时，需要在文件上指定编码，否则print会打印乱码。py文件顶部指定编码，比如：
+python模块（.py文件）中直接使用Unicode才能表示的字符（如中文）时，需要在文件上指定编码，否则print会打印乱码。py文件顶部指定编码，比如：  
 `# This Python file uses the following encoding: utf-8`
  
  
@@ -82,10 +58,10 @@ print str.count(u'人')
 print str.find(u'人')
 print str.replace( u'人', u'心' )
  
-#输出：
-1
-2
-中国心
+# 输出：
+# 1
+# 2
+# 中国心
 {% endhighlight %}
 
 注意：
