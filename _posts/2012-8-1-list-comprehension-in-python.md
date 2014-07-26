@@ -1,6 +1,6 @@
 ---
 layout: article
-title: python之列表解析
+title: Python之列表解析
 category: python
 description: 列表解析（List Comprehensions）是针对列表的操作语法，使得处理列表的表达能力大大提升。
 ---
