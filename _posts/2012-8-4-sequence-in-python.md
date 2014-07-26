@@ -6,8 +6,8 @@ description: 基本数据结构是语言中的重要部分，本文介绍python�
 ---
 *基本数据结构是语言中的重要部分，本文介绍python的数据结构：**序列**和**关联容器**。*
 
-- python的序列类型有：string, Unicode string，list，tuple，bytearray，buffer，xrange等，这里介绍Unicode string，list和tuple，另外几个在内建函数中介绍。
-- python的关联容器有：set，map
+- python的**序列类型**有：string, Unicode string，list，tuple，bytearray，buffer，xrange等，这里介绍Unicode string，list和tuple，另外几个在内建函数中介绍。
+- python的**关联容器**有：set，map
   
 ## 序列数据结构
 
@@ -68,8 +68,7 @@ str内容中的字母均为小写或大写，str至少要包含一个字母
 返回转为小写或大写拷贝
  
 - `str.partition( sep )`  
-以子串sep分割str，返回sep之前，sep自身，sep之后组成的3元tuple  
-如：  
+以子串sep分割str，返回sep之前，sep自身，sep之后组成的3元tuple，如：  
 {% highlight python %}
 >>> u'suninf007:d'.partition( u':' )
 (u'suninf007', u':', u'd')
@@ -126,9 +125,12 @@ u'there are 3 python quotation symbols.'
 python引入了符号$来支持字符串模板，不需要再像%一样去记忆变量的类型来选择对应的控制符，字符串模板是string模块的Template对象。
 
 - 语法：  
-$$            表示符号$自身；  
-$identifier   要求identifier是合法的标识符，在函数substitute()调用时由命名参数来替换；  
-${identifier} 与$identifier等价，如果后面紧跟合法的python标识符时需用。  
+
+|---
+|-|:-|:-:|-:
+| `$$` | 表示符号$自身
+| `$identifier` | 要求identifier是合法的标识符，在函数substitute()调用时由命名参数来替换
+| `${identifier}` | 与`$identifier`等价，如果后面紧跟合法的python标识符时需用
  
 string模块对于Unicode字符串来说不应该使用了，不过Template对象还是支持Unicode字符串的，例如：
 {% highlight python %}
@@ -144,12 +146,12 @@ print s.substitute( who = u'张三', what = u'python' )
 {% endhighlight %}
 
 
-(3)、str.format(*args, **kwargs)方法  
+(3)、`str.format(*args, **kwargs)`方法  
 format方法引入了格式化语法，使得字符串格式化的表达能力大大提高。
  
 首先，str字符串包含了以大括号包起来的替换标签`{replacement_field}`，其中replacement_field 满足一定EBNF语法：  
 
-```
+~~~
 replacement_field ::=
     "{" [field_name] ["!" conversion] [":" format_spec] "}"
  
@@ -175,6 +177,6 @@ width       ::=  integer
 precision  ::=  integer
 type        ::=  "b" | "c" | "d" | "e" | "E" | "f" | "F" | "g" | "G"
                   | "n" | "o" | "s" | "x" | "X" | "%"
-```
+~~~
 
  
