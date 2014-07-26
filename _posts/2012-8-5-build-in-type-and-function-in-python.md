@@ -4,15 +4,6 @@ title: Python之内建类型与函数
 category: python
 description: python内建的类型：数值类型，序列，字典，文件，自定义类型，实例，异常等。
 ---
-
- 
-例如：  
-{% highlight python %}
->>> u'%s %.2f%%' % ( u'rate', 3.14159265 )
-u'rate 3.14%'
-{% endhighlight %}
-/////////////////////////////////
-
 *python内建的类型：数值类型，序列，字典，文件，自定义类型，实例，异常等。*
  
 ### 判断为False的条件  
@@ -53,9 +44,9 @@ False
 python提供了容器的迭代器的概念，要成为迭代类型，总体上需要实现2个方法以支持迭代器的概念。
  
 1. 自定义类型需要定义__iter__()方法，返回一个iterator迭代对象。（迭代对象常常可以是自身，这样只需要再定义next()即可）
-2. __iter__()返回的对象要求支持两个函数：
-    - iterator.__iter__()：返回迭代器对象自身；
-    - iterator.next()：返回集合的下一项，没有更多项时，需要抛出StopIteration异常。
+2. `__iter__()`返回的对象要求支持两个函数：
+    - `iterator.__iter__()`：返回迭代器对象自身；
+    - `iterator.next()`：返回集合的下一项，没有更多项时，需要抛出StopIteration异常。
  
 例如：
 {% highlight python %}
@@ -119,7 +110,6 @@ for i in v:
  
 - bytearray([source[, encoding[, errors]]])  
 生成字节数组，字节数组是可变的整数序列，可以使用列表的大部分操作，整数大小范围是0 <= x < 256。  
- 
 source：  
 如果是Unicode字符串，需要encoding指定编码；  
 如果是可迭代对象，则对应的元素需要是[0,256)内的整数  
@@ -140,6 +130,7 @@ c是单字符，支持8字节或Unicode，返回字符对应的整数值
  
 - classmethod(function)  
 为函数返回一个类方法，装饰器惯用法：  
+
 ~~~
 class C:
     @classmethod
@@ -148,6 +139,7 @@ class C:
 
 - staticmethod(function)  
 为函数返回一个静态方法，装饰器惯用法：  
+
 ~~~
 class C:
     @staticmethod
