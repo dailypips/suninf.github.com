@@ -8,7 +8,7 @@ title: suninf's homepage
 </div>
 
 {% assign description_posts_limit = 5 %}
-{% assign recent_posts_limit = description_posts_limit + 10 %}
+{% assign recent_posts_limit = description_posts_limit | plus: 10 %}
         
 {% for post in site.posts limit:description_posts_limit %}
 
