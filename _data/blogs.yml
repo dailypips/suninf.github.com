@@ -93,3 +93,9 @@
   
 - name: fengmk2
   url: http://fengmk2.cnpmjs.org/
+  
+- name: labazhou
+  url: http://www.labazhou.net/archives/
+  
+- name: mobilespan
+  url: https://www.mobilespan.com/
