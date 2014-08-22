@@ -2,7 +2,7 @@
 // $(document).ready()
 $(function(){
     // animate bar function
-    function animateBar($item,noAni){
+    var animateBar = function($item,noAni){
         var spanLeft = $item.find('span').offset().left;
         var conLeft = $item.parent().offset().left;
         var left = spanLeft - conLeft - 4;
@@ -28,20 +28,20 @@ $(function(){
 		};
 	})();
 
-	$('.artical-cate li').mouseenter(function(){
-		animateBar($(this));
-	}).mouseleave(function(){
-				animateBar($('.artical-cate .on'));
-			});
-
-	$(window).resize(function(e){
-		waitForFinalEvent(function(){
+	$('.artical-cate li')
+        .mouseenter(function(){
+		    animateBar($(this));
+	    })
+        .mouseleave(function(){
 			animateBar($('.artical-cate .on'));
-		})
-	})
+		});
+
+	$(window).resize(function(e) {
+		waitForFinalEvent( function(){ animateBar($('.artical-cate .on')); } );
+	});
 
     // bar status depends on location.pathname
-    (function naviBarInit() {
+    var naviBarInit = function (){
         // remove class 'on'
         $(".artical-cate li").removeClass( "on" );
 
@@ -61,6 +61,7 @@ $(function(){
 
         $('.cate-bar').css( {visibility:"visible"} );
         animateBar($('.artical-cate .on'),true);
-    })();
+    };
 
+    naviBarInit();
 });
