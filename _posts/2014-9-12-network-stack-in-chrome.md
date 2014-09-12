@@ -4,7 +4,7 @@ title: Network Stack in chrome
 category: chrome
 description: The network stack is a mostly single-threaded cross-platform library primarily for resource fetching. Its main interfaces are URLRequest and URLRequestContext. 
 ---
-*The network stack is a mostly single-threaded cross-platform library primarily for resource fetching. Its main interfaces are `URLRequest` and `URLRequestContext`. *
+*The network stack is a mostly single-threaded cross-platform library primarily for resource fetching. Its main interfaces are `URLRequest` and `URLRequestContext`.*
 
 - URLRequest, as indicated by its name, represents the request for a URL.  
 - URLRequestContext contains all the associated context necessary to fulfill the URL request, such as cookies, host resolver, proxy resolver, cache, etc.  
@@ -30,7 +30,7 @@ description: The network stack is a mostly single-threaded cross-platform librar
 
 ## HTTP Network Diagram
 
-![](http://www.suninf.net/images/http_diagram.png)
+![](http://www.suninf.net/images/http_diagram.png){: style="width:100%;"}
 
 
 ## URLRequest
