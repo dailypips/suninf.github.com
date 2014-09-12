@@ -15,22 +15,22 @@ description: The network stack is a mostly single-threaded cross-platform librar
 
 ## Net Code Layout
 
-- net/base - Grab bag of net utilities, such as host resolution, cookies, network change detection, SSL.
-- net/disk_cache - Cache for web resources.
-- net/ftp - FTP implementation.  Code is primarily based on the old HTTP implementation.
-- net/http - HTTP implementation.
-- net/ocsp - OCSP implementation when not using the system libraries or if the system does not provide an OCSP implementation.  Currently only contains an NSS based implementation.
-- net/proxy - Proxy (SOCKS and HTTP) configuration, resolution, script fetching, etc.
-- net/socket - Cross-platform implementations of TCP sockets, "SSL sockets", and socket pools.
-- net/socket_stream - socket streams for WebSockets
-- net/spdy - SPDY implementation.
-- net/url_request - URLRequest, URLRequestContext, and URLRequestJob implementations.
-- net/websockets - WebSockets implementation.
+- **base** - Grab bag of net utilities, such as host resolution, cookies, network change detection, SSL.
+- **disk_cache** - Cache for web resources.
+- **ftp** - FTP implementation.  Code is primarily based on the old HTTP implementation.
+- **http** - HTTP implementation.
+- **ocsp** - OCSP implementation when not using the system libraries or if the system does not provide an OCSP implementation.  Currently only contains an NSS based implementation.
+- **proxy** - Proxy (SOCKS and HTTP) configuration, resolution, script fetching, etc.
+- **socket** - Cross-platform implementations of TCP sockets, "SSL sockets", and socket pools.
+- **socket_stream** - socket streams for WebSockets
+- **spdy** - SPDY implementation.
+- **url_request** - URLRequest, URLRequestContext, and URLRequestJob implementations.
+- **websockets** - WebSockets implementation.
 
 
 ## HTTP Network Diagram
 
-![](http://www.suninf.net/images/http_diagram.png){: style="width:100%;"}
+![](http://www.suninf.net/images/articles/http_diagram.png){: style="width:100%;"}
 
 
 ## URLRequest
@@ -61,13 +61,15 @@ class URLRequest::Delegate {
 };
 {% endhighlight %}
 
-- When a URLRequest is started, the first thing it does is decide what type of URLRequestJob to create.  
+- When a URLRequest is started, the first thing it does is **decide what type of URLRequestJob to create**.  
 - The main job type is the `URLRequestHttpJob` which is used to fulfill `http://` requests.  
 - There are a variety of other jobs, such as `URLRequestFileJob (file://)`, `URLRequestFtpJob (ftp://)`, `URLRequestDataJob (data://)`, and so on.  
 - If you customize chromium for your embed app, then you can customize protocols ( such as `myscheme://xxx` ) or customize jobs.
 
 
 ## URLRequestHttpJob
+
+URLRequestHttpJob is used for dealing with http request, resource may be cached or to download from remote web service.
 
 1. URLRequestHttpJob will first identify the **cookies** to set for the HTTP request, which requires querying the CookieMonster in the request context.  This can be asynchronous since the CookieMonster may be backed by an sqlite database.  
 2. After doing so, it will ask the request context's HttpTransactionFactory to create a HttpTransaction. Typically, the **HttpCache** will be specified as the HttpTransactionFactory. The HttpCache will create a HttpCache::Transaction to handle the HTTP request.  
