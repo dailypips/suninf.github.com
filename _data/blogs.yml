@@ -1,6 +1,9 @@
 - name: sina-blog
   url: http://blog.sina.com.cn/suninf
 
+- name: fangweng
+  url: http://blog.csdn.net/cenwenchu79
+  
 - name: lifesinger
   url: https://github.com/lifesinger
   
@@ -9,9 +12,6 @@
   
 - name: mind hacks
   url: http://mindhacks.cn/
-
-- name: fangweng
-  url: http://blog.csdn.net/cenwenchu79
 
 - name: mogoweb
   url: http://mogoweb.github.io/
