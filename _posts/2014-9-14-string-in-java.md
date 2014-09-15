@@ -45,12 +45,11 @@ String与utf-8的编码转换：
 {% highlight java %}
 String org = "中国happy";
 try {
-	// unicode to utf-8
-	byte[] bytes = org.getBytes( "utf-8" );
-	
-	// utf-8 to unicode
-	String newString = new String(bytes, "utf-8");
-
+    // unicode to utf-8
+    byte[] bytes = org.getBytes( "utf-8" );
+    
+    // utf-8 to unicode
+    String newString = new String(bytes, "utf-8");
 } 
 catch (UnsupportedEncodingException e) {
 }
