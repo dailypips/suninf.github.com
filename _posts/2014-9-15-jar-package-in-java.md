@@ -11,10 +11,10 @@ description: 本文介绍Eclipse中Java包的建立与使用
 ### 包的创建
 
 - Eclipse中选择工程，然后菜单 [文件] - [新建] - [包]，即可创建包，比如suninf.archive  
-![](http://www.suninf.net/images/articles/new_jar.png){: style="width:80%;"}
+![](http://www.suninf.net/images/articles/new_jar.png){: style="width:90%;"}
 
 - 然后可以增加类，创建类时还可以指定包名，Eclipse会自动把类放置到指定包路径下  
-![](http://www.suninf.net/images/articles/new_class_in_jar.png){: style="width:80%;"}
+![](http://www.suninf.net/images/articles/new_class_in_jar.png){: style="width:90%;"}
 
 ### 包的使用
 
@@ -23,7 +23,7 @@ Eclipse中，一个工程要使用其他工程的包，可以配置下项目依�
 - 工程右键菜单 [属性] – [java构建路径] – [项目]，然后添加项目依赖。
 - 这样当前工程就可以使用所依赖的工程的包层次和类了。
 
-![](http://www.suninf.net/images/articles/project_jar_config.png){: style="width:80%;"}
+![](http://www.suninf.net/images/articles/project_jar_config.png){: style="width:90%;"}
 
 ## jar包的使用
 
