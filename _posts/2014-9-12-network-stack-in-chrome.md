@@ -136,5 +136,5 @@ inline bool FetchUrl(const std::string& url,
 {% endhighlight %}
 
 ## reference
-[http://www.chromium.org/developers/design-documents/network-stack](http://www.chromium.org/developers/design-documents/network-stack)
+[http://www.chromium.org/developers/design-documents/network-stack](http://www.chromium.org/developers/design-documents/network-stack){: target="_blank"}
 
