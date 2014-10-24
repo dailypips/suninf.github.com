@@ -262,6 +262,27 @@ color: #000;
 .articlecontent .blog_summary .blog_content {
 
 }
+
+.blog_summary {
+    margin: 2em 2em 5em 2em;
+}
+
+.blog_title {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.recent_posts {
+    margin: 2em 2em 2em 2em; 
+    border-top: 2px solid #d3d3d3;
+}
+
+.recent_comments {
+    margin: 2em 2em 2em 2em; 
+    border-top: 2px solid #d3d3d3;
+}
+
+
 /* box shadow on pics */
 .articlecontent img {
 /* curved border radius */

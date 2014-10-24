@@ -12,8 +12,8 @@ title: suninf's homepage
         
 {% for post in site.posts limit:description_posts_limit %}
 
-<div class="blog_summary" style="margin: 2em 2em 5em 2em;">
-    <div class="blog_title" style="font-size: 1.2em;font-weight: bold;">
+<div class="blog_summary">
+    <div class="blog_title">
         <a href="{{ post.url }}" target="_blank">{{ post.title }}</a>
     </div>
     <div class="info">
@@ -35,7 +35,7 @@ title: suninf's homepage
 {% endfor %}
 
 
-<div class="recent_posts" style="margin: 2em 2em 2em 2em; border-top: 2px solid #d3d3d3;">
+<div class="recent_posts">
     <h3>Recent articles:</h3>
     <ul>
         {% for post in site.posts limit:recent_posts_limit %}
@@ -53,7 +53,7 @@ title: suninf's homepage
     {% endif %}
 </div>
 
-<div style="margin: 2em 2em 2em 2em; border-top: 2px solid #d3d3d3;">
+<div class="recent_comments">
     <h3>Recent comments:</h3>
     <div id="recentcomments" class="dsq-widget"><script type="text/javascript" src="http://suninf.disqus.com/recent_comments_widget.js?num_items=20&amp;hide_avatars=0&amp;avatar_size=40&amp;excerpt_length=200"></script></div>
 </div>
