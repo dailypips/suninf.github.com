@@ -2,6 +2,8 @@
 layout: default
 title: suninf's Articles
 ---
+<div id="total_articles_size" style="text-align: left">Total {{ site.posts | size }} articles</div>
+        
 <!-- get a new year and list the articles in that year -->        
 {% assign cur_year = "" %}
 {% for post in site.posts %}
