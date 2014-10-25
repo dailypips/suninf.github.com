@@ -1,7 +1,7 @@
 ---
 layout: article
 title: ref in boost
-category: boost
+category: c++
 description: boost::ref是为了实现模板推断过程中的引用实现，以减少拷贝带来的副作用。
 ---
 *boost::ref是为了实现模板推断过程中的实现通用的引用方式传递，以减少拷贝带来的副作用。*

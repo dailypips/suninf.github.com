@@ -1,7 +1,7 @@
 ---
 layout: article
 title: result_of in boost
-category: boost
+category: c++
 description: boost::result_of模板用于识别函数(对象)返回类型，帮助确定一个调用表达式的类型。
 ---
 ***boost::result_of**模板用于识别函数(对象)返回类型，帮助**确定一个调用表达式的类型**。*
