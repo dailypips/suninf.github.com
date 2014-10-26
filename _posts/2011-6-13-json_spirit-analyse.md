@@ -6,12 +6,12 @@ description: Json是平时常用的数据结构，对于C++ Native代码来说�
 ---
 *Json是平时常用的数据结构，对于C++ Native代码来说，选择一个优秀的json解析器对于应用来说十分重要。json_spirit是codeproject上比较热门的json解析器，具有优异的使用接口，以及不错的效率（用了boost::spirit::classic解析框架）。*
 
-## 先简单介绍JSON语法（JavaScript Object Notation），JSON构建于两种结构：
+## 先简单介绍JSON语法（JavaScript Object Notation）
 
 1. “名称/值”对的集合（A collection of name/value pairs），它被理解为对象（object）或字典（dictionary）
 2. 值的有序列表（An ordered list of values），它被理解为数组（array）
 
-以下的语法是json spirit的语法的基础，目前的json spirit是基于boost.spirit库的经典库classic来实现的，语法和语义不能合二为一
+### 对象
 
 **对象**是一个无序的“‘名称/值’ 对”集合:  
 
@@ -21,11 +21,13 @@ description: Json是平时常用的数据结构，对于C++ Native代码来说�
 
 ![](http://www.suninf.net/images/articles/json_object.png){: style="width:90%;"}
 
+### 数组
 
 **数组**是值（value）的有序集合。一个数组以“[”（左中括号）开始，“]”（右中括号）结束；值之间使用“,”（逗号）分隔。
 
 ![](http://www.suninf.net/images/articles/json_array.png){: style="width:90%;"}
 
+### 值
 
 **值**（value）可以是双引号括起来的字符串（string）、数值(number)、true、false、 null、对象（object）或者数组（array）。因此可以递归嵌套。
 
@@ -114,14 +116,21 @@ template< class String > // String配置支持wstring 或者 string
 struct Config_map
 {
     typedef String String_type;
-    typedef Value_impl< Config_map > Value_type; // 配置真正的value类型，基于Value_impl实现
-    typedef std::vector< Value_type > Array_type;//数组是vector< Value_type >
-    typedef std::map< String_type, Value_type > Object_type;// 对象的类型 map
+    
+    // 配置真正的value类型，基于Value_impl实现
+    typedef Value_impl< Config_map > Value_type; 
+    
+    //数组是vector< Value_type >
+    typedef std::vector< Value_type > Array_type;
+    
+    // 对象的类型 map
+    typedef std::map< String_type, Value_type > Object_type;
     typedef typename Object_type::value_type Pair_type;
 
     // 以下的三个静态函数只是用于语义动作时绑定使用的。对我们没有使用价值
     // 如果基于Qi实现，直接使用phoenix来做语义动作，而无需到处分散的函数。
-    static Value_type& add( Object_type& obj, const String_type& name, const Value_type& value )
+    static Value_type& add( Object_type& obj, 
+        const String_type& name, const Value_type& value )
     {
         return obj[ name ] = value;
     }
@@ -144,10 +153,10 @@ struct Config_map
 (1)、Semantic_actions类来专门封装一个语义动作类。以下是它的成员:  
 
 {% highlight c++ %}
-    Value_type& value_;             // 对象或数组
-    Value_type* current_p_;         // 当前被创建的对象或数组
-    vector< Value_type* > stack_;   // 维持的一个船舰对象或数组的栈
-    String_type name_;              // of current name/value pair
+Value_type& value_;             // 对象或数组
+Value_type* current_p_;         // 当前被创建的对象或数组
+vector< Value_type* > stack_;   // 维持的一个船舰对象或数组的栈
+String_type name_;              // of current name/value pair
 {% endhighlight %}
 
 (2)、核心的语法定义  
@@ -226,10 +235,10 @@ public:
 例如：基于map和wstring的类型：  
 
 {% highlight c++ %}
-    typedef Config_map< std::wstring > wmConfig;
-    typedef wmConfig::Value_type  wmValue;
-    typedef wmConfig::Object_type wmObject;
-    typedef wmConfig::Array_type  wmArray;
+typedef Config_map< std::wstring > wmConfig;
+typedef wmConfig::Value_type  wmValue;
+typedef wmConfig::Object_type wmObject;
+typedef wmConfig::Array_type  wmArray;
 {% endhighlight %}
     
 即 wmValue, wmObject 和 wmArray可以直接拿来使用的。
@@ -237,22 +246,27 @@ public:
 再把定义拿过来看清楚：  
 
 {% highlight c++ %}
-    typedef Value_impl< Config_map > Value_type; // 配置真正的value类型，基于Value_impl实现
-    typedef std::vector< Value_type > Array_type;//数组是vector< Value_type >
-    typedef std::map< String_type, Value_type > Object_type;// 对象的类型 map
+// 配置真正的value类型，基于Value_impl实现
+typedef Value_impl< Config_map > Value_type; 
+
+//数组是vector< Value_type >
+typedef std::vector< Value_type > Array_type;
+
+// 对象的类型 map
+typedef std::map< String_type, Value_type > Object_type;
 {% endhighlight %}
 
-- wmValue是 `Value_impl<  Config_map< std::wstring > >`，从wmValue对象可以get得到真正包含在variant中的对象。它本身是variant对象。
-- wmObject是 `map< wstring, wmValue >` 与传统的map不一样，由于值是variant型，可以为指定的任意类型
-- wmArray是 `vector< wmValue >` ，也与普通vector的“单类型”不一样。
+- **wmValue**是 `Value_impl<  Config_map< std::wstring > >`，从wmValue对象可以get得到真正包含在variant中的对象。它本身是variant对象。
+- **wmObject**是 `map< wstring, wmValue >` 与传统的map不一样，由于值是variant型，可以为指定的任意类型
+- **wmArray**是 `vector< wmValue >` ，也与普通vector的“单类型”不一样。
 
 另一方面注意的就是，比如 `m[“name”]`,`vect[index]`得到的是 wmValue类型，要得到真正类型，还需要调用get。而wmValue类型即`Value_impl<Config>`支持大量的构造函数，赋值函数，以及取值函数。（其实是variant的转发），使用非常方便。当然，我们知道想要得到的东西是对象还是数组，解析得到的类型也清楚，因为这是我们解析json码的初衷，如果类型不匹配抛出异常（实际由variant的get函数抛出）。
 
 最终解析json，是很多**全局的API**(请查阅文档)，比如：
 
 {% highlight c++ %}
-    bool read( const std::wstring& s, wmValue& value );// 从字符串取得json数据
-    bool read( std::wistream&  is,    wmValue& value );//从（文件）流去的数据
+bool read( const std::wstring& s, wmValue& value );// 从字符串取得json数据
+bool read( std::wistream&  is, wmValue& value );//从（文件）流去的数据
 {% endhighlight %}    
     
 得到一个value，通过get_value得到对应的值（当然还可能是map, vector）。对于嵌套的map的值类型以及vector的值都是wmValue，可以get_value逐渐的继续深入解析。使用很清晰，意义很简单。
@@ -263,10 +277,10 @@ public:
 这里仅说明一下：
 
 {% highlight c++ %}
-    void         write          ( const wmValue& value, std::wostream& os );
-    void         write_formatted( const wmValue& value, std::wostream& os );
-    std::wstring write          ( const wmValue& value );
-    std::wstring write_formatted( const wmValue& value );
+void write( const wmValue& value, std::wostream& os );
+void write_formatted( const wmValue& value, std::wostream& os );
+std::wstring write( const wmValue& value );
+std::wstring write_formatted( const wmValue& value );
 {% endhighlight %} 
     
 通过提供wmValue 类型的value，一般为wmObject或者wmArray就可以得到一个value对应的json字符串。
