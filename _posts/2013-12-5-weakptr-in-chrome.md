@@ -126,54 +126,46 @@ class WeakPtrFactory {
 - Use a base::Thread to PostTask with Weakptrs
 
 {% highlight c++ %}
-class WeakPtrTest 
-{
+#include "base/memory/weak_ptr.h"
+#include "base/threading/thread.h"
+#include "base/bind.h"
+
+class WeakPtrTest {
 public:
-	WeakPtrTest() 
-		: weak_ptr_factory_(this) 
-		, thread_("test")
-	{
-		base::Thread::Options options;
-		options.message_loop_type = base::MessageLoop::TYPE_DEFAULT;
-		thread_.StartWithOptions( options );
-	}
+  WeakPtrTest() 
+    : weak_ptr_factory_(this) 
+    , thread_("test") {
+      base::Thread::Options options;
+      options.message_loop_type = base::MessageLoop::TYPE_DEFAULT;
+      thread_.StartWithOptions( options );
+  }
 
-	~WeakPtrTest()
-	{
-		weak_ptr_factory_.InvalidateWeakPtrs();
-	}
+  ~WeakPtrTest() {
+    weak_ptr_factory_.InvalidateWeakPtrs();
+  }
 
-	base::WeakPtr<WeakPtrTest> GetWeakPtr() 
-	{
-		return weak_ptr_factory_.GetWeakPtr();
-	}
-
-	void func() 
-	{
-		thread_.message_loop()->PostTask(FROM_HERE, 
-			base::Bind(&WeakPtrTest::callback, weak_ptr_factory_.GetWeakPtr()) );
-	}
+  void func() {
+    thread_.message_loop()->PostTask(FROM_HERE, 
+      base::Bind(&WeakPtrTest::callback, weak_ptr_factory_.GetWeakPtr()) );
+  }
 
 private:
-	void callback() 
-	{
-	    // May not be called if this class has been invalid 
-		// do something
-		int n=0;
-		++n;
-	}
+  void callback() {
+    // May not be called if this class has been invalid 
+    // do something
+  }
 
 private:
-	base::Thread thread_;
-	base::WeakPtrFactory<WeakPtrTest> weak_ptr_factory_;
+  base::Thread thread_;
+  base::WeakPtrFactory<WeakPtrTest> weak_ptr_factory_;
 };
 
 WeakPtrTest * g_test = NULL;
 
-void BaseTestFunc()
-{
-	g_test = new WeakPtrTest;
- 	g_test->func();
+void BaseTestFunc() {
+  g_test = new WeakPtrTest;
+  g_test->func();
 }
+
 {% endhighlight %}
 
