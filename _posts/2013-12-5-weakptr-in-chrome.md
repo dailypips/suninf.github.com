@@ -122,7 +122,7 @@ class WeakPtrFactory {
 
 ## SupportsWeakPtr
 
-- A class T may extend from **SupportsWeakPtr<T>** to let others take weak pointers to it. **This avoids the class itself implementing boilerplate to dispense weak pointers.** 
+- A class T may extend from `SupportsWeakPtr<T>` to let others take weak pointers to it. **This avoids the class itself implementing boilerplate to dispense weak pointers.** 
 - However, since SupportsWeakPtr's destructor **won't invalidate weak pointers to the class until after the derived class' members have been destroyed**, its use can lead to subtle use-after-destroy issues.
 
 {% highlight c++ %}
@@ -167,7 +167,7 @@ base::WeakPtr<Derived> ptr = base::AsWeakPtr(&derived);
 {% endhighlight %}
 
 
-## Usage Samples
+## Samples:
 
 ### Use base::WeakPtrFactory as member
 

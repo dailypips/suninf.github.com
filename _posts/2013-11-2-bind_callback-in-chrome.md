@@ -6,11 +6,11 @@ description: Class base::Bind and base::Callback in chrome are just like bind/fu
 ---
 *Class **base::Bind** and **base::Callback** in chrome are just like bind/function in boost, which are used to bind and store functions.*
 
-- The template Callback class is a generalized function object. Together with the Bind() function in bind.h, they provide a type-safe method for performing `partial application of functions`.
+- The template Callback class is a generalized function object. Together with the Bind() function in bind.h, they provide a type-safe method for performing **partial application of functions**.
 - The Callback objects themselves should be passed by const-reference, and stored by copy. They internally store their state via a refcounted class and thus do not need to be deleted. The reason to pass via a const-reference is to avoid unnecessary AddRef/Release pairs to the internal state.
 
 
-## Binding a **bare function**
+## Binding a `bare function`
 
 {% highlight c++ %}
 int Return5() { return 5; }
@@ -19,7 +19,7 @@ func_cb.Run();
 {% endhighlight %}
 
 
-## Binding a **member function**
+## Binding a `member function`
 
 The first argument to bind is the member function to call, the second is the object on which to call it.
 
@@ -38,7 +38,7 @@ public:
 ## Passing parameters and run
 
 - Callbacks can be run with their "Run" method, which has the same signature as the template argument to the callback. Unbound parameters are specified at the time a callback is Run(). They are specified in the Callback template type.
-- Callbacks can be run `more than once` (they don't get deleted or marked when run). However, this precludes using base::Passed.
+- Callbacks can be run **more than once** (they don't get deleted or marked when run). However, this precludes using base::Passed.
 - Bound parameters are specified when you create the callback as arguments to Bind(). They will be passed to the function and the Run() of the callback doesn't see those values or even know that the function it's calling.
 - A callback with no unbound input parameters (base::Callback&lt;void(void)>) is called a `base::Closure`.
 
@@ -80,7 +80,7 @@ base::Callback<void<int>) cb =
 
 - **base::Passed** : passing ownership of scope_ptr to the callback
 
-Ownership of the parameter will be with the callback until the it is run, when ownership is `passed to the callback function`. This means the callback can only be run once. If the callback is never run, it will delete the object when it's destroyed.
+Ownership of the parameter will be with the callback until the it is run, when ownership is **passed to the callback function**. This means the callback can only be run once. If the callback is never run, it will delete the object when it's destroyed.
 {% highlight c++ %}
 void TakesOwnership(scoped_ptr<Foo> arg) {}
 scoped_ptr<Foo> f(new Foo);
