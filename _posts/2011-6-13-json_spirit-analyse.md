@@ -1,6 +1,6 @@
 ---
 layout: article
-title: json spirit深入解析
+title: json_spirit深入解析
 category: architecture
 description: Json是平时常用的数据结构，对于C++ Native代码来说，选择一个优秀的json解析器对于应用来说十分重要。json_spirit是codeproject上比较热门的json解析器，具有优异的使用接口，以及不错的效率（用了boost::spirit::classic解析框架）
 ---
@@ -36,7 +36,7 @@ description: Json是平时常用的数据结构，对于C++ Native代码来说�
 
 ## json spirit部分源码分析
 
-[json_spirit源码参考](http://www.codeproject.com/Articles/20027/JSON-Spirit-A-C-JSON-Parser-Generator-Implemented)
+[json_spirit源码参考](http://www.codeproject.com/Articles/20027/JSON-Spirit-A-C-JSON-Parser-Generator-Implemented){: target="_blank"}
 
 ### value的结构
 
