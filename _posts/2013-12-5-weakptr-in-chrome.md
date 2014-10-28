@@ -120,7 +120,56 @@ class WeakPtrFactory {
 {% endhighlight %}
 
 
-## Normal Usage Example
+## SupportsWeakPtr
+
+- A class T may extend from **SupportsWeakPtr<T>** to let others take weak pointers to it. **This avoids the class itself implementing boilerplate to dispense weak pointers.** 
+- However, since SupportsWeakPtr's destructor **won't invalidate weak pointers to the class until after the derived class' members have been destroyed**, its use can lead to subtle use-after-destroy issues.
+
+{% highlight c++ %}
+template <class T>
+class SupportsWeakPtr : public internal::SupportsWeakPtrBase {
+ public:
+  SupportsWeakPtr() {}
+
+  WeakPtr<T> AsWeakPtr() {
+    return WeakPtr<T>(weak_reference_owner_.GetRef(), static_cast<T*>(this));
+  }
+
+ protected:
+  ~SupportsWeakPtr() {}
+
+ private:
+  internal::WeakReferenceOwner weak_reference_owner_;
+  DISALLOW_COPY_AND_ASSIGN(SupportsWeakPtr);
+};
+{% endhighlight %}
+
+
+## base::AsWeakPtr
+
+{% highlight c++ %}
+template <typename Derived>
+WeakPtr<Derived> AsWeakPtr(Derived* t) {
+  return internal::SupportsWeakPtrBase::StaticAsWeakPtr<Derived>(t);
+}
+{% endhighlight %}
+
+base::AsWeakPtr uses type deduction to safely return a `WeakPtr<Derived>` when Derived doesn't directly extend `SupportsWeakPtr<Derived>`, instead it extends a Base that extends `SupportsWeakPtr<Base>`
+
+### Example
+
+{% highlight c++ %}
+class Base : public base::SupportsWeakPtr<Producer> {};
+class Derived : public Base {};
+
+Derived derived;
+base::WeakPtr<Derived> ptr = base::AsWeakPtr(&derived);
+{% endhighlight %}
+
+
+## Usage Samples
+
+### Use base::WeakPtrFactory as member
 
 - Use a base::WeakPtrFactory class member to create WeakPtrs
 - Use a base::Thread to PostTask with Weakptrs
@@ -166,6 +215,32 @@ void BaseTestFunc() {
   g_test = new WeakPtrTest;
   g_test->func();
 }
-
 {% endhighlight %}
 
+### Inherit from  `SupportsWeakPtr<T>`
+
+{% highlight c++ %}
+class WeakPtrTest : base::SupportsWeakPtr<WeakPtrTest> {
+public:
+  WeakPtrTest() 
+    : thread_("test") {
+      base::Thread::Options options;
+      options.message_loop_type = base::MessageLoop::TYPE_DEFAULT;
+      thread_.StartWithOptions( options );
+  }
+
+  void func() {
+    thread_.message_loop()->PostTask(FROM_HERE, 
+      base::Bind(&WeakPtrTest::callback, AsWeakPtr()) );
+  }
+
+private:
+  void callback() {
+    // May not be called if this class has been invalid 
+    // do something
+  }
+
+private:
+  base::Thread thread_;
+};
+{% endhighlight %}
