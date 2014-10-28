@@ -8,8 +8,9 @@ description: Threads are very useful in application to deal with multi-thread pr
 
 
 ## Thread
-* A simple thread abstraction that establishes a MessageLoop on a new thread. The consumer uses the MessageLoop of the thread to cause code to execute on the thread.
-* When this object is destroyed, the thread is terminated. All pending tasks queued on the thread's message loop will run to completion before the thread is terminated.
+
+－ A simple thread abstraction that establishes a MessageLoop on a new thread. The consumer uses the MessageLoop of the thread to cause code to execute on the thread.
+－ When this object is destroyed, the thread is terminated. All pending tasks queued on the thread's message loop will run to completion before the thread is terminated.
 
 *WARNING! SUBCLASSES MUST CALL Stop() IN THEIR DESTRUCTORS!  See ~Thread().*
 
@@ -20,6 +21,7 @@ After the thread is stopped, the destruction sequence is:
 3. MessageLoop::DestructionObserver::WillDestroyCurrentMessageLoop
 
 ### Thread class
+
 {% highlight c++ %}
 class BASE_EXPORT Thread : PlatformThread::Delegate {
  public:
@@ -94,6 +96,7 @@ class BASE_EXPORT Thread : PlatformThread::Delegate {
 {% endhighlight %}
 
 ### Example:
+
 {% highlight c++ %}
 // Init thread
 base::Thread* g_cache_thread = NULL;
@@ -108,14 +111,16 @@ g_cache_thread->message_loop_proxy()->PostTask( FROM_HERE,
 
 
 ## MessageLoop
-* A MessageLoop is used to process events for a particular thread. There is at most one MessageLoop instance per thread.
-* Events include at a minimum Task instances submitted to PostTask and its variants. Depending on the type of message pump used by the MessageLoop, other events such as UI messages may be processed.
-* On Windows APC calls (as time permits) and signals sent to a registered set of HANDLEs may also be processed.
 
-NOTE:
+－ A MessageLoop is used to process events for a particular thread. There is at most one MessageLoop instance per thread.
+－ Events include at a minimum Task instances submitted to PostTask and its variants. Depending on the type of message pump used by the MessageLoop, other events such as UI messages may be processed.
+－ On Windows APC calls (as time permits) and signals sent to a registered set of HANDLEs may also be processed.
+
+NOTE:  
 MessageLoop has task reentrancy protection. This means that if a task is being processed, a second task cannot start until the first task is finished. Reentrancy can happen when processing a task, and an inner message pump is created. That inner pump then processes native messages which could implicitly start an inner task.  Inner message pumps are created with dialogs (DialogBox), common dialogs (GetOpenFileName), OLE functions (DoDragDrop), printer functions (StartDoc) and *many* others.
 
-Sample workaround when inner task processing is needed:
+Sample workaround when inner task processing is needed:  
+
 {% highlight c++ %}
 HRESULT hr;
 {
@@ -129,7 +134,8 @@ Please be SURE your task is reentrant (nestable) and all global variables are st
 
 
 ### MessageLoop class
- A **MessageLoop** has a particular type, which indicates the set of asynchronous events it may process in addition to tasks and timers.
+
+A **MessageLoop** has a particular type, which indicates the set of asynchronous events it may process in addition to tasks and timers.
 
 * **TYPE_DEFAULT**
 
@@ -157,42 +163,42 @@ enum Type
 
 `The "PostTask" family of methods` call the task's Run method asynchronously from within a message loop at some point in the future.
 
-* With the PostTask variant, tasks are invoked in FIFO order, inter-mixed with normal UI or IO event processing.  With the PostDelayedTask variant, tasks are called after at least approximately 'delay_ms' have elapsed.
-* The NonNestable variants work similarly except that they promise never to dispatch the task from a nested invocation of MessageLoop::Run. Instead, such tasks get deferred until the top-most MessageLoop::Run is executing.
-* The MessageLoop takes ownership of the Task, and deletes it after it has been Run(). PostTask(from_here, task) is equivalent to PostDelayedTask(from_here, task, 0).
-* The TryPostTask is meant for the cases where the calling thread cannot block. If posting the task will block, the call returns false, the task is not posted but the task is consumed anyways.
-* These methods may be called on any thread.  The Task will be invoked on the thread that executes MessageLoop::Run().
+－ With the PostTask variant, tasks are invoked in FIFO order, inter-mixed with normal UI or IO event processing.  With the PostDelayedTask variant, tasks are called after at least approximately 'delay_ms' have elapsed.
+－ The NonNestable variants work similarly except that they promise never to dispatch the task from a nested invocation of MessageLoop::Run. Instead, such tasks get deferred until the top-most MessageLoop::Run is executing.
+－ The MessageLoop takes ownership of the Task, and deletes it after it has been Run(). PostTask(from_here, task) is equivalent to PostDelayedTask(from_here, task, 0).
+－ The TryPostTask is meant for the cases where the calling thread cannot block. If posting the task will block, the call returns false, the task is not posted but the task is consumed anyways.
+－ These methods may be called on any thread.  The Task will be invoked on the thread that executes MessageLoop::Run().
 
 {% highlight c++ %}
-  void PostTask(
-      const tracked_objects::Location& from_here,
-      const base::Closure& task);
+void PostTask(
+  const tracked_objects::Location& from_here,
+  const base::Closure& task);
 
-  bool TryPostTask(
-      const tracked_objects::Location& from_here,
-      const base::Closure& task);
+bool TryPostTask(
+  const tracked_objects::Location& from_here,
+  const base::Closure& task);
 
-  void PostDelayedTask(
-      const tracked_objects::Location& from_here,
-      const base::Closure& task,
-      base::TimeDelta delay);
+void PostDelayedTask(
+  const tracked_objects::Location& from_here,
+  const base::Closure& task,
+  base::TimeDelta delay);
 
-  void PostNonNestableTask(
-      const tracked_objects::Location& from_here,
-      const base::Closure& task);
+void PostNonNestableTask(
+  const tracked_objects::Location& from_here,
+  const base::Closure& task);
 
-  void PostNonNestableDelayedTask(
-      const tracked_objects::Location& from_here,
-      const base::Closure& task,
-      base::TimeDelta delay);
+void PostNonNestableDelayedTask(
+  const tracked_objects::Location& from_here,
+  const base::Closure& task,
+  base::TimeDelta delay);
 {% endhighlight %}
 
 
 ### MessageLoopForUI class
 MessageLoopForUI extends MessageLoop with methods that are particular to a MessageLoop instantiated with TYPE_UI.
 
-This class is typically used like so:
-   MessageLoopForUI::current()->...call some method...
+This class is typically used like so:  
+   ｀MessageLoopForUI::current()->...call some method...｀
 
 {% highlight c++ %}
 class BASE_EXPORT MessageLoopForUI : public MessageLoop {
@@ -230,6 +236,7 @@ class BASE_EXPORT MessageLoopForUI : public MessageLoop {
 
 
 ### MessageLoopForIO class
+
 MessageLoopForIO extends MessageLoop with methods that are particular to a MessageLoop instantiated with TYPE_IO.
 
 This class is typically used like so:
@@ -273,56 +280,80 @@ class BASE_EXPORT MessageLoopForIO : public MessageLoop {
 {% endhighlight %}
 
 
-## WorkerPool
-This is a facility that runs tasks that don't require a specific thread or a message loop.
+## MessageLoopProxy
 
-WARNING: **This shouldn't be used unless absolutely necessary**. We don't wait for the worker pool threads to finish on shutdown, so the tasks running inside the pool must be extremely careful about other objects they access (MessageLoops, Singletons, etc). 
+This class provides a thread-safe refcounted interface to the Post* methods of a message loop. This class can outlive the target message loop. 
 
-### WorkerPool class
+- MessageLoopProxy inherit from SequencedTaskRunner, so it can use methods like "PostTaskAndReply" from TaskRunner.
+- MessageLoopProxy objects are constructed automatically for all MessageLoops.
+
+So, to access them, you can use any of the following:
+
+- `Thread::message_loop_proxy()`
+- `MessageLoop::current()->message_loop_proxy()`
+- `MessageLoopProxy::current()`
+
+
+## Samples:
+
 {% highlight c++ %}
-class BASE_EXPORT WorkerPool {
- public:
-  // This function posts |task| to run on a worker thread.  |task_is_slow|
-  // should be used for tasks that will take a long time to execute.  Returns
-  // false if |task| could not be posted to a worker thread.  Regardless of
-  // return value, ownership of |task| is transferred to the worker pool.
-  static bool PostTask(const tracked_objects::Location& from_here,
-                       const base::Closure& task, bool task_is_slow);
+#include "base/memory/weak_ptr.h"
+#include "base/threading/thread.h"
+#include "base/bind.h"
 
-  // Just like MessageLoopProxy::PostTaskAndReply, except the destination
-  // for |task| is a worker thread and you can specify |task_is_slow| just
-  // like you can for PostTask above.
-  static bool PostTaskAndReply(const tracked_objects::Location& from_here,
-                               const Closure& task,
-                               const Closure& reply,
-                               bool task_is_slow);
-
-  // Return true if the current thread is one that this WorkerPool runs tasks
-  // on.  (Note that if the Windows worker pool is used without going through
-  // this WorkerPool interface, RunsTasksOnCurrentThread would return false on
-  // those threads.)
-  static bool RunsTasksOnCurrentThread();
-
-  // Get a TaskRunner wrapper which posts to the WorkerPool using the given
-  // |task_is_slow| behavior.
-  static const scoped_refptr<TaskRunner>& GetTaskRunner(bool task_is_slow);
+struct DataBuffer 
+  : base::RefCountedThreadSafe<DataBuffer>
+{
+  std::string data_;
 };
+
+class ThreadTest 
+  : public base::RefCountedThreadSafe<DataBuffer> {
+public:
+  ThreadTest() 
+    : worker_thread_("worker") 
+  {
+      base::Thread::Options options;
+      options.message_loop_type = base::MessageLoop::TYPE_DEFAULT;
+      worker_thread_.StartWithOptions( options );
+  }
+
+  void work() {
+    scoped_refptr<DataBuffer> buf = new DataBuffer;
+
+    // PostTaskAndReply need to be called on thread with a base::MessageLoop
+    worker_thread_.message_loop_proxy()->PostTaskAndReply(FROM_HERE,
+      base::Bind(&ThreadTest::DoTask, make_scoped_refptr(this), buf),
+      base::Bind(&ThreadTest::OnReply, make_scoped_refptr(this), buf) );
+  }
+
+
+private:
+  void DoTask( scoped_refptr<DataBuffer> buf ) {
+    // Prepare data
+    if ( buf ) {
+      buf->data_ = "hello";
+    }
+  }
+
+  void OnReply( scoped_refptr<DataBuffer> buf ) {
+    // Deal with data
+    buf->data_;
+  }
+
+private:
+  base::Thread worker_thread_;
+};
+
+// global
+scoped_refptr<ThreadTest> g_test;
+
+void ThreadTestFunc() {
+  g_test = new ThreadTest;
+  g_test->work();
+}
 {% endhighlight %}
 
-### Example
-{% highlight c++ %}
-  // Dispatch to worker pool, so we do not block the IO thread.
-  if (!base::WorkerPool::PostTask(
-           FROM_HERE,
-           base::Bind(
-               &RenderMessageFilter::OnKeygenOnWorkerThread, this,
-               key_size_in_bits, challenge_string, url, reply_msg),
-           true)) {
-    NOTREACHED() << "Failed to dispatch keygen task to worker pool";
-    ViewHostMsg_Keygen::WriteReplyParams(reply_msg, std::string());
-    Send(reply_msg);
-    return;
-  }
-{% endhighlight %}
+
 
 
