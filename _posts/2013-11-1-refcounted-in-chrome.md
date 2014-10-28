@@ -138,7 +138,7 @@ scoped_refptr<MyFoo> foo = new MyFoo();	// ref_count 1
 
 ## Work with COM objects
 
-As COM Object has already implement `AddRef` and `Release` methods, it has its own reference count mechanism. So, we can simply use `make_scoped_refptr(this)` in COM class to create scoped_refptr.
+As COM Object has already implement **AddRef** and **Release** methods, it has its own reference count mechanism. So, we can simply use `make_scoped_refptr(this)` in COM class to create scoped_refptr.
 
-What's more, `make_scoped_refptr(this)` can be used to bind a member function through `base::Bind`, whereas `boost::intrusive_ptr<ComClass>(this)` can not be used with `base::Bind` (for it has not implement `operator T*` with const version).
+What's more, `make_scoped_refptr(this)` can be used to bind a member function through base::Bind, whereas `boost::intrusive_ptr<ComClass>(this)` can not be used with base::Bind (for it has not implement `operator T*` with const version).
 
