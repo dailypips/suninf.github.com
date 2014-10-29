@@ -10,7 +10,7 @@ description: SequencedWorkerPool is a worker thread pool that allow you to post 
 
 ## Ordered Tasks
 
-To enforce ordering, get a unique sequence token from the pool and post all tasks you want to order with the token. All tasks with the same token are guaranteed to execute serially, though not necessarily on the same thread.
+**To enforce ordering, get a unique sequence token from the pool and post all tasks you want to order with the token.** All tasks with the same token are guaranteed to execute serially, though not necessarily on the same thread.
 
 This means that:
 
@@ -33,16 +33,18 @@ pool.PostSequencedWorkerTask(token, SequencedWorkerPool::SKIP_ON_SHUTDOWN,
 - You can **make named sequence tokens** to make it easier to share a token across different components.
 - You can also post tasks to the pool **without ordering using PostWorkerTask**. These will be executed in an unspecified order. The order of execution between tasks with different sequence tokens is also unspecified.
 - This class may be leaked on shutdown to facilitate fast shutdown. **The expected usage, however, is to call Shutdown()**, which correctly accounts for CONTINUE_ON_SHUTDOWN behavior and is required for BLOCK_SHUTDOWN behavior.
-- When constructing a SequencedWorkerPool, there must be a MessageLoop on the current thread unless you plan to deliberately leak it.
+- **When constructing a SequencedWorkerPool, there must be a MessageLoop on the current thread** unless you plan to deliberately leak it.
 
 
 ## Shotdown Behavior
 
+{% highlight c++ %}
 enum WorkerShutdown {
   CONTINUE_ON_SHUTDOWN,
   SKIP_ON_SHUTDOWN,
   BLOCK_SHUTDOWN,
 };
+{% endhighlight %}
 
 - **CONTINUE_ON_SHUTDOWN**
 
@@ -68,7 +70,7 @@ If a task is posted during shutdown, it will not get run since the workers may a
 
 ## class `SequencedWorkerPool`
 
-### class implement
+### Declaration
 
 {% highlight c++ %}
 class BASE_EXPORT SequencedWorkerPool : public TaskRunner {
@@ -223,9 +225,9 @@ class BASE_EXPORT SequencedWorkerPool : public TaskRunner {
 {% endhighlight %}
 
 
-### Methods explain
+### Part Methods Explain
 
-- PostWorkerTask
+- **PostWorkerTask**
 
 {% highlight c++ %}
 bool PostWorkerTask(const tracked_objects::Location& from_here,
@@ -239,7 +241,7 @@ The task will **be guaranteed to run to completion before shutdown (BLOCK_SHUTDO
 Returns true if the task was posted successfully. This may fail during shutdown regardless of the specified ShutdownBehavior.
   
 
-- PostDelayedWorkerTask
+- **PostDelayedWorkerTask**
 
 {% highlight c++ %}
 bool PostDelayedWorkerTask(const tracked_objects::Location& from_here,
@@ -252,7 +254,7 @@ Same as PostWorkerTask but allows a delay to be specified (although doing so cha
 **If the delay is nonzero**, the task won't be guaranteed to run to completion before shutdown **(SKIP_ON_SHUTDOWN semantics)** to avoid shutdown hangs. If the delay is zero, this behaves exactly like PostWorkerTask, i.e. the task will be guaranteed to run to completion before shutdown (BLOCK_SHUTDOWN semantics).
 
 
-- PostSequencedWorkerTask
+- **PostSequencedWorkerTask**
 
 {% highlight c++ %}
 bool PostSequencedWorkerTask(SequenceToken sequence_token,
@@ -267,7 +269,7 @@ The task will be guaranteed to run to completion before shutdown **(BLOCK_SHUTDO
 Returns true if the task was posted successfully. This may fail during shutdown regardless of the specified ShutdownBehavior.
 
 
-- PostDelayedSequencedWorkerTask
+- **PostDelayedSequencedWorkerTask**
 
 {% highlight c++ %}
 bool PostDelayedSequencedWorkerTask(
@@ -282,7 +284,7 @@ Same as PostSequencedWorkerTask but allows a delay to be specified (although doi
 If the delay is **nonzero**, the task won't be guaranteed to run to completion before shutdown **(SKIP_ON_SHUTDOWN semantics)** to avoid shutdown hangs. If the delay is **zero**, this behaves exactly like PostSequencedWorkerTask, i.e. the task will be guaranteed to run to completion before shutdown **(BLOCK_SHUTDOWN semantics)**.
 
 
-- Shutdown
+- **Shutdown**
 
 {% highlight c++ %}
 void Shutdown(int max_new_blocking_tasks_after_shutdown);
