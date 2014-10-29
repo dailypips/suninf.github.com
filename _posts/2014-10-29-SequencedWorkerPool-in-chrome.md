@@ -299,6 +299,62 @@ Must be called from the same thread this object was constructed on.
 
 ## Samples
 
+{% highlight c++ %}
+#include "base/threading/thread.h"
+#include "base/threading/sequenced_worker_pool.h"
+#include "base/memory/ref_counted.h"
+#include "base/bind.h"
 
+class ThreadPoolTest 
+  : public base::RefCountedThreadSafe<ThreadPoolTest> {
+public:
+  ThreadPoolTest() 
+    : worker_pool_( new base::SequencedWorkerPool(3, "test_worker_pool") ) 
+  {
+  }
+
+  ~ThreadPoolTest() {
+    worker_pool_->Shutdown();
+  }
+
+  void work() {
+    worker_pool_->PostWorkerTask(FROM_HERE, 
+      base::Bind(&ThreadPoolTest::DoWork, make_scoped_refptr(this)));
+  }
+
+  void ordered_tasks() {
+    base::SequencedWorkerPool::SequenceToken token = worker_pool_->GetSequenceToken();
+
+    worker_pool_->PostSequencedWorkerTask(token, FROM_HERE,
+      base::Bind(&ThreadPoolTest::DoTask1, make_scoped_refptr(this)) );
+    worker_pool_->PostSequencedWorkerTask(token, FROM_HERE,
+      base::Bind(&ThreadPoolTest::DoTask2, make_scoped_refptr(this)) );
+  }
+
+private:
+  void DoWork() {
+    // do work
+  }
+
+  void DoTask1() {
+    // do task1
+  }
+
+  void DoTask2() {
+    // do task2 after task1
+  }
+
+private:
+  scoped_refptr<base::SequencedWorkerPool> worker_pool_;
+};
+
+scoped_refptr<ThreadPoolTest> g_test;
+
+void RunBaseTest() {
+  g_test = new ThreadPoolTest;
+  g_test->work();
+  g_test->ordered_tasks();
+}
+{% endhighlight %}
 
 
