@@ -308,7 +308,7 @@ struct DataBuffer
 };
 
 class ThreadTest 
-  : public base::RefCountedThreadSafe<DataBuffer> {
+  : public base::RefCountedThreadSafe<ThreadTest> {
 public:
   ThreadTest() 
     : worker_thread_("worker") 
