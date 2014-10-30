@@ -285,7 +285,7 @@ std::cout << vec[0] << ',' << vec[1] << std::endl;
 `(char_ >> char_)[std::cout << _1 << ',' << _2 << std::endl]`
 
 `a || b || c …`
-: (或序列)即`( a||b )||c，对于a||b来说，是匹配a>>b或a或b，即(a>>b)|a|b或者(a>>-b) | b`，是有优先顺序的。
+: (**或序列**)即`( a||b )||c，对于a||b来说，是匹配a>>b或a或b，即(a>>b)|a|b或者(a>>-b) | b`，是有优先顺序的。
 
 注意属性：
 
@@ -383,8 +383,9 @@ int main()
   }
 
   // 组合属性int，继承属性也为int
+  // 单个继承属性用_r1引用
   qi::rule< string::iterator, int( int ), ascii::space_type > 
-    r2 = qi::int_[ _val = _1 + _r1 ] >> *qi::int_[ _val += _1 ]; // 单个继承属性用_r1引用
+    r2 = qi::int_[ _val = _1 + _r1 ] >> *qi::int_[ _val += _1 ]; 
   b = qi::phrase_parse( str.begin(), str.end(), r2(10), ascii::space, d );
   if ( b )
   {// 输出13701 即：10 + 1234+4567+7890 其中10自己给定的初值（通过继承属性）
@@ -489,3 +490,548 @@ int main()
   return 0;
 }
 {% endhighlight %}
+
+
+## 解析器 API
+
+### 基于迭代器的API
+
+- parse: 基于字符层面的分析，不会过滤字符。
+- phrase_parse: 基于语义层面的分析，要求提供一个指定过滤的分析器。
+
+声明： 
+{% highlight c++ %}
+parse( Iterator& first, Iterator last, Expr const& expr);
+
+parse( Iterator& first, Iterator last, Expr const& expr, Attr1& attr1, Attr2& attr2, ..., AttrN& attrN);
+
+phrase_parse( Iterator& first, Iterator last, Expr const& expr, Skipper const& skipper
+  , BOOST_SCOPED_ENUM(skip_flag) post_skip = skip_flag::postskip);
+
+phrase_parse( Iterator& first, Iterator last, Expr const& expr, Skipper const& skipper
+  , Attr1& attr1, Attr2& attr2, ..., AttrN& attrN);
+
+phrase_parse( Iterator& first, Iterator last, Expr const& expr, Skipper const& skipper
+  , BOOST_SCOPED_ENUM(skip_flag) post_skip
+  , Attr1& attr1, Attr2& attr2, ..., AttrN& attrN);
+{% endhighlight %}
+
+注意：
+
+1. 只有当所有的分析器组件都匹配成功才返回true。
+2. 只有分析的语法是>>连接的序列，才能使用多个对应类型的属性参数；此时也可以用一个tuple去接受。
+
+例如：
+
+- api内嵌临时分析表达式，多属性接受
+
+{% highlight c++ %}
+#include <iostream>
+#include <string>
+#include <iterator>
+#include <algorithm>
+#include <vector>
+using namespace std;
+
+#include <boost/spirit/home/qi.hpp>
+#include <boost/spirit/home/phoenix.hpp>
+
+#include <boost/fusion/container.hpp>
+#include <boost/fusion/sequence.hpp>
+
+using namespace boost;
+using namespace boost::spirit;
+
+int main()
+{
+  string s = "123 .45  567 4";
+  int ss;
+  double dd;
+
+  qi::phrase_parse( s.begin(), s.end(), 
+    (
+    qi::int_ >> qi::double_
+    ),
+
+    ascii::space,
+    ss, dd　//多个属性接受
+    );
+
+  cout << ss << " " << dd << endl; // 输出：123 0.45
+
+  return 0;
+}
+{% endhighlight %}
+
+- api内嵌临时分析表达式，tuple接受 （展示main主体）
+
+{% highlight c++ %}
+string s = "123 .45  567 4";
+fusion::vector<int,double> vv;
+
+qi::phrase_parse( s.begin(), s.end(), 
+  (
+  qi::int_ >> qi::double_
+  ),
+
+  ascii::space,
+  vv // 用元组来接受
+  );
+
+cout << fusion::at_c<0>(vv) << " " << 
+  fusion::at_c<1>(vv) << endl; //输出：123 0.45
+{% endhighlight %}
+
+- 具有元组属性的规则(非临时表达式)，只能用元组来接受
+
+{% highlight c++ %}
+string s = "123 .45  567 4";
+fusion::vector<int,double> vv;
+
+// 语义动作注意使用phoenix::at_c<N>( seq )
+qi::rule<string::iterator, fusion::vector<int,double>(), ascii::space_type >
+  rl = qi::int_[ phoenix::at_c<0>(_val) = _1 ] 
+>> qi::double_[ phoenix::at_c<1>(_val) = _1 ];
+
+qi::phrase_parse( s.begin(), s.end(), 
+  rl,
+  ascii::space,
+  vv
+  );
+cout << fusion::at_c<0>(vv) << " " << 
+  fusion::at_c<1>(vv) << endl; //输出：123 0.45
+{% endhighlight %}
+
+- 注意到phrase_parse带属性的有两个版本，一个有skip_flag参数，而另一个没有，它的作用是当一次成功的匹配完成后，是否继续跳过指定的Skipper类型的符号（默认为继续跳过），我们可以显示指定不要跳过。
+
+{% highlight c++ %}
+string s = "123   .45  567 4";
+int n;
+double d;
+string::iterator it = s.begin();
+qi::phrase_parse( it, s.end(), // 我们跟踪下it的位置
+  ( qi::int_>>qi::double_ ),
+  ascii::space,
+  // 默认等价于qi::skip_flag::postskip,
+  n, 
+  d
+  );
+cout << d << string(it,s.end()) << endl; // 输出：0.45567 4
+{% endhighlight %}
+
+{% highlight c++ %}
+string s = "123   .45  567 4";
+int n;
+double d;
+string::iterator it = s.begin();
+qi::phrase_parse( it, s.end(), 
+  ( qi::int_>>qi::double_ ),
+  ascii::space,
+  qi::skip_flag::dont_postskip, // 禁止成功后跳过
+  n, 
+  d
+  );
+cout << d << string(it,s.end()) << endl; // 输出：0.45  567 4
+{% endhighlight %}
+
+### 补充说明
+
+语义动作一般最适合使用phoenix提供的机制，它封装了lazy机制，适合STL的lazy算法机制，还包括适合元组tuple的 `phoenix::at_c<N>( Tuple )`，让lambda的书写更简洁。
+ 
+- lazy分析器：分析器也是对象，如果某个函数可以返回一个分析器，可以让它在延迟到分析时再计算，这样有时也会有用的。
+- 最简单的lazy方式：`val(qi::int_ >> qi::double_)`或者 `lazy( val( ascii::char_ ) )`等。
+
+
+## 内置分析器
+
+### 二进制
+
+关于二进制的自带分析器有byte_, word, dword等，暂不介绍。
+
+### 字符 char_, lit
+
+注意是放在不同的字符集名字空间的。char_对应的字符类型为其属性。
+{% highlight c++ %}
+boost::spirit::qi::ascii 
+boost::spirit::qi::iso8859_1 
+boost::spirit::qi::standard 
+boost::spirit::qi::standard_wide
+qi::lit
+{% endhighlight %}
+
+char_
+: 可以匹配对应字符集下的任意一个字符
+
+char_(ch)
+: 匹配一个提供的字符。
+
+char_( first, last )
+: 可以匹配范围内的任意一个字符。要求first在last之前
+
+char( def )
+: def是一个字符串常量或者`basic_string<ch>`的对象，它采用正则表达式指定单个字符的语法，只不过中括号对用引号对来表示。
+
+例如：
+{% highlight c++ %}
+char_("a-zA-Z")     // 字母
+char_("0-9a-fA-F")  // 十六进制符号
+char_("actgACTG")   // DNA 符号
+char_("\x7f\x7e")   // 十六进制来表示字符：0x7F and 0x7E
+{% endhighlight %}
+
+lit(ch)
+: 匹配一个字符，不过它没有属性
+
+~cp
+: cp是指上述的char分析器，属性也为cp的属性，表示可以匹配除了被cp能匹配的所有字符
+
+**注意（by Hartmut Kaiser）**：
+
+1. lit(“str”), “str”, ‘s’或者lit(‘s’)是按照内存中对应的整数值（bit pattern）来匹配的，所以就是字面值，并且只消耗，不得到属性，不涉及到不同字符集的概念。
+2. string_, char_等之所以要放在不同的名字空间下，是因为它们除了能代表字面值之外，还有功能型函数例如space, alnum以及char_(“a-zA-Z”)等，所以会涉及不同的字符集对应不同的情况，于是需要封装到不同的名字空间（ascii, standard_wide等）。
+
+### 分类字符
+
+ns指代字符集名字空间，如ascii
+
+ns::alnum 字母和数字  
+ns::alpha 字母  
+ns::blank 空格，tab  
+ns::cntrl 控制字符  
+ns::digit 数字  
+ns::graph non-space printing characters  
+ns::lower 小写字母  
+ns::print 可打印字符  
+ns::punct 标点符号  
+ns::space 即space，tab，return，newline  
+ns::upper 大写字母  
+ns::xdigit 十六进制符号  
+
+
+### 数字
+
+- 无符号数分析器
+
+{% highlight c++ %}
+template 
+<
+  typename T //属性
+  , unsigned Radix // 进制，默认10
+  , unsigned MinDigits //最小位数，默认1
+  , int MaxDigits
+> //最大位数，-1表示不限，默认-1
+struct uint_parser;
+{% endhighlight %}
+
+一些内置的无符号分析器：
+
+|----
+| 分析器 | 语义 
+|-|:-|:-:|-:
+| bin | 二进制 `uint_parser<unsigned, 2, 1, -1>`
+| oct | 八进制 `uint_parser<unsigned, 8, 1, -1> `
+| hex | 十六进制 `uint_parser<unsigned, 16, 1, -1> `
+| ushort_ | 短整型 `uint_parser<unsigned short, 10, 1, -1> `
+| ulong_ | 长整型 `uint_parser<unsigned long, 10, 1, -1> `
+| uint_ | `uint_parser<unsigned int, 10, 1, -1> `
+| ulong_long | `uint_parser<unsigned long long, 10, 1, -1> `
+
+- 有符号整数分析器
+
+{% highlight c++ %}
+template 
+<
+  typename T
+  , unsigned Radix
+  , unsigned MinDigits
+  , int MaxDigits
+>
+struct int_parser;
+{% endhighlight %}
+
+|----
+| short_ | `int_parser<short, 10, 1, -1> `
+| long_ | `int_parser<long, 10, 1, -1> `
+| int_ | `int_parser<int, 10, 1, -1> `
+| long_long | `int_parser<long long, 10, 1, -1> `
+
+- 实数分析器
+
+{% highlight c++ %}
+template 
+<
+  typename T, 
+  typename RealPolicies // 控制行为的policy
+> 
+struct real_parser;
+{% endhighlight %}
+
+|----
+| float_ |	`real_parser<float, real_policies<T> > `
+| double_ |	`real_parser<double, real_policies<T> > `
+| long_double |	`real_parser<long double, real_policies<T> > `
+
+- 内置boolean型分析器（属性bool）
+
+bool_：可以匹配”true”或者”false”字符串  
+true_：匹配”true”  
+false_：匹配”false”  
+
+
+### 字符串分析器
+
+- ns::string( s )：s可以是字符串常量或者std::string，skipper在ns::string分析器之中无效的，因为它是完整的单元，对应的属性为 `std::basic_string<T>`
+- lit( s )：除了lit不具有属性，其它与string一致
+
+## phoenix语义动作的说明
+
+p[ phoenix-lambda-expression ]，几种占位符：
+
+- _1, _2…_N：对应与分析器p的属性，例如>>连成的序列；rule，grammar的合成属性可有可无，因此最多为_1
+- _val：rule或者grammar（封闭语法）的合成属性的指代。
+- _r1, _r2…_rN：rule或者grammar（封闭语法）的逐个继承属性
+- _a,_b,…,_j：对应于rule或者grammar 的局部变量locals。
+
+
+## 应用实例
+
+- 支持double的计算器
+
+计算器语法（支持+, -, *, /, (, ), +(正)，-(负)）：
+
+表达式	`expression = term >> *( (‘+’ >> term) | (‘-’ >> term) );`  
+项		`term = factor >> *( (‘*’ >> factor) | (‘/’ >> factor) );`  
+因子  
+~~~~
+factor = double_ 
+	| ( ‘(’>> expression >>’)’ )
+	| ( ‘-’ >> factor )
+	| ( ‘+’ >> factor );
+~~~~
+
+例程：
+{% highlight c++ %}
+#include <iostream>
+#include <string>
+#include <boost/spirit/home/qi.hpp>
+#include <boost/spirit/home/phoenix.hpp>
+
+using namespace boost;
+using namespace boost::spirit;
+
+template
+<	
+  typename Iter = std::string::iterator, 
+  typename Skipper = ascii::space_type 
+>
+struct calc : qi::grammar< Iter, double(), Skipper >
+{
+  calc() : calc::base_type( expression, "calc" )
+  {
+    expression = term[_val = _1] >>
+      *( ('+' >> term[_val += _1] ) | ('-' >> term[_val -= _1] ) );
+
+    term = factor[ _val = _1 ] >>
+      *( ('*' >> factor[_val *= _1] ) | ('/' >> factor[_val /= _1] ) );
+
+    factor = qi::double_ [ _val = _1 ]
+      | ( '(' >> expression[ _val = _1 ] >> ')' )
+      | ( '-' >> factor[ _val = -_1 ] )
+      | ( '+' >> factor );
+  }
+  qi::rule<Iter, double(), Skipper> expression, term, factor;
+};
+
+int main()
+{
+  std::string s = " (-2.5 * (5+3) - 15 / 5) * (-3) + ( 7 - 3)*2 ";
+  double d = 0;
+  bool bok = qi::phrase_parse( s.begin(), s.end(), calc<>(), ascii::space, d );
+  if ( bok )
+  {
+    std::cout << d << std::endl; // 计算结果：77
+  }
+
+  return 0;
+}
+{% endhighlight %}
+
+
+- 找出简单的Tag标记
+
+假设：`<script … > … </script   >` // … 任意非标记控制；结尾>之前可以有空格换行等
+
+{% highlight c++ %}
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <iterator>
+using namespace std;
+
+#include <boost/spirit/home/qi.hpp>
+#include <boost/spirit/home/phoenix.hpp>
+using namespace boost::spirit;
+namespace phx = boost::phoenix;
+
+template< typename Iter >
+struct get_script : qi::grammar< Iter, string() >
+{
+  get_script() : get_script::base_type( expression )
+  {
+    expression = start[_val = _1] >> 
+      *( (ascii::char_- ascii::char_('<'))[phx::push_back(_val, _1)] ) >> 
+      end[ _val += _1 ];
+
+    start = qi::no_case[ ascii::string("<script") ][ _val = _1 ] >> 
+      *( ( ascii::char_ - '>' )[phx::push_back(_val, _1)] ) >> 
+      ascii::char_('>')[ phx::push_back(_val, _1) ];
+
+    end = &lit('<') >> qi::no_case[ascii::string("</script")][_val = _1] >> 
+      *( ascii::space[phx::push_back(_val, _1)] ) >> 
+      ascii::char_('>')[phx::push_back(_val, _1)];
+  }
+  qi::rule<Iter, string()> expression, start, end;
+};
+
+void ParseScript( const string& src, vector<string>& cont )
+{
+  string::const_iterator it = src.begin();
+  while ( it != src.end() )
+  {
+    string str;
+    if ( qi::parse( it, src.end(), get_script<string::const_iterator>(), str ) )
+    {
+      cont.push_back( str );
+    }
+    else
+      ++it;
+  }
+}
+
+int main()
+{
+  string s = "test --- <SCript ... > ... </scriPT > \
+             --- test <script ... > ... </script	>--- test";
+  vector<string> vect;
+  ParseScript( s, vect );
+  copy( vect.begin(), vect.end(), ostream_iterator<string>(cout, "\n") );
+
+  return 0;
+}
+{% endhighlight %}
+
+
+- 中缀表达式转化为后缀表达式
+
+处理语法解析问题的基本思想是：先把语法用EBNF范式描述清楚，然后根据需要得到什么属性，确定对应的语义规则是什么，最后对应的写出语义动作。
+
+{% highlight c++ %}
+#include <iostream>
+#include <string>
+#include <boost/spirit/home/qi.hpp>
+#include <boost/spirit/home/phoenix.hpp>
+using namespace std;
+using namespace boost;
+using namespace boost::spirit;
+
+// 中缀表达式转成后缀表达式
+template
+<	
+  typename Iter = string::iterator, 
+  typename Skipper = ascii::space_type 
+>
+struct calc : qi::grammar< Iter, string(), Skipper >
+{
+  calc() : calc::base_type( expression, "calc" )
+  {
+    expression = term[_val = _1] >>
+      *( ('+' >> term[_val += _1+string("+ ")] ) |
+      ('-' >> term[_val += _1+string("- ")] ) );
+
+    term = factor[ _val = _1 ] >>
+      *( ('*' >> factor[_val += _1 + string("* ")] ) | ('/' >> factor[_val += _1 + string("/ ")] ) );
+
+    factor = (+((ascii::digit|ascii::char_('.'))[ phoenix::push_back(_val,_1) ]))[ phoenix::push_back(_val,' ') ]
+    | ( '(' >> expression[ _val = _1 ] >> ')' )
+      | ( '-' >> factor[ _val = string("0 ")+_1+string("- ") ] )
+      | ( '+' >> factor );
+  }
+  qi::rule<Iter, string(), Skipper > expression, term, factor;
+};
+
+int main()
+{
+  string s = " (-2.5 * (5+3) - 15 / 5) * (-3) + ( 7 - 3)*2 ";
+  string str;
+  bool bok = qi::phrase_parse( s.begin(), s.end(), calc<>(), ascii::space, str );
+  if ( bok )
+  {
+    std::cout << str << std::endl;// 0 2.5 - 5 3 + * 15 5 / - 0 3 - * 7 3 - 2 * +
+  }
+
+  return 0;
+}
+{% endhighlight %}
+
+- 自定义分析器 （可以使用rule或者grammar来实现）
+
+{% highlight c++ %}
+#include <iostream>
+#include <string>
+#include <complex>
+#include <boost/spirit/home/qi.hpp>
+#include <boost/spirit/home/phoenix.hpp>
+using namespace std;
+using namespace boost;
+using namespace boost::spirit;
+
+// 假设复数 a + bi 在字符串中是（a, b）的形式
+// 用rule来写
+qi::rule< string::iterator, complex<double>(), ascii::space_type, qi::locals<double,double> >
+  complex_r = ascii::char_('(') >> qi::double_[_a = _1] >> ',' 
+  >> qi::double_[_b = _1] >> ascii::char_(')')[ _val = phoenix::construct< complex<double> >(_a,_b) ];
+
+// 用grammar来写
+struct complex_g 
+  : qi::grammar< string::iterator, complex<double>(), ascii::space_type,  qi::locals<double,double> >
+{
+  complex_g() : base_type( start )
+  {
+    start = ascii::char_('(') >> qi::double_[_a = _1] >> ',' 
+      >> qi::double_[_b = _1] >> ascii::char_(')')[ _val = phoenix::construct< complex<double> >(_a,_b) ];
+  }
+  qi::rule< string::iterator, complex<double>(), 
+    ascii::space_type, qi::locals<double,double> > start;
+};
+
+int main()
+{
+
+  string s = "(3.14, 50.1) (3.14, 5.2)";
+  vector< complex<double> > vect;
+
+  qi::phrase_parse( s.begin(), s.end(), 
+    complex_r >> complex_g() // 连续两个复数
+    , ascii::space, vect );
+  cout << vect[0] << endl;
+  cout << vect[1] << endl;
+
+  return 0;
+}
+{% endhighlight %}
+
+不过两者是有区别的，rule定义的是变量，而grammar可以得到一个类型。
+
+
+
+## 使用Qi的总结
+
+1. 可以选择两个分析器API，语义层面的phrase_parse和字符层面的parse。
+2. 对于分析器的选择，如果真的是小问题，可以直接嵌入到API函数中，如果问题稍微有点复杂，则需要使用rule或者更加完整的grammar。
+3. grammar类似于一系列rule的封装，它们的模板参数完全一致。一般来说，我们解析一个字符串，自然想得到我们想要的部分，这时有两种思路，一种是给grammar指定属性；另一种是嵌入式的，可以是外部的可访问的变量用phoenix::ref(v)的形式包装起来，用于action语义，可以保存相关的信息，也可以是grammar类的数据成员。不过，用属性的思想与分析器的设计更加一致，也更好理解。
+4. 使用rule和grammar的基本思想：
+	- 写一个grammar类，一般解决一个特定问题，而为了得到解析的结果，我们需要设定它的合成属性，如果允许外部提供初始化值，则需要添加继承属性。这个是由Signature模板参数控制的。
+	- 如果是在语义层面上处理的，则需要设定Skipper，最后使用在phrase_parse中。
+	- 如果发现书写动作语义时，遇到需要临时变量的情况，这时可以加入locals<T,…>来制定需要的变量对应的类型。
+5. 对于需要解决一个具体的语法解析问题，语法分析清楚是书写真正的grammar类的基础，所以问题的语法分析非常重要。
