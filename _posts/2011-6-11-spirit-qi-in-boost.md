@@ -503,17 +503,20 @@ int main()
 {% highlight c++ %}
 parse( Iterator& first, Iterator last, Expr const& expr);
 
-parse( Iterator& first, Iterator last, Expr const& expr, Attr1& attr1, Attr2& attr2, ..., AttrN& attrN);
+parse( Iterator& first, Iterator last, Expr const& expr, 
+    Attr1& attr1, Attr2& attr2, ..., AttrN& attrN);
 
-phrase_parse( Iterator& first, Iterator last, Expr const& expr, Skipper const& skipper
-  , BOOST_SCOPED_ENUM(skip_flag) post_skip = skip_flag::postskip);
+phrase_parse( Iterator& first, Iterator last, Expr const& expr, 
+    Skipper const& skipper
+    , BOOST_SCOPED_ENUM(skip_flag) post_skip = skip_flag::postskip);
 
-phrase_parse( Iterator& first, Iterator last, Expr const& expr, Skipper const& skipper
-  , Attr1& attr1, Attr2& attr2, ..., AttrN& attrN);
+phrase_parse( Iterator& first, Iterator last, Expr const& expr, 
+    Skipper const& skipper
+    , Attr1& attr1, Attr2& attr2, ..., AttrN& attrN);
 
-phrase_parse( Iterator& first, Iterator last, Expr const& expr, Skipper const& skipper
-  , BOOST_SCOPED_ENUM(skip_flag) post_skip
-  , Attr1& attr1, Attr2& attr2, ..., AttrN& attrN);
+phrase_parse( Iterator& first, Iterator last, Expr const& expr, 
+    Skipper const& skipper, BOOST_SCOPED_ENUM(skip_flag) post_skip
+    , Attr1& attr1, Attr2& attr2, ..., AttrN& attrN);
 {% endhighlight %}
 
 注意：
@@ -554,7 +557,8 @@ int main()
     ),
 
     ascii::space,
-    ss, dd　//多个属性接受
+    ss, 
+    dd　//多个属性接受
     );
 
   cout << ss << " " << dd << endl; // 输出：123 0.45
@@ -773,9 +777,9 @@ struct real_parser;
 
 - 内置boolean型分析器（属性bool）
 
-bool_：可以匹配”true”或者”false”字符串  
-true_：匹配”true”  
-false_：匹配”false”  
+`bool_`：可以匹配”true”或者”false”字符串  
+`true_`：匹配”true”  
+`false_`：匹配”false”  
 
 
 ### 字符串分析器
@@ -799,14 +803,19 @@ p[ phoenix-lambda-expression ]，几种占位符：
 
 计算器语法（支持+, -, *, /, (, ), +(正)，-(负)）：
 
-表达式	`expression = term >> *( (‘+’ >> term) | (‘-’ >> term) );`  
-项		`term = factor >> *( (‘*’ >> factor) | (‘/’ >> factor) );`  
+表达式	
+`expression = term >> *( (‘+’ >> term) | (‘-’ >> term) );`  
+
+项		
+`term = factor >> *( (‘*’ >> factor) | (‘/’ >> factor) );`  
+
 因子  
+
 ~~~~
-factor = double_ 
-	| ( ‘(’>> expression >>’)’ )
-	| ( ‘-’ >> factor )
-	| ( ‘+’ >> factor );
+    factor = double_ 
+        | ( ‘(’>> expression >>’)’ )
+        | ( ‘-’ >> factor )
+        | ( ‘+’ >> factor );
 ~~~~
 
 例程：
