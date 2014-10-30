@@ -22,6 +22,8 @@ After the thread is stopped, the destruction sequence is:
 
 ### Thread class
 
+![](http://www.suninf.net/images/articles/thread_class_diagram.png){: style="width:100%;"}
+
 {% highlight c++ %}
 class BASE_EXPORT Thread : PlatformThread::Delegate {
  public:
