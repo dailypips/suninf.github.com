@@ -323,7 +323,8 @@ public:
   }
 
   void ordered_tasks() {
-    base::SequencedWorkerPool::SequenceToken token = worker_pool_->GetSequenceToken();
+    base::SequencedWorkerPool::SequenceToken token = 
+      worker_pool_->GetSequenceToken();
 
     worker_pool_->PostSequencedWorkerTask(token, FROM_HERE,
       base::Bind(&ThreadPoolTest::DoTask1, make_scoped_refptr(this)) );
