@@ -552,14 +552,10 @@ int main()
   double dd;
 
   qi::phrase_parse( s.begin(), s.end(), 
-    (
-    qi::int_ >> qi::double_
-    ),
-
+    ( qi::int_ >> qi::double_ ),
     ascii::space,
     ss, 
-    dd　//多个属性接受
-    );
+    dd );
 
   cout << ss << " " << dd << endl; // 输出：123 0.45
 
