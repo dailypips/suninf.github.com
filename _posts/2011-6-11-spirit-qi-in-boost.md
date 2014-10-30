@@ -4,7 +4,6 @@ title: spirit.Qi in boost
 category: c++
 description: spirit.Qi 是强大高效的语法分析器
 ---
-
 *spirit.Qi (`namespace boost::spirit::qi`)是强大高效的语法分析器，spirit（boost版本1.41以上）对传统的spirit库进行了彻底的改写，传统的spirit库为现在库的一部分Classic而向后兼容，其他几个新内容：Q1, Karma, Lex 和 Phoenix。本文介绍分析器Qi，它和Karma是相对的孪生兄弟，一个用于解析，另一个逆向格式化。*
 
 ## 语义动作（Semantic Actions）
@@ -20,9 +19,9 @@ description: spirit.Qi 是强大高效的语法分析器
 {% highlight c++ %}
 struct print // F为print()
 {
-	void operator()( double n, qi::unused_type, qi::unused_type ) { 
-	  cout<<n<<endl; 
-	}
+  void operator()( double n, qi::unused_type, qi::unused_type ) { 
+    cout<<n<<endl; 
+  }
 };
 {% endhighlight %}
 
@@ -34,7 +33,7 @@ struct print // F为print()
 {% highlight c++ %}
 struct print
 {
-	void operator()( double n ) { cout<<n<<endl; }
+  void operator()( double n ) { cout<<n<<endl; }
 };
 {% endhighlight %}
 
@@ -56,18 +55,18 @@ using phoenix::ref;
 template <typename Iterator>
 bool adder(Iterator first, Iterator last, double& n)
 {
-    bool r = qi::phrase_parse(first, last,
-        //  Begin grammar
-        (// 注意：因为有+=，右边的_1可以是qi::_1或者spirit::_1，而不是phoenix::arg_names::_1
-		// 在其他情况phoenix::arg_names::_1均为有效的，仅在用于动作语义并且涉及运算符时无效。
-            double_[ref(n) = _1] >> *(',' >> double_[ref(n) += _1]) 
-        )
-        //  End grammar
-        ,
-        space);
-    if (first != last) // fail if we did not get a full match
-        return false;
-    return r;
+  bool r = qi::phrase_parse(first, last,
+    //  Begin grammar
+    (// 注：因为有+=，右边的_1可以是qi::_1或spirit::_1，而不是phoenix::arg_names::_1
+    // 在其他情况phoenix::arg_names::_1均为有效的，仅在用于动作语义并且涉及运算符时无效
+    double_[ref(n) = _1] >> *(',' >> double_[ref(n) += _1]) 
+    )
+    //  End grammar
+    ,
+    space);
+  if (first != last) // fail if we did not get a full match
+    return false;
+  return r;
 }
 {% endhighlight %}
 
@@ -153,7 +152,9 @@ test_parser_attr("Apple", no_case[ sym ], i);
 std::cout << i << std::endl;
 {% endhighlight %}
 
-### 一元分析器UnaryParser 包含一个对象，行为由委托设计模式而定
+### 一元分析器UnaryParser
+
+一元分析器UnaryParser 包含一个对象，行为由委托设计模式而定
 
 `&a`
 : and预判（窥探），进行下一次扫描前做预判，如果能匹配成功，返回一0长度的串，即不会消耗数据，预判失败，则fail而不继续进行匹配。
@@ -207,3 +208,284 @@ std::cout << i << std::endl;
 : 以b分割的a的列表，等价于 `a>>*(b>>a)`，如果a的属性为A，则a%b的属性为`vector<A>`
 
 
+### 不定数分析器NaryParser
+
+`a | b | c … `
+: （**择一符**）多个分析器中选择第一个匹配的( first-match-wins )，之后的被短路不再搜索匹配。
+
+注意属性Attribution：
+
+|---
+| a: A, b: B | `(a | b): variant<A, B>` // 因为可能匹配a，b中的任意一个
+| a: A, b: Unused | `(a | b): optional<A>` //因为可能匹配b
+| a: A, b: B, c: Unused | `(a | b | c): optional<variant<A, B> >`
+| a: Unused, b: B | `(a | b): optional<B>`
+| a: Unused, b: Unused | `(a | b): Unused`
+| a: A, b: A | `(a | b): A`
+
+
+`a > b > c …`
+: （**期望序列**）相对于普通的序列符>>，期望序列要求更严格，即：如果a匹配失败，则整个匹配失败；之后必须能匹配b，然后匹配c…，否则抛出异常`expectation_failure<Iter>`，（第二个分析器及之后的必须要匹配，因为是期望的），而普通序列只会返回失败。
+
+属性说明：
+
+|---
+| a: A, b: B | `(a > b): tuple<A, B>`
+| a: A, b: Unused | `(a > b): A`
+| a: Unused, b: B | `(a > b): B`
+| a: Unused, b: Unused | `(a > b): Unused`
+| a: A, b: A | `(a > b): vector<A>`
+| `a: vector<A>`, b: A | `(a > b): vector<A>`
+| `a: A, b: vector<A>` | `(a > b): vector<A>`
+| `a: vector<A>, b: vector<A>` | `(a > b): vector<A>`
+
+`a ^ b ^ c …`
+: （**排列符**）以任意的排列次序匹配一个或者多个算子（a, b, c …）。
+
+例如：`char_('a') ^ 'b' ^ 'c'` 可以匹配 "a", "ab", "abc", "cba", "bca" ... 等。
+
+属性：
+
+|----
+| a: A, b: B | `(a ^ b): tuple<optional<A>, optional<B> >`
+| a: A, b: Unused | `(a ^ b): optional<A>`
+| a: Unused, b: B | `(a ^ b): optional<B>`
+| a: Unused, b: Unused | `(a ^ b): Unused`
+
+`a >> b >> c …`
+: （**序列符**）按次序逐个匹配算子（a, b, c …），如果将匹配值填入对应的属性，即使匹配失败（prase等解析返回false），部分匹配成功的值也会写入对应的属性。
+
+属性：
+
+|----
+| a: A, b: B | `(a >> b): tuple<A, B>`
+| a: A, b: Unused | `(a >> b): A`
+| a: Unused, b: B | `(a >> b): B`
+| a: Unused, b: Unused | `(a >> b): Unused`
+| a: A, b: A | `(a >> b): vector<A>`
+| `a: vector<A>, b: A` | `(a >> b): vector<A>`
+| `a: A, b: vector<A>` | `(a >> b): vector<A>`
+| `a: vector<A>, b: vector<A>` | `(a >> b): vector<A>`
+
+例子：
+
+{% highlight c++ %}
+boost::fusion::vector<char, char> attr; 
+test_parser_attr("xy", char_ >> char_, attr);
+std::cout << boost::fusion::at_c<0>(attr) << ',' 
+  << boost::fusion::at_c<1>(attr) << std::endl;
+{% endhighlight %}
+
+{% highlight c++ %}
+std::vector<char> vec;
+test_parser_attr("xy", char_ >> char_, vec);
+std::cout << vec[0] << ',' << vec[1] << std::endl;
+{% endhighlight %}
+
+`(char_ >> char_)[std::cout << _1 << ',' << _2 << std::endl]`
+
+`a || b || c …`
+: (或序列)即`( a||b )||c，对于a||b来说，是匹配a>>b或a或b，即(a>>b)|a|b或者(a>>-b) | b`，是有优先顺序的。
+
+注意属性：
+
+|----
+| `a||b||c` | `tuple<A,B,C>` 不管是否每个值都匹配上，把匹配得到的对应值写入对应位置。
+| `a: A, b: A` | `(a || b): vector<A>`
+| `a: vector<A>, b: A` | `(a || b): vector<A>`
+| `a: A, b: vector<A>`| `(a || b): vector<A>`
+| `a: vector<A>, b: vector<A>` | `(a || b): vector<A>`
+
+### 非终端分析器Nonterminal
+
+它是分析表达式语法的一个语法片段，可以引用自身而产生递归，它是递归下降解析的重要基础。
+
+签名（Signature）
+: 签名指定Nonterminal的合成（synthesized）和继承（inherited）属性，语法为`RT(A0, A1, A2, ..., AN)`，其中RT是合成属性，A0,A1…AN是继承属性。签名用于rule或者grammar的声明。
+
+属性（Attributes）
+: Nonterminal的属性对应一个函数型，组合属性类似于函数返回值，继承属性类似于函数参数。
+
+- `spirit::qi::_val`：该占位符对应于Nonterminal的组合属性，可以在定义Nonterminal时的语义动作中使用代表整个grammar或者rule的值。
+- `spirit::_r1…_rN`（注意是从_r1开始的）对应于Nonterminal的继承属性，也用于语义动作。
+- 如果有继承属性，则使用时基元（primitive）和非终端分析器可以带额外的属性：`p( a1, a2, ..., aN )`，其中ai可以是立即数或者函数f，其签名为 `T f( unused, Contetx )`返回的T为要求的参数类型，这样的函数格式是为了语义动作的一致性。
+
+注意：
+
+1. 继承属性是可以根据需要任意指定的，一般用于初始化，条件判断选择等，当然也肯定可以设计的很复杂。使用rule或者grammar时，直接可以调用需要的继承属性值，得到的语法传给API分析器。
+2. 分析器的分析之后，我们都期望得到相应的结果，而组合属性就是对应于相应的结果，所以语义动作中要一直对_val进行处理，这样最后调用api函数时就可以指定attr的结果放到哪里；另一种方法是嵌入式的，我们不必指定合成属性，语义动作中也不对_val进行处理，但是我们要对需要处理的属性用ref导入到语义动作中，这样也能得到相应的结果。
+
+本地变量（Locals）
+: 可以让Nonterminal在解析时使用栈上的局部变量。
+
+{% highlight c++ %}
+template <typename T0, typename T1, typename T2, ..., typename TN>
+struct locals;
+{% endhighlight %}
+
+- 预定义的 `boost::spirit::_a, _b, ..., _j`分别对应上述的T0..T9，用于语义动作。
+- 本地变量可以在语义动作中被初始化（比如记录当前的匹配部分的属性值），它对应特殊的类型；完成初始化之后可以在后面的表达式中使用，包括可以作为能接受继承属性的分析器的参数以及在语义动作中使用。
+
+### rule
+
+rule：命名一个赋值给它的语法表达式，可以被引用或者甚至引用自己而产生递归。
+
+{% highlight c++ %}
+template <typename Iterator, typename A1, typename A2, typename A3>
+struct rule;
+{% endhighlight %}
+
+- A1,A2,A3分别对应与Signature, Skipper, Locals（可任意顺序），默认都是unused_type
+- 注意：我们一般都会用Signature来指定属性来处理匹配结果；而如果使用phrase_prase来解析，则需要制定Skipper类型，并在phrase_prase中指定对应的内置skip。
+
+|----
+| 表达式 | 说明
+|-|:-|:-:|-:
+| `rule<Iterator, A1, A2, A3> r(name);` | name是可选的string，用于调试和错误处理
+| `rule<Iterator, A1, A2, A3> r(r2);` | 拷贝构造
+| r = r2; | 赋值
+| r.alias() | 别名，返回自身的引用
+| r.copy() | 返回自身的拷贝
+| r = p;	| 规则定的义。 
+| `r %= p`; | 自动规则定义，要求p的属性必须适合r的合成属性；如果p成功，它的属性自动传递到r的合成属性。
+
+- 签名signature（即属性attribute）的使用
+
+{% highlight c++ %}
+#include <iostream>
+#include <string>
+#include <iterator>
+#include <algorithm>
+#include <vector>
+using namespace std;
+
+#include <boost/spirit/home/qi.hpp>
+#include <boost/spirit/home/phoenix.hpp>
+#include <boost/fusion/container.hpp>
+
+using namespace boost::spirit;
+
+int main()
+{
+  string str = "1234 4567 7890";
+  vector<int> vect;
+  int d;
+  namespace phx = boost::phoenix;
+  
+  // 注意组合属性为 vector<int>
+  qi::rule< string::iterator, vector<int>(), ascii::space_type > 
+    r1 = *qi::int_[ phx::push_back(_val,_1) ]; // 利用phoenix的函数对象push_back
+  bool b = qi::phrase_parse( str.begin(), str.end(), r1, ascii::space, vect  );
+  if ( b )
+  {
+    copy( vect.begin(), vect.end(), ostream_iterator<int>( cout, " " ) );
+    cout << endl; // 输出1234 4567 7890
+  }
+
+  // 组合属性int，继承属性也为int
+  qi::rule< string::iterator, int( int ), ascii::space_type > 
+    r2 = qi::int_[ _val = _1 + _r1 ] >> *qi::int_[ _val += _1 ]; // 单个继承属性用_r1引用
+  b = qi::phrase_parse( str.begin(), str.end(), r2(10), ascii::space, d );
+  if ( b )
+  {// 输出13701 即：10 + 1234+4567+7890 其中10自己给定的初值（通过继承属性）
+    cout << d << endl; 
+  }
+
+  return 0;
+}
+{% endhighlight %}
+
+
+
+- Locals 局部变量，在语义动作完成初始化之后，在当前之后的语法中可以到处使用，因为它是语法的一个局部变量了。
+
+{% highlight c++ %}
+#include <iostream>
+#include <string>
+#include <iterator>
+using namespace std;
+
+#include <boost/spirit/home/qi.hpp>
+#include <boost/spirit/home/phoenix.hpp>
+#include <boost/fusion/container.hpp>
+
+using namespace boost::spirit;
+
+int main()
+{
+  string str = "1 1 34 4567 7890";
+  qi::rule< string::iterator, qi::locals<string,int, int>, ascii::space_type > 
+    r1 = ascii::string("1 1")[_a = _1] >> 
+      qi::int_[_b=_1, _c=_b+1] [ cout << _a << " " << _b << " " << _c << endl ] ;
+  
+  // 输出：1 1 34 35
+  bool b = qi::phrase_parse( str.begin(), str.end(), r1, ascii::space ); 
+
+  return 0;
+}
+{% endhighlight %}
+
+
+### grammar
+
+语法包装了一系列规则，包括基元分析器和子语法，它是模块化和组合的主要机制，语法可以组合成更加复杂的语法。
+
+{% highlight c++ %}
+template <typename Iterator, typename A1, typename A2, typename A3>
+struct grammar;
+{% endhighlight %}
+
+与rule的模板参数一致，A1,A2,A3是可以任意顺序的Signature, Skipper, Locals
+
+- 语法类的定义：
+
+{% highlight c++ %}
+template <typename Iterator>
+struct my_grammar : grammar<Iterator, A1, A2, A3>
+{
+  my_grammar() : my_grammar::base_type(start, name)
+  {
+    // Rule definitions
+    start = /* ... */;
+  }
+
+  rule<Iterator, A1, A2, A3> start;
+  // more rule declarations...
+};
+{% endhighlight %}
+
+- 一个简单的例子：
+
+{% highlight c++ %}
+#include <iostream>
+#include <string>
+using namespace std;
+
+#include <boost/spirit/home/qi.hpp>
+#include <boost/spirit/home/phoenix.hpp>
+#include <boost/fusion/container.hpp>
+
+using namespace boost::spirit;
+
+template<typename Iter>
+struct num_list : qi::grammar<Iter, ascii::space_type>
+{
+  num_list() : base_type(start)
+  {
+    num = qi::int_;
+    start = num[cout << _1 << endl ] % ','; // 列表操作符
+  }
+
+  qi::rule<Iter, ascii::space_type> start;
+  qi::rule<Iter, int(), ascii::space_type> num; // 注意num给定一个int的合成属性
+};
+
+int main()
+{
+  string s = "123,45, 567,4";
+  num_list<string::iterator> g;
+  qi::phrase_parse( s.begin(), s.end(), g, ascii::space );
+
+  return 0;
+}
+{% endhighlight %}
