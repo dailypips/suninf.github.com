@@ -33,7 +33,7 @@ pool.PostSequencedWorkerTask(token, SequencedWorkerPool::SKIP_ON_SHUTDOWN,
 - You can **make named sequence tokens** to make it easier to share a token across different components.
 - You can also post tasks to the pool **without ordering using PostWorkerTask**. These will be executed in an unspecified order. The order of execution between tasks with different sequence tokens is also unspecified.
 - This class may be leaked on shutdown to facilitate fast shutdown. **The expected usage, however, is to call Shutdown()**, which correctly accounts for CONTINUE_ON_SHUTDOWN behavior and is required for BLOCK_SHUTDOWN behavior.
-- **When constructing a SequencedWorkerPool, there must be a MessageLoop on the current thread** unless you plan to deliberately leak it.
+- {::}**When constructing a SequencedWorkerPool, there must be a MessageLoop on the current thread**{: style="color: red;"} unless you plan to deliberately leak it.
 
 
 ## Shotdown Behavior
