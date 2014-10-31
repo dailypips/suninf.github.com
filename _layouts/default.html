@@ -17,14 +17,14 @@ desc: Creative thinking、Happy sharing！ If not now, when? If not you, who?
     </head>
 
     <body>
-        <div id="wrapper"><!-- #wrapper -->
+        <div id="wrapper">
 
-            <header><!-- header -->
+            <header>
                 <h1><a href="/" style="font-size: 1em; border-bottom: 1px solid #FFF; font-weight: normal;">{{ page.theme }}</a></h1>
                 <div id="desc_line">{{ page.desc }}</div>
-            </header><!-- end of header -->
+            </header>
 
-            <nav><!-- top nav -->
+            <nav>
                 <div class="menu">
                     <ul class="artical-cate">
                         <li id = "nav_home_id" class="on"><a href="/"><span>Home</span></a></li>
@@ -34,9 +34,9 @@ desc: Creative thinking、Happy sharing！ If not now, when? If not you, who?
                     </ul>
                     <div class="cate-bar" style="visibility:hidden"><span id="cateBar" style="left: 0px; width: 47px; overflow: hidden;"></span></div>
                 </div>
-            </nav><!-- end of top nav -->
+            </nav>
 
-            <section id="main"><!-- #main content and sidebar area -->
+            <section id="main">
                 <div id="content">
                     <article class="articlecontent">
                         {{ content }}
@@ -87,12 +87,22 @@ desc: Creative thinking、Happy sharing！ If not now, when? If not you, who?
                             {% endfor %}
                         </ul>
                     </section>
-
                 </aside>
+                
+            </section>
+            
+        </div>
 
-            </section><!-- end of #main content and sidebar-->
-
-        </div><!-- #wrapper -->
-
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    
+            ga('create', 'UA-56263597-1', 'auto');
+            ga('send', 'pageview');
+    
+        </script>
+    
     </body>
 </html>
