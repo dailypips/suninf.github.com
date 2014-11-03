@@ -1,6 +1,6 @@
 ---
 layout: article
-title: phoenix in boost
+title: 三元状态树
 category: algorithm
 description: 
 ---

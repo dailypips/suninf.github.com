@@ -1,6 +1,6 @@
 ---
 layout: article
-title: phoenix in boost
+title: 发布COM组件的注意点
 category: c++
 description: 
 ---

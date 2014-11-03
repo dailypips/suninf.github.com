@@ -1,7 +1,7 @@
 ---
 layout: article
-title: phoenix in boost
-category: algorithm
+title: 表达式模板技术
+category: c++
 description: 
 ---
 
