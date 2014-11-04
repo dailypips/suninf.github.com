@@ -111,3 +111,9 @@
   
 - name: mind hacks
   url: http://mindhacks.cn/
+  
+- name: square
+  url: http://corner.squareup.com/
+
+- name: fb_blog
+  url: https://code.facebook.com/posts/
