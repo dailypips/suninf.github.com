@@ -255,6 +255,7 @@ aside {
 .articlecontent .blog_summary .blog_title a {
     font-size: 1.3em; 
     font-weight: bold;
+    text-decoration: none;
 }
 
 .articlecontent .blog_summary .blog_title {
