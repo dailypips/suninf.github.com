@@ -8,7 +8,7 @@ title: suninf's homepage
 </div>
 
 {% assign description_posts_limit = 1 %}
-{% assign recent_posts_limit = description_posts_limit | plus: 20 %}
+{% assign recent_posts_limit = description_posts_limit | plus: 15 %}
         
 {% for post in site.posts limit:description_posts_limit %}
 
@@ -40,6 +40,7 @@ title: suninf's homepage
     <ul>
         {% for post in site.posts limit:recent_posts_limit %}
             {% if forloop.index > description_posts_limit %}
+                {{ post.date | date: "%Y-%m-%d: " }}
                 <li><a href="{{post.url}}" style="margin-left: 5px; line-height: 25px;">{{post.title}}</a></li>
             {% endif %}
         {% endfor %}
