@@ -41,7 +41,7 @@ title: suninf's homepage
         {% for post in site.posts limit:recent_posts_limit %}
             {% if forloop.index > description_posts_limit %}
                 <li>
-                    {{ post.date | date: "%Y-%m-%d: " }}
+                    {{ post.date | date: "%Y/%m/%d " }}
                     <a href="{{post.url}}" style="margin-left: 5px; line-height: 25px;">{{post.title}}</a>
                 </li>
             {% endif %}
