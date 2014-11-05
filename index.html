@@ -40,7 +40,7 @@ title: suninf's homepage
     <ul>
         {% for post in site.posts limit:recent_posts_limit %}
             {% if forloop.index > description_posts_limit %}
-                <li>
+                <li class="post_list_item">
                     {{ post.date | date: "%Y/%m/%d " }}
                     <a href="{{post.url}}" style="margin-left: 5px; line-height: 25px;">{{post.title}}</a>
                 </li>

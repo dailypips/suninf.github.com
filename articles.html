@@ -16,7 +16,7 @@ title: suninf's Articles
                 {% for tmp_post in site.posts %}
                     {% assign tmp_year = tmp_post.date | date:"%Y" %}
                     {% if cur_year == tmp_year %}
-                        <li>
+                        <li class="post_list_item">
                             <span>{{tmp_post.date | date: "%m.%d"}}</span>
                             <a href="{{tmp_post.url}}" style="margin-left: 5px; line-height: 20px;">{{tmp_post.title}}</a>
                         </li>
