@@ -5,11 +5,7 @@ category: c++
 description: 
 ---
 
-http://blog.sina.com.cn/s/blog_74a12e7a0100tr83.html
-
-{% highlight c++ %}
-{% endhighlight %}
-
+*本文介绍常用的几种发布COM组件的方式。*
 
 ## 用注册表来注册组件
 
@@ -113,7 +109,8 @@ void RegDll_regsvr32()
     GetCurrentDirectory( MAX_PATH_LEN, processPath ); // 当前路径下
     CString strCmd = L"regsvr32.exe";
     strCmd += L" /s "; // 静默方式
-    strCmd += CString("\"") + CString(processPath) + CString("\"") + L"\\testDll.dll" ; // 命令行可能不支持空格路径
+    strCmd += CString("\"") + CString(processPath) + CString("\"") + 
+        L"\\testDll.dll" ; // 命令行可能不支持空格路径
     BOOL bOK = CreateProcess( 0, const_cast<LPTSTR>( (LPCTSTR)strCmd ),
        NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi );
     if ( bOK )
@@ -209,6 +206,7 @@ library testDllLib
 ## 自己接管类厂来创建对象
 
 要创建组件，首先已经准备好了:
+
 - 组件对应的动态库dll，
 - 组件coclass的CLSID（__uuidof(InterfaceTest)），
 - 还需要支持接口的GUID（__uuidof(IInterfaceTest)），
@@ -230,14 +228,15 @@ if ( hModule )
 {
     typedef HRESULT (__stdcall *FUNCTYPE_DllGetClassObject)(REFCLSID, REFIID, void**);
  
-    FUNCTYPE_DllGetClassObject funGetClassObject = (FUNCTYPE_DllGetClassObject)::GetProcAddress(hModule, "DllGetClassObject");
+    FUNCTYPE_DllGetClassObject funGetClassObject = 
+        (FUNCTYPE_DllGetClassObject)::GetProcAddress(hModule, "DllGetClassObject");
     if ( funGetClassObject )
     {
        // 获取类厂
        CComPtr<IClassFactory> spClassFactory;
        funGetClassObject( __uuidof(InterfaceTest), __uuidof(IClassFactory), (void**)&spClassFactory );
       
-	   if ( spClassFactory )
+       if ( spClassFactory )
        {
            CComPtr<IInterfaceTest> spTest;
            spClassFactory->CreateInstance( NULL, __uuidof(IInterfaceTest), (void**)&spTest );
@@ -247,7 +246,7 @@ if ( hModule )
            }
            else
            {
-           ::MessageBox( 0, L"Error to get Interface", L"DllTest", 0 );
+            ::MessageBox( 0, L"Error to get Interface", L"DllTest", 0 );
            }
        }
  
