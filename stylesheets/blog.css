@@ -179,6 +179,11 @@ header h2 {
     color: #2970A6;
 }
 
+#homepage_title {
+    color: #556677; 
+    font-weight: normal;
+}
+
 /** ARTICLES **/
 #content {
     float: left;
@@ -248,6 +253,8 @@ aside {
 }
 
 .articlecontent .blog_summary .blog_title a {
+    font-size: 1.3em; 
+    font-weight: bold;
 }
 
 .articlecontent .blog_summary .blog_title {

@@ -4,7 +4,7 @@ title: suninf's homepage
 ---
 
 <div class="homepage">
-    <h1 style="color: #556677; font-weight: normal;">suninf's homepage</h1>
+    <h1 id="homepage_title">suninf's homepage</h1>
 </div>
 
 {% assign description_posts_limit = 1 %}
@@ -14,7 +14,7 @@ title: suninf's homepage
 
 <div class="blog_summary">
     <div class="blog_title">
-        <a href="{{ post.url }}" target="_blank" style="font-size: 1.3em; font-weight: bold;">{{ post.title }}</a>
+        <a href="{{ post.url }}" target="_blank">{{ post.title }}</a>
     </div>
     <div class="info" style="padding-top: 10px;">
         <span style="float: right;margin-left: 15px;">{{ post.date | date: "%Y-%m-%d" }}</span>
