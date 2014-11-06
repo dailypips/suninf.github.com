@@ -40,23 +40,43 @@ $(function(){
 		waitForFinalEvent( function(){ animateBar($('.artical-cate .on')); } );
 	});
 
+    // bar config
+    var bar_config = {
+        homepage : {
+            id : "#nav_home_id",
+            pathname : "/"
+        },
+        articles : {
+            id : "#nav_articles_id",
+            pathname : "articles.html"
+        },
+        works : {
+            id : "#nav_works_id",
+            pathname : "works.html"
+        },
+        about : {
+            id : "#nav_about_id",
+            pathname : "about.html"
+        }
+    };
+    
     // bar status depends on location.pathname
     var naviBarInit = function (){
         // remove class 'on'
         $(".artical-cate li").removeClass( "on" );
 
-        // parse url
+        // Match pathname
         var path_arg = location.pathname;
 
-        if( path_arg == "/" ) {
-            $("#nav_home_id").addClass("on");
-        } else if( path_arg.indexOf("about.html") >= 0 ) {
-            $("#nav_about_id").addClass("on");
-        } else if( path_arg.indexOf("works.html") >= 0 ) {
-            $("#nav_works_id").addClass("on");
+        if( path_arg == bar_config.homepage.pathname ) {
+            $(bar_config.homepage.id).addClass("on");
+        } else if( path_arg.indexOf(bar_config.works.pathname) >= 0 ) {
+            $(bar_config.works.id).addClass("on");
+        } else if( path_arg.indexOf(bar_config.about.pathname) >= 0 ) {
+            $(bar_config.about.id).addClass("on");
         } else {
-            // articles.html or posts
-            $("#nav_articles_id").addClass("on");
+            // default: articles or posts
+            $(bar_config.articles.id).addClass("on");
         }
 
         $('.cate-bar').css( {visibility:"visible"} );
