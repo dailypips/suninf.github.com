@@ -3,13 +3,13 @@
 
 - name: V8
   url: https://developers.google.com/v8/?hl=zh-CN
-  
-- name: Node.js
-  url: http://nodejs.org/api/all.html
 
 - name: github
   url: https://github.com/suninf
   
+- name: Node.js
+  url: http://nodejs.org/api/all.html
+
 - name: gitlab
   url: http://gitlab.alibaba-inc.com/
     
@@ -19,26 +19,14 @@
 - name: Jekyll
   url: http://jekyllrb.com/docs/home/
   
-- name: Bootstrap-zh
+- name: Bootstrap
   url: http://v3.bootcss.com/
       
 - name: boost
-  url: http://www.boost.org
+  url: http://www.boost.org/doc/libs/
 
 - name: w3schools
   url: http://www.w3schools.com/
-  
-- name: kissy
-  url: http://docs.kissyui.com/
       
 - name: jquery
   url: http://jquery.com/
-
-- name: erlang
-  url: http://www.erlang.org/
-  
-- name: express
-  url: http://expressjs.com/
-
-- name: grunt  
-  url: http://www.gruntjs.org/

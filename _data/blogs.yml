@@ -117,3 +117,12 @@
 
 - name: fb_blog
   url: https://code.facebook.com/posts/
+
+- name: kissy
+  url: http://docs.kissyui.com/
+  
+- name: erlang
+  url: http://www.erlang.org/
+
+- name: grunt  
+  url: http://www.gruntjs.org/
