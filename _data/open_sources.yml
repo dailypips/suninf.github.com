@@ -3,9 +3,6 @@
 
 - name: V8
   url: https://developers.google.com/v8/?hl=zh-CN
-
-- name: github
-  url: https://github.com/suninf
   
 - name: Node.js
   url: http://nodejs.org/api/all.html
