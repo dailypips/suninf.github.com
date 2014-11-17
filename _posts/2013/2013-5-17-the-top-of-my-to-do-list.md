@@ -13,7 +13,7 @@ description:
 
 ## Reference
 
-(From：[http://paulgraham.com/todo.html](http://paulgraham.com/todo.html))
+(From：[http://paulgraham.com/todo.html](http://paulgraham.com/todo.html){: target="_blank"})
 
 A palliative care nurse called Bronnie Ware made a list of the biggest regrets of the dying. Her list seems plausible. I could see myself—can see myself—making at least 4 of these 5 mistakes.
 
