@@ -5,18 +5,15 @@ category: life
 description: 
 ---
 
-~~~~
-不要忘记自己的梦想；  
-不要过度的工作；  
-要把想的说出来；  
-要珍惜友谊；  
-要快乐。  
-~~~~     
-
+1. 不要忘记自己的梦想；  
+2. 不要过度的工作；  
+3. 要把想的说出来；  
+4. 要珍惜友谊；  
+5. 要快乐。  
 
 ## Reference
 
-from：[http://paulgraham.com/todo.html](http://paulgraham.com/todo.html)
+(From：[http://paulgraham.com/todo.html](http://paulgraham.com/todo.html))
 
 A palliative care nurse called Bronnie Ware made a list of the biggest regrets of the dying. Her list seems plausible. I could see myself—can see myself—making at least 4 of these 5 mistakes.
 
@@ -27,11 +24,11 @@ The alarming thing is, the mistakes that produce these regrets are all errors of
 I would like to avoid making these mistakes. But how do you avoid mistakes you make by default? Ideally you transform your life so it has other defaults. But it may not be possible to do that completely. As long as these mistakes happen by default, you probably have to be reminded not to make them. So I inverted the 5 regrets, yielding a list of 5 commands
 
 ~~~~
-    Don't ignore your dreams; 
-    don't work too much; 
-    say what you think; 
-    cultivate friendships; 
-    be happy.
+Don't ignore your dreams; 
+don't work too much; 
+say what you think; 
+cultivate friendships; 
+be happy.
 ~~~~
 
 which I then put at the top of the file I use as a todo list.
