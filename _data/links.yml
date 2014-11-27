@@ -1,5 +1,20 @@
+- name: infoQ
+  url: http://www.infoq.com/cn/
+  
+- name: ituring
+  url: http://www.ituring.com.cn/
+  
+- name: oschina
+  url: http://www.oschina.net/
+
 - name: coursera
   url: https://www.coursera.org/
+  
+- name: ifeve
+  url: http://ifeve.com/
+  
+- name: highscalability
+  url: http://highscalability.com/
   
 - name: wooyun
   url: http://drops.wooyun.org/
@@ -42,3 +57,12 @@
 
 - name: HTML5 zh-doc
   url: http://www.w3.org/html/ig/zh/wiki/HTML5
+
+- name: ibm-java
+  url: http://www.ibm.com/developerworks/cn/java/
+
+- name: stackoverflow
+  url: http://stackoverflow.com/
+  
+  
+  
