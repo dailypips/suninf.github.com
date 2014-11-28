@@ -34,6 +34,21 @@ int main()
 使用C++0x的lambda语法，注意绑定使用&来捕捉当前作用域，而不是lambda函数体作用域。
  
  
+### objective-c
+{% highlight objective-c %}
+#import <Foundation/Foundation.h>
+
+int main(int argc, const char * argv[]) {
+    
+    typedef int (^FactorialType)(int);
+    __block FactorialType factorial = ^(int x) { return x==0 ? 1 : x * factorial(x-1); };
+    NSLog( @"%d", factorial(5) );
+    
+    return 0;
+}
+{% endhighlight %}
+ 
+ 
 ### python
 {% highlight python %}
 >>> factorial = lambda x : 1 if x==0 else x * factorial(x-1)
