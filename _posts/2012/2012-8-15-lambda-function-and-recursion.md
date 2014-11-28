@@ -41,7 +41,8 @@ int main()
 int main(int argc, const char * argv[]) {
     
     typedef int (^FactorialType)(int);
-    __block FactorialType factorial = ^(int x) { return x==0 ? 1 : x * factorial(x-1); };
+    __block FactorialType factorial = 
+        ^(int x) { return x==0 ? 1 : x * factorial(x-1); };
     NSLog( @"%d", factorial(5) );
     
     return 0;
