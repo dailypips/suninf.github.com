@@ -319,7 +319,7 @@ public:
 
   void work() {
     worker_pool_->PostWorkerTask(FROM_HERE, 
-      base::Bind(&ThreadPoolTest::DoWork, make_scoped_refptr(this)));
+      base::Bind(&ThreadPoolTest::DoWork, this));
   }
 
   void ordered_tasks() {
@@ -327,9 +327,9 @@ public:
       worker_pool_->GetSequenceToken();
 
     worker_pool_->PostSequencedWorkerTask(token, FROM_HERE,
-      base::Bind(&ThreadPoolTest::DoTask1, make_scoped_refptr(this)) );
+      base::Bind(&ThreadPoolTest::DoTask1, this) );
     worker_pool_->PostSequencedWorkerTask(token, FROM_HERE,
-      base::Bind(&ThreadPoolTest::DoTask2, make_scoped_refptr(this)) );
+      base::Bind(&ThreadPoolTest::DoTask2, this) );
   }
 
 private:
