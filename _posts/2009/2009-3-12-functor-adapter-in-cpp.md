@@ -16,18 +16,18 @@ using namespace std;
 template< class T >
 struct func : public binary_function< T, T, T>
 {
-	T operator () ( T t1, T t2 ) const 
-	{ 
-		return t1-t2; 
-	}
+    T operator () ( T t1, T t2 ) const 
+    { 
+        return t1-t2; 
+    }
 };
 
 int main()
 {
-	cout << bind1st( func<int>(), 10 ) (4) << endl; //10-4
-	cout << bind2nd( func<int>(), 10 ) (4) << endl; //4-10
-
-	return 0;
+    cout << bind1st( func<int>(), 10 ) (4) << endl; //10-4
+    cout << bind2nd( func<int>(), 10 ) (4) << endl; //4-10
+    
+    return 0;
 }
 {% endhighlight %}
 
@@ -43,23 +43,23 @@ using namespace std;
 template< class T >
 struct func : public unary_function< T, bool >
 {// 判断是否 a < x < b
-	func(const T& a0, const T& b0) : a(a0), b(b0) { }
-	bool operator () ( T x ) const
-	{
-	    return (a<x)&&(x<b);
-	}
+    func(const T& a0, const T& b0) : a(a0), b(b0) { }
+    bool operator () ( T x ) const
+    {
+        return (a<x)&&(x<b);
+    }
 
 private:
-	T a;
-	T b;
+    T a;
+    T b;
 };
 
 int main()
 {
-	cout << func<int>(5,9)( 6 ) << endl;
-	cout << not1( func<int>(5,9) )(6) << endl;
-	cout << func<string>("100","102")("101") << endl;
-	return 0;
+    cout << func<int>(5,9)( 6 ) << endl;
+    cout << not1( func<int>(5,9) )(6) << endl;
+    cout << func<string>("100","102")("101") << endl;
+    return 0;
 }
 {% endhighlight %}
 
@@ -79,51 +79,55 @@ using namespace std;
 class Base
 {
 public:
-	virtual void Print() 
-	{ 
-	    cout << "Print Base" << endl; 
-	}
-	virtual int Display( string s ) const
-	{
-	    cout << "Display Base: " << s << endl;
-	    return 0;
-	}
+    virtual void Print() 
+    { 
+        cout << "Print Base" << endl; 
+    }
+    virtual int Display( string s ) const
+    {
+        cout << "Display Base: " << s << endl;
+        return 0;
+    }
 	virtual ~Base() {}
 };
 
 class Derived : public Base
 {
 public:
-	void Print()
-	{
-		cout << "Print Derived" << endl; 
-	}
-	virtual int Display( string s ) const
-	{
-	    cout << "Display Derived: " << s << endl;
-	    return 0;
-	}
-	~Derived() {}
+    void Print()
+    {
+        cout << "Print Derived" << endl; 
+    }
+    virtual int Display( string s ) const
+    {
+        cout << "Display Derived: " << s << endl;
+        return 0;
+    }
+    ~Derived() {}
 };
 
 int main()
 {
-	vector<Base*> baseptrvector;
-	baseptrvector.push_back( new Base );
-	baseptrvector.push_back( new Derived );
-	baseptrvector.push_back( new Derived );
-	baseptrvector.push_back( new Base );
-	for_each( baseptrvector.begin(), baseptrvector.end(),
-	   mem_fun( &Base::Print ) );
-	cout << "//" << endl;
-	for_each( baseptrvector.begin(), baseptrvector.end(),
-	   bind2nd( mem_fun( &Base::Display ), "suninf" ) );
-	cout << "//" << endl;
-	Base base;
-	Derived der;
-	mem_fun_ref( &Base::Print ) ( base );
-	mem_fun_ref( &Base::Print ) ( der );
-	return 0;
+    vector<Base*> baseptrvector;
+    baseptrvector.push_back( new Base );
+    baseptrvector.push_back( new Derived );
+    baseptrvector.push_back( new Derived );
+    baseptrvector.push_back( new Base );
+    
+    for_each( baseptrvector.begin(), baseptrvector.end(),
+        mem_fun( &Base::Print ) );
+    cout << "//" << endl;
+    
+    for_each( baseptrvector.begin(), baseptrvector.end(),
+        bind2nd( mem_fun( &Base::Display ), "suninf" ) );
+    cout << "//" << endl;
+    
+    Base base;
+    Derived der;
+    mem_fun_ref( &Base::Print ) ( base );
+    mem_fun_ref( &Base::Print ) ( der );
+    
+    return 0;
 }
 {% endhighlight %}
 
@@ -142,18 +146,18 @@ using namespace std;
 
 void func( string s1, string s2 )
 {
-	cout << s1 << " " << s2 << endl;
+    cout << s1 << " " << s2 << endl;
 }
 
 int main()
 {
-	vector<string> stringvector;
-	stringvector.push_back( "sjw" );
-	stringvector.push_back( "suninf" );
-	for_each( stringvector.begin(), stringvector.end(),
-	   bind2nd(ptr_fun(func), "|") );
-
-	return 0;
+    vector<string> stringvector;
+    stringvector.push_back( "sjw" );
+    stringvector.push_back( "suninf" );
+    for_each( stringvector.begin(), stringvector.end(),
+        bind2nd(ptr_fun(func), "|") );
+    
+    return 0;
 }
 {% endhighlight %}
 
