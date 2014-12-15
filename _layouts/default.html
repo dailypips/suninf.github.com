@@ -71,6 +71,15 @@ desc: Creative thinking、Happy sharing！ If not now, when? If not you, who?
                     </section>
 
                     <section>
+                        <h3>Friend links</h3>
+                        <ul>
+                            {% for blog in site.data.friends %}
+                                <li><a href="{{ blog.url }}" target="_blank">{{ blog.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </section>
+
+                    <section>
                         <h3>Blogs</h3>
                         <ul>
                             {% for blog in site.data.blogs %}
