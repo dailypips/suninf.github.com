@@ -10,7 +10,7 @@ description:
 
 泛型技术背景：
 
-= 泛型：类模板，函数模板为多种类型设计。如：STL容器，算法
+- 泛型：类模板，函数模板为多种类型设计。如：STL容器，算法
 - 抽象：通过模板技术可以抽象成一般性，封装统一的方式。如：迭代器的规范化和iterator_traits的统一类型取用。
 - 多态：模板实现的静态多态，比动态多态更高效。
  
@@ -39,7 +39,10 @@ f(&n); // T自动推断为int*
 
 - 主函数模板参与重载决议（不要使用模板函数的特化）
 
-**关于函数模板的重载决议**：普通函数和主函数模板能加入重载决议，模板函数特化不加入，并且普通函数是一等公民，优先被选择；否则，寻找主函数模板中最佳的匹配，在选择了某个主函数模板的前提下，其特化版本才可能被选择。
+**关于函数模板的重载决议**：
+
+1. 普通函数和主函数模板能加入重载决议，模板函数特化不加入，并且普通函数是一等公民，优先被选择；
+2. 否则，寻找主函数模板中最佳的匹配，在选择了某个主函数模板的前提下，其特化版本才可能被选择。
  
 - 不要使用函数模板特化，要特化先考虑直接使用普通函数
 - 如果需要针对函数模板实现特化的效果，可以加入一个间接层实现
@@ -182,11 +185,11 @@ fun( Test2() );
 template<class Iter>
 struct iterator_traits
 {
-         typedef typename Iter::iterator_category iterator_category;
-         typedef typename Iter::value_type value_type;
-         typedef typename Iter::difference_type difference_type;
-         typedef typename Iter::pointer pointer;
-         typedef typename Iter::reference reference;
+  typedef typename Iter::iterator_category iterator_category;
+  typedef typename Iter::value_type value_type;
+  typedef typename Iter::difference_type difference_type;
+  typedef typename Iter::pointer pointer;
+  typedef typename Iter::reference reference;
 };
 {% endhighlight %}
 
@@ -455,7 +458,7 @@ template <class T>
 class A<T, typename enable_if<is_integral<T>, void >::type> // 该void可以省略
 {
  // ...
- };              (b)
+};              (b)
 {% endhighlight %}
 
 则：  
@@ -511,7 +514,6 @@ struct ValueExpr
   T operator()( U const& ) const { return val_; } // 直接返回存储的常量
 };
  
- 
 // 定义赋值表达式operator =
 template<typename A, typename B>
 struct AssignOp
@@ -525,7 +527,6 @@ struct AssignOp
     return val = right_(val);
   }
 };
- 
  
 // placeholder 赋值表达式的左值
 template<typename T>
@@ -596,7 +597,7 @@ int func( vector<int>::iterator iter )
 
 但是，想想运行时函数，没有这样的特化能力，针对值能直接选择另外的实现。
  
-- 实现简单的静态断言
+- **实现简单的静态断言**
 
 {% highlight c++ %}
 template <bool assert_value>
@@ -610,7 +611,7 @@ struct STATIC_ASSERTION_FAILURE<true> { enum { value = 1 }; };
 
 这样：static_assert(0); 编译器将报错，因为没有实现`STATIC_ASSERTION_FAILURE<false>`
  
-- 编译期类型选择
+- **编译期类型选择**
 
 {% highlight c++ %}
 template<bool condition, typename T1, typename T2>
@@ -629,7 +630,7 @@ struct IfThenElse<false, T1, T2>
 
 这样 `IfThenElse< (2>1), int, string >:: ResultType` 为int
  
-- 条件选择
+- **条件选择**
 
 {% highlight c++ %}
 template<bool condition>
@@ -648,7 +649,7 @@ struct if_<false> // 特化
 利用模板特化机制实现编译期条件选择结构。
 这样根据条件选择一个运行时函数：`if_< condition >::f()`
  
-- 实现编译期循环（递归实例化，代码生成）
+- **实现编译期循环（递归实例化，代码生成）**
 
 {% highlight c++ %}
 template<int N>
@@ -674,9 +675,9 @@ struct for_<0> // 特化
 利用递归模板实现编译期循环结构，递归的终结采用模板特化实现。
 这样：`for_<10>::f();` 会从0到10逐个调用
  
-- 实现trait（标准的元函数：模板参数输入，内嵌数据输出）
+- **实现trait（标准的元函数：模板参数输入，内嵌数据输出）**
 
-- trait的基本格式：
+trait的基本格式：
 
 {% highlight c++ %}
 template<typename T>
@@ -717,10 +718,12 @@ struct is_same<T,T>
 
 - 模板支持的语法基础
     - 理解：类模板和函数模板的特征，模板参数，特化
- 
+
+
 - 惯用法 idioms
     - 实践：当需要设计相对比较底层的代码时，想想能不能用上这些惯用法，来优化代码。
- 
+
+
 - 模板元编程初步
     - 学习：当设计一些比较泛化抽象的库或者一直封装的实现时，可能就需要代码生成的技巧。
 
