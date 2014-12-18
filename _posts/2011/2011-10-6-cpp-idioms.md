@@ -1,11 +1,11 @@
 ---
 layout: article
-title: C++的一些惯用法
+title: C++运行时惯用法
 category: c++
-description: C++的一些惯用法
+description: 
 ---
 
-*本文整理了C++的一些惯用法。*
+*本文整理了C++的一些运行时的惯用法。*
 
 ## pimpl惯用法
 
