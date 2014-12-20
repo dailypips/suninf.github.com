@@ -2,7 +2,6 @@
 layout: article
 title: function_types in boost
 category: c++
-description: boost::function_types提供了对函数签名、函数指针、函数引用和成员指针等类型进行分类、分解和合成的功能。而这些类型统称为可调用内建类型（callable builtin types）。
 ---
 ***boost::function_types**提供了对**函数签名、函数指针、函数引用和成员指针等类型进行分类、分解和合成的功能**。而这些类型统称为可调用内建类型（callable builtin types）。*
 

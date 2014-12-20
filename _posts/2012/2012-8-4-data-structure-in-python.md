@@ -2,7 +2,6 @@
 layout: article
 title: Python之数据结构
 category: python
-description: 基本数据结构是语言中的重要部分，本文介绍python的数据结构：序列和关联容器。
 ---
 *基本数据结构是语言中的重要部分，本文介绍python的数据结构：**序列**和**关联容器**。*
 

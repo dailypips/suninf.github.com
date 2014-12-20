@@ -1,8 +1,7 @@
 ---
 layout: article
 title: C++转型运算及其扩展
-category: c++
-description: 
+category: c++ 
 ---
 *本文整理了C++的转型运算，以及扩展常用的转型功能。*
 

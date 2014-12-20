@@ -2,7 +2,6 @@
 layout: article
 title: Function in javascript
 category: javascript
-description: 函数function在Javascript中是一等公民，是一种特殊的对象，函数可以作为参数传给其他高阶函数，支持匿名函数，还支持强大的闭包特征，总之javascript的函数是非常精彩的。
 ---
 *函数function在Javascript中是一等公民，**是一种特殊的对象**，函数可以作为参数传给其他高阶函数，支持匿名函数，还支持强大的闭包特征，总之javascript的函数是非常精彩的。*
 

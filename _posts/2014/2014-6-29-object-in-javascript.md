@@ -2,7 +2,6 @@
 layout: article
 title: Object in javascript
 category: javascript
-description: 本文介绍Javascript的Object对象类型的重点内容。
 ---
 *本文介绍Javascript的Object对象类型的重点内容。*
 

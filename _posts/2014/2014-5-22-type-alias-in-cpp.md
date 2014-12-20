@@ -2,7 +2,6 @@
 layout: article
 title: Type Alias and Alias Template
 category: c++
-description: Type alias is a name that refers to a previously defined type (similar to typedef), and alias template is a name that refers to a family of types.
 ---
 *`Type alias` is a name that refers to a previously defined type (similar to typedef), and `alias template` is a name that refers to a family of types.*
 

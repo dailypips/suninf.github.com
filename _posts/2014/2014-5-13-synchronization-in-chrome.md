@@ -2,7 +2,6 @@
 layout: article
 title: Synchronization in chrome
 category: chrome
-description: In Chrome code, message passing is far more common (via TaskRunner and PostTask) and low-level synchronization primitives like locks, condition variables and waitable_event should be used only when necessary. This article introduce the implement of synchronization mechanism in chrome source code.
 ---
 *In Chrome code, message passing is far more common (via TaskRunner and PostTask) and low-level synchronization primitives like **locks**, **condition variables** and **waitable_event** should be used only when necessary. This article introduce the implement of synchronization mechanism in chrome source code.*
 

@@ -1,8 +1,7 @@
 ---
 layout: article
 title: 发布COM组件方式
-category: c++
-description: 
+category: c++ 
 ---
 
 *本文介绍常用的几种发布COM组件的方式。*

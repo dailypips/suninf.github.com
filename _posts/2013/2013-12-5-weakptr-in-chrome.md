@@ -2,7 +2,6 @@
 layout: article
 title: WeakPtr in chrome
 category: chrome
-description: WeakPtr is normally used to avoid recursive reference, this article introduce the use of WeakPtr and WeakPtrFactory in chrome source code.
 ---
 *WeakPtr is normally used to avoid recursive reference, this article introduce the use of `WeakPtr` and `WeakPtrFactory` in chrome source code.*
 

@@ -2,7 +2,6 @@
 layout: article
 title: 奇特的递归模板模式（CRTP）
 category: c++
-description: CRTP（Curiously Recurring Template Pattern）是借助模板和继承来实现的一种技巧。
 ---
 *CRTP（Curiously Recurring Template Pattern）是借助模板和继承来实现的一种技巧。*
 

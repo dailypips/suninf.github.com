@@ -1,8 +1,7 @@
 ---
 layout: article
 title: The Top Of My To Do List
-category: life
-description: 
+category: life 
 ---
 
 1. 不要忘记自己的梦想；  

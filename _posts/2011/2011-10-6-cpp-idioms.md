@@ -1,8 +1,7 @@
 ---
 layout: article
 title: C++运行时惯用法
-category: c++
-description: 
+category: c++ 
 ---
 
 *本文整理了C++的一些运行时的惯用法。*

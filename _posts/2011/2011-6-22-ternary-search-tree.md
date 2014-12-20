@@ -2,7 +2,6 @@
 layout: article
 title: Ternary Search Tree 三元状态树
 category: algorithm
-description: 基于三元状态树( Ternary Search Trees )实现的tst_map
 ---
 
 *基于三元状态树( Ternary Search Trees )实现的tst_map，结合二叉树的空间效率和digital tries的时间效率，是非常有效的基于字符串作为key的关联容器。*

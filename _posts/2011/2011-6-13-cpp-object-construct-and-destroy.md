@@ -1,8 +1,7 @@
 ---
 layout: article
 title: C++对象的构造和析构语义
-category: c++
-description: 
+category: c++ 
 ---
 
 ## OO与OB的比较

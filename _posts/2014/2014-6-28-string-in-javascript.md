@@ -2,7 +2,6 @@
 layout: article
 title: String in javascript
 category: javascript
-description: 本文详细介绍javascript中的字符串处理，包括 String对象 的使用，以及 正则表达式RegExp 的相关细节。
 ---
 *本文详细介绍javascript中的字符串处理，包括**String对象**的使用，以及**正则表达式RegExp**的相关细节。*
 

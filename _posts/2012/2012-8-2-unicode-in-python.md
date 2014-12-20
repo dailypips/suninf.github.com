@@ -2,7 +2,6 @@
 layout: article
 title: Python之Unicode编码
 category: python
-description: Unicode编码是通用的宽字节编码，通常情况我们都只要直接使用Unicode编码即可，这样可以保证代码的通用。
 ---
 *Unicode编码是通用的宽字节编码，通常情况我们都只要直接使用Unicode编码即可，这样可以保证代码的通用。*  
 

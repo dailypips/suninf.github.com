@@ -2,7 +2,6 @@
 layout: article
 title: SFINAE与enable_if的使用
 category: c++
-description: C++中“类型敏感的”模板函数重载依赖于SFINAE(substitution-failure-is-not-an-error，替换失败不是错误)，原则：在函数模板的实例化过程中，如果形成的某个参数或返回值类型无效那么这个实例将从重载决议集中去掉而不是引发一个编译错误。而boost::enable_if使得SFINAE原则成为一个惯用法。
 ---
 *C++中“类型敏感的”模板函数重载依赖于**SFINAE**(substitution-failure-is-not-an-error，替换失败不是错误)。*
 

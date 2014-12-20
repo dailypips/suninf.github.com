@@ -2,7 +2,6 @@
 layout: article
 title: C++0x lambda表达式
 category: c++
-description: 本文详细介绍下C++0x的lambda表达式的语言特性。
 ---
 *本文详细介绍下C++0x的lambda表达式的语言特性。*
 

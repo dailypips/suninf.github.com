@@ -2,7 +2,6 @@
 layout: article
 title: Python之生成器
 category: python
-description: python中迭代是一种重要的方式，使得代码简洁，再加上列表解析等，大大增强迭代对应的表达语义。
 ---
 *python中迭代是一种重要的方式，使得代码简洁，再加上列表解析等，大大增强迭代对应的表达语义。*
  

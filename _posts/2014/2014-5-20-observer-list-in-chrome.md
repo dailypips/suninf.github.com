@@ -2,7 +2,6 @@
 layout: article
 title: ObserverList in chrome
 category: chrome
-description: ObserverList is a container for a list of observers, it is an easy-to-use observer pattern for two related objects.  Unlike a normal STL vector or list, this container can be modified during iteration without invalidating the iterator.
 ---
 *`ObserverList<ObserverType>` is a container for a list of observers, it is an easy-to-use observer pattern for two related objects.  Unlike a normal STL vector or list, this container can be modified during iteration without invalidating the iterator.*
 

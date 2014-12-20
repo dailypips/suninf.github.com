@@ -2,7 +2,6 @@
 layout: article
 title: C++0x 右值引用
 category: c++
-description: 本文详细介绍下C++0x的右值应用的语言特性。
 ---
 *本文详细介绍下C++0x的右值引用的语言特性。*
 

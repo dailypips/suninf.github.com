@@ -2,7 +2,6 @@
 layout: article
 title: lambda函数与递归
 category: c++
-description: lambda函数是匿名的，但是如果需要实现递归，那么必须要绑定名字，但是我们又不想因此而麻烦去定义函数。
 ---
 *lambda函数是匿名的，但是如果需要实现递归，那么必须要绑定名字，但是我们又不想因此而麻烦去定义函数。*
  

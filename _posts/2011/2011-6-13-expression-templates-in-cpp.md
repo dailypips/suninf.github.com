@@ -1,8 +1,7 @@
 ---
 layout: article
 title: Expression Templates 表达式模板
-category: c++
-description: 
+category: c++ 
 ---
 
 ### 表达式模板的目标是：

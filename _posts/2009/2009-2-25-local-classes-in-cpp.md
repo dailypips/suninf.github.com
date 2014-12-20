@@ -1,8 +1,7 @@
 ---
 layout: article
 title: C++局部类
-category: c++
-description: 
+category: c++ 
 ---
 *C++局部类的最主要特点是能对外隐藏实现，与java的嵌套类是一个概念。由于不能访问外部类的成员，能力还是比较弱的。*
 
