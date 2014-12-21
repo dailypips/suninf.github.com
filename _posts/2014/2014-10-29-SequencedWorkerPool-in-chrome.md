@@ -3,8 +3,7 @@ layout: article
 title: SequencedWorkerPool in chrome
 category: chrome
 ---
-
-*SequencedWorkerPool is a worker thread pool that allow you to post unordered tasks, and it also can enforce ordering between sets of tasks. What's more, It allows you to specify what should happen to your tasks on shutdown.*
+SequencedWorkerPool is a worker thread pool that allow you to post unordered tasks, and it also can enforce ordering between sets of tasks. What's more, It allows you to specify what should happen to your tasks on shutdown.
 
 
 ## Ordered Tasks

@@ -3,7 +3,7 @@ layout: article
 title: Package in java
 category: java
 ---
-*本文介绍Eclipse中Java包的建立与使用。*
+本文介绍Eclipse中Java包的建立与使用。
 
 ## package包的建立与使用
 

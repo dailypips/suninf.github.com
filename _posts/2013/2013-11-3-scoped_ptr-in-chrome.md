@@ -3,7 +3,7 @@ layout: article
 title: Scoped_ptr in chrome
 category: chrome
 ---
-*Smart_ptr are useful in C++ for auto-manage of memory, this article introduce `scoped_ptr` in chrome source code.*
+Smart_ptr are useful in C++ for auto-manage of memory, this article introduce `scoped_ptr` in chrome source code.
 
 
 Scopers help you manage ownership of a pointer, helping you easily manage the a pointer within a scope, and automatically destroying the pointer at the end of a scope.

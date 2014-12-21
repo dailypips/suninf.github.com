@@ -3,7 +3,7 @@ layout: article
 title: Python之Unicode编码
 category: python
 ---
-*Unicode编码是通用的宽字节编码，通常情况我们都只要直接使用Unicode编码即可，这样可以保证代码的通用。*  
+Unicode编码是通用的宽字节编码，通常情况我们都只要直接使用Unicode编码即可，这样可以保证代码的通用。  
 
 然而，Unicode宽字节，稍微有些浪费，对于每个单字节可以表示的ASCII编码也是有双字节，因而在网络通信中为节省带宽，常常不是直接使用unicode，而是使用utf-8，gbk等紧凑的编码方式。
 

@@ -3,7 +3,7 @@ layout: article
 title: Python之列表解析
 category: python
 ---
-*列表解析（List Comprehensions）是针对列表的操作语法，使得处理列表的表达能力大大提升。*
+列表解析（List Comprehensions）是针对列表的操作语法，使得处理列表的表达能力大大提升。
  
 ## python中列表解析的基本语法
 

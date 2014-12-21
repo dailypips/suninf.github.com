@@ -3,7 +3,7 @@ layout: article
 title: Python之class与json自动转化
 category: python
 ---
-*对象自动序列化常常是很有用的，因为这样实现了字符串与class结构之间的无缝转换，很多客户端与服务端的交互都是类似json这样的格式传输的，转换的自动化就显的很有价值。*
+对象自动序列化常常是很有用的，因为这样实现了字符串与class结构之间的无缝转换，很多客户端与服务端的交互都是类似json这样的格式传输的，转换的自动化就显的很有价值。
  
 {% highlight python %}
 # encoding: utf-8

@@ -3,7 +3,7 @@ layout: article
 title: Python之内建类型与函数
 category: python
 ---
-*python内建的类型：数值类型，序列，字典，文件，自定义类型，实例，异常等。*
+python内建的类型：数值类型，序列，字典，文件，自定义类型，实例，异常等。
  
 ### 判断为False的条件  
 

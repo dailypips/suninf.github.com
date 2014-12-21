@@ -3,7 +3,7 @@ layout: article
 title: Classes in javascript
 category: javascript
 ---
-*在Javascript中，类的实现是基于原型继承来实现的，类的一个重要特征是“动态扩展”（**dynamically extendable**）的能力。这种**动态扩展**和**自省**的能力也是动态脚本语言的强大之处。*
+在Javascript中，类的实现是基于原型继承来实现的，类的一个重要特征是“动态扩展”（**dynamically extendable**）的能力。这种**动态扩展**和**自省**的能力也是动态脚本语言的强大之处。
 
 
 ## 原型与工厂函数

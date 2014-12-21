@@ -3,7 +3,7 @@ layout: article
 title: Notification Registrar in chrome
 category: chrome
 ---
-*Event register and callback are very common and useful in an app, chrome implements an simple, uncoupled and smart Notification Mechanism.*
+Event register and callback are very common and useful in an app, chrome implements an simple, uncoupled and smart Notification Mechanism.
 
 ## NotificationRegistrar
 * This class is designed to register for notifications and ensures that all registered notifications are unregistered when the class is destroyed.

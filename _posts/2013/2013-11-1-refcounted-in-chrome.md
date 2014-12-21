@@ -3,7 +3,7 @@ layout: article
 title: RefCounted and scoped_refptr in chrome
 category: chrome
 ---
-*RefCount is a useful and common technique in c++, this article introduce `RefCount` and `scoped_refptr` in chrome source code ( [**ref_counted.h**{: style="color:#2970A6"}](http://src.chromium.org/viewvc/chrome/trunk/src/base/memory/ref_counted.h){: target="_blank"} ).*
+RefCount is a useful and common technique in c++, this article introduce `RefCount` and `scoped_refptr` in chrome source code ( [**ref_counted.h**{: style="color:#2970A6"}](http://src.chromium.org/viewvc/chrome/trunk/src/base/memory/ref_counted.h){: target="_blank"} ).
 
 ## RefCounted
 

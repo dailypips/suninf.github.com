@@ -3,7 +3,7 @@ layout: article
 title: Python之数据结构
 category: python
 ---
-*基本数据结构是语言中的重要部分，本文介绍python的数据结构：**序列**和**关联容器**。*
+基本数据结构是语言中的重要部分，本文介绍python的数据结构：**序列**和**关联容器**。
 
 - python的**序列类型**有：string, Unicode string，list，tuple，bytearray，buffer，xrange等，这里介绍Unicode string，list和tuple，另外几个在内建函数中介绍。
 - python的**关联容器**有：set，map

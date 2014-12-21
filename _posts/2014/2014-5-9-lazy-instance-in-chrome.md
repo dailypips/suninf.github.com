@@ -3,7 +3,7 @@ layout: article
 title: Lazy Instance in chrome
 category: chrome
 ---
-*Lazy instance is an object which is created on the first time it's accessed. And chrome implements a very powerful LazyInstance template class, which is very fast and **thread safe**. See detail in ( [**lazy_instance.h**{: style="color:#2970A6"}](http://src.chromium.org/viewvc/chrome/trunk/src/base/lazy_instance.h){: target="_blank"} ).*
+Lazy instance is an object which is created on the first time it's accessed. And chrome implements a very powerful LazyInstance template class, which is very fast and **thread safe**. See detail in ( [**lazy_instance.h**{: style="color:#2970A6"}](http://src.chromium.org/viewvc/chrome/trunk/src/base/lazy_instance.h){: target="_blank"} ).
 
 ## Class: `LazyInstance<Type, Traits>`
 The `LazyInstance<Type, Traits>` class manages a single instance of Type, which will be lazily created on the first time it's accessed.

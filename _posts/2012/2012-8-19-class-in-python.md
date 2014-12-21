@@ -3,7 +3,7 @@ layout: article
 title: Python之面向对象编程
 category: python
 ---
-*本文介绍python的面向对象编程。*
+本文介绍python的面向对象编程。
 
 ## 类型定义和构造函数
 

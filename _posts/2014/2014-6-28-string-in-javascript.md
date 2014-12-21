@@ -3,7 +3,7 @@ layout: article
 title: String in javascript
 category: javascript
 ---
-*本文详细介绍javascript中的字符串处理，包括**String对象**的使用，以及**正则表达式RegExp**的相关细节。*
+本文详细介绍javascript中的字符串处理，包括**String对象**的使用，以及**正则表达式RegExp**的相关细节。
 
 字符串是JavaScript的一种基本的数据类型。JavaScript 的字符串是不可变的（immutable），String 类定义的方法都不能改变字符串的内容。像`String.toUpperCase()`这样的方法，返回的是全新的字符串，而不是修改原始字符串。
 

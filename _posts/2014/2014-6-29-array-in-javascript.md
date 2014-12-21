@@ -3,7 +3,7 @@ layout: article
 title: Array in javascript
 category: javascript
 ---
-*数组是值的有序集合，Javascript数组是无类型的，数组元素可以是任意类型，并且同一数组中的不同元素也可以是不同类型。*
+数组是值的有序集合，Javascript数组是无类型的，数组元素可以是任意类型，并且同一数组中的不同元素也可以是不同类型。
 
 ## 创建数组
 

@@ -3,7 +3,7 @@ layout: article
 title: Python之函数式编程
 category: python
 ---
-*本文介绍python中函数式编程的一些细节。*
+本文介绍python中函数式编程的一些细节。
 
 ## 函数参数
 

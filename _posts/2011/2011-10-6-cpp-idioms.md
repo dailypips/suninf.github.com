@@ -3,8 +3,7 @@ layout: article
 title: C++运行时惯用法
 category: c++ 
 ---
-
-*本文整理了C++的一些运行时的惯用法。*
+本文整理了C++的一些运行时的惯用法。
 
 ## pimpl惯用法
 

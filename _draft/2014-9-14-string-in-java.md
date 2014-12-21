@@ -3,7 +3,7 @@ layout: article
 title: String in java
 category: java
 ---
-*本文介绍java的字符串及其编码转换。*
+本文介绍java的字符串及其编码转换。
 
 ## String
 

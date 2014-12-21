@@ -3,7 +3,7 @@ layout: article
 title: result_of in boost
 category: c++
 ---
-***boost::result_of**模板用于识别函数(对象)返回类型，帮助**确定一个调用表达式的类型**。*
+**boost::result_of**模板用于识别函数(对象)返回类型，帮助**确定一个调用表达式的类型**。
 
 ## result_of
 给定一个类型 F 的左值 f 和类型 `T1, T2, ..., TN` 的左值 `t1, t2, ..., tN`，类型 `result_of<F(T1, T2, ..., TN)>::type` 定义了表达式 `f(t1, t2, ...,tN)` 的类型。
