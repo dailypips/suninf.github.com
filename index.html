@@ -11,7 +11,6 @@ title: suninf's homepage
 {% assign recent_posts_limit = description_posts_limit | plus: 15 %}
         
 {% for post in site.posts limit:description_posts_limit %}
-
 <div class="blog_summary">
     <div class="blog_title">
         <a href="{{ post.url }}" target="_blank">{{ post.title }}</a>
@@ -34,7 +33,6 @@ title: suninf's homepage
 </div>
 {% endfor %}
 
-
 <div class="recent_posts">
     <h3>Recent articles:</h3>
     <ul>
@@ -56,11 +54,12 @@ title: suninf's homepage
     {% endif %}
 </div>
 
+<!--
 <div class="recent_comments">
     <h3>Recent comments:</h3>
     <div id="recentcomments" class="dsq-widget"><script type="text/javascript" src="http://suninf.disqus.com/recent_comments_widget.js?num_items=20&amp;hide_avatars=0&amp;avatar_size=40&amp;excerpt_length=200"></script></div>
 </div>
-
+-->
 
 
 
