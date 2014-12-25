@@ -8,8 +8,8 @@ Threads are very useful in application to deal with multi-thread problems, and c
 
 ## Thread
 
-－ A simple thread abstraction that establishes a MessageLoop on a new thread. The consumer uses the MessageLoop of the thread to cause code to execute on the thread.
-－ When this object is destroyed, the thread is terminated. All pending tasks queued on the thread's message loop will run to completion before the thread is terminated.
+- A simple thread abstraction that establishes a MessageLoop on a new thread. The consumer uses the MessageLoop of the thread to cause code to execute on the thread.
+- When this object is destroyed, the thread is terminated. All pending tasks queued on the thread's message loop will run to completion before the thread is terminated.
 
 *WARNING! SUBCLASSES MUST CALL Stop() IN THEIR DESTRUCTORS!  See ~Thread().*
 
@@ -113,9 +113,9 @@ g_cache_thread->message_loop_proxy()->PostTask( FROM_HERE,
 
 ## MessageLoop
 
-－ A MessageLoop is used to process events for a particular thread. There is at most one MessageLoop instance per thread.
-－ Events include at a minimum Task instances submitted to PostTask and its variants. Depending on the type of message pump used by the MessageLoop, other events such as UI messages may be processed.
-－ On Windows APC calls (as time permits) and signals sent to a registered set of HANDLEs may also be processed.
+- A MessageLoop is used to process events for a particular thread. There is at most one MessageLoop instance per thread.
+- Events include at a minimum Task instances submitted to PostTask and its variants. Depending on the type of message pump used by the MessageLoop, other events such as UI messages may be processed.
+- On Windows APC calls (as time permits) and signals sent to a registered set of HANDLEs may also be processed.
 
 NOTE:  
 MessageLoop has task reentrancy protection. This means that if a task is being processed, a second task cannot start until the first task is finished. Reentrancy can happen when processing a task, and an inner message pump is created. That inner pump then processes native messages which could implicitly start an inner task.  Inner message pumps are created with dialogs (DialogBox), common dialogs (GetOpenFileName), OLE functions (DoDragDrop), printer functions (StartDoc) and *many* others.
