@@ -164,11 +164,11 @@ enum Type
 
 `The "PostTask" family of methods` call the task's Run method asynchronously from within a message loop at some point in the future.
 
-－ With the PostTask variant, tasks are invoked in FIFO order, inter-mixed with normal UI or IO event processing.  With the PostDelayedTask variant, tasks are called after at least approximately 'delay_ms' have elapsed.
-－ The NonNestable variants work similarly except that they promise never to dispatch the task from a nested invocation of MessageLoop::Run. Instead, such tasks get deferred until the top-most MessageLoop::Run is executing.
-－ The MessageLoop takes ownership of the Task, and deletes it after it has been Run(). PostTask(from_here, task) is equivalent to PostDelayedTask(from_here, task, 0).
-－ The TryPostTask is meant for the cases where the calling thread cannot block. If posting the task will block, the call returns false, the task is not posted but the task is consumed anyways.
-－ These methods may be called on any thread.  The Task will be invoked on the thread that executes MessageLoop::Run().
+- With the PostTask variant, tasks are invoked in FIFO order, inter-mixed with normal UI or IO event processing.  With the PostDelayedTask variant, tasks are called after at least approximately 'delay_ms' have elapsed.
+- The NonNestable variants work similarly except that they promise never to dispatch the task from a nested invocation of MessageLoop::Run. Instead, such tasks get deferred until the top-most MessageLoop::Run is executing.
+- The MessageLoop takes ownership of the Task, and deletes it after it has been Run(). PostTask(from_here, task) is equivalent to PostDelayedTask(from_here, task, 0).
+- The TryPostTask is meant for the cases where the calling thread cannot block. If posting the task will block, the call returns false, the task is not posted but the task is consumed anyways.
+- These methods may be called on any thread.  The Task will be invoked on the thread that executes MessageLoop::Run().
 
 {% highlight c++ %}
 void PostTask(
