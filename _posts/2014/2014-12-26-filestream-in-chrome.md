@@ -4,7 +4,7 @@ title: FileStream in chrome
 category: chrome
 ---
 
-FileStream is a basic interface for reading and writing files synchronously or asynchronously with support for seeking to an offset. Generally speaking, we normally use asynchronous mode On a `TYPE_IO` Thread, because it's more effective. Note that even when used asynchronously, only one operation is supported at a time.
+FileStream is a basic interface for reading and writing files synchronously or asynchronously with support for seeking to an offset. Generally speaking, we normally use asynchronous mode on a `TYPE_IO` Thread, because it's more effective. Note that even when used asynchronously, only one operation is supported at a time.
 
 ## FileStream class declare
 
@@ -206,7 +206,7 @@ class NET_EXPORT FileStream {
 
 ## Sample
 
-The example below shows how to use FileStream's APIs asynchronously, helper function `ReadFileAsync` should be used on thread with type IO.
+The example below shows how to use FileStream's APIs asynchronously, helper function `ReadFileAsync` should be used on thread with type TYPE_IO.
 
 {% highlight c++ %}
 #include "base/bind.h"
@@ -247,7 +247,8 @@ public:
   {
   }
 
-  bool Read( std::wstring const& filePath, base::Callback<void(int,std::string)> completeCallback ) 
+  bool Read( std::wstring const& filePath, 
+      base::Callback<void(int,std::string)> completeCallback ) 
   {
     if ( !base::MessageLoop::current() || 
       base::MessageLoop::current()->type() != base::MessageLoop::TYPE_IO ) 
@@ -268,15 +269,18 @@ public:
     FileBasicInfo* meta_info = new FileBasicInfo();
 
     file_task_runner_->PostTaskAndReply( FROM_HERE, 
-      base::Bind(&FileReader::FetchMetaInfo, file_path_, base::Unretained(meta_info)),
-      base::Bind(&FileReader::DidFetchMetaInfo, base::Unretained(this), base::Owned(meta_info)) );
+      base::Bind(&FileReader::FetchMetaInfo, file_path_, 
+        base::Unretained(meta_info)),
+      base::Bind(&FileReader::DidFetchMetaInfo, 
+        base::Unretained(this), base::Owned(meta_info)) );
 
     ready_for_read_ = false;
     return true;
   }
 
 private:
-  static void FetchMetaInfo(const base::FilePath& file_path, FileBasicInfo* meta_info) 
+  static void FetchMetaInfo(const base::FilePath& file_path, 
+      FileBasicInfo* meta_info) 
   {
     base::PlatformFileInfo platform_info;
     meta_info->file_exists = file_util::GetFileInfo(file_path, &platform_info);
@@ -308,7 +312,9 @@ private:
       stream_.reset( new net::FileStream(NULL, file_task_runner_) );
     }
     
-    int flags = base::PLATFORM_FILE_OPEN | base::PLATFORM_FILE_READ | base::PLATFORM_FILE_ASYNC;
+    int flags = base::PLATFORM_FILE_OPEN | 
+      base::PLATFORM_FILE_READ | 
+      base::PLATFORM_FILE_ASYNC;
     int rv = stream_->Open(base::FilePath(file_path_), flags,
       base::Bind(&FileReader::DidOpen, base::Unretained(this)));
 
@@ -396,7 +402,9 @@ class ReadFileAsyncHelper
   : public base::RefCountedThreadSafe<ReadFileAsyncHelper>
 {
 public:
-  ReadFileAsyncHelper(const scoped_refptr<base::TaskRunner>& file_task_runner, std::wstring const& filePath, base::Callback<void(int,std::string)> completeCallback) 
+  ReadFileAsyncHelper(const scoped_refptr<base::TaskRunner>& file_task_runner, 
+      std::wstring const& filePath, 
+      base::Callback<void(int,std::string)> completeCallback) 
     : file_reader_( new FileReader(file_task_runner) ) 
     , complete_callback_(completeCallback)
     , file_path_(filePath)
@@ -404,8 +412,10 @@ public:
   }
 
   bool Start()
-  {// Reference of this is token by callback to FileReader, which is only released in callback
-    return file_reader_->Read(file_path_, base::Bind(&ReadFileAsyncHelper::OnReadComplete, this));
+  {// Reference of this is token by callback to FileReader, 
+   // which is only released in callback
+    return file_reader_->Read(file_path_, 
+      base::Bind(&ReadFileAsyncHelper::OnReadComplete, this));
   }
 
 private:
@@ -432,7 +442,8 @@ inline bool ReadFileAsync(
   base::Callback<void(int,std::string)> completeCallback )
 {
   scoped_refptr<internal::ReadFileAsyncHelper> readHelper 
-    = new internal::ReadFileAsyncHelper( file_task_runner, filePath, completeCallback );
+    = new internal::ReadFileAsyncHelper( file_task_runner, 
+        filePath, completeCallback );
   return readHelper->Start();
 }
 
