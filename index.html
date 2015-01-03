@@ -1,65 +1,40 @@
 ---
 layout: default
-title: suninf's homepage
+title: Home
 ---
 
-<div class="homepage">
-    <h1 id="homepage_title">suninf's homepage</h1>
+<div class="posts">
+  {% for post in paginator.posts %}
+  <div class="post">
+    <h1 class="post-title">
+      <a href="{{ post.url }}">
+        {{ post.title }}
+      </a>
+    </h1>
+
+    <span class="post-date">{{ post.date | date_to_string }}&nbsp;:&nbsp;category&nbsp;:&nbsp;
+        <a href="/category/{{ post.category }}.html" >{{ post.category }}</a>
+    </span>
+
+    {{ post.content }}
+  </div>
+  {% endfor %}
 </div>
 
-{% assign description_posts_limit = 5 %}
-{% assign recent_posts_limit = description_posts_limit | plus: 15 %}
-        
-{% for post in site.posts limit:description_posts_limit %}
-<div class="blog_summary">
-    <div class="blog_title">
-        <a href="{{ post.url }}" target="_blank">{{ post.title }}</a>
-    </div>
-    <div class="info" style="padding-top: 8px;">
-        <span style="float: right;margin-left: 15px;">{{ post.date | date: "%Y-%m-%d" }}</span>
-        <a href="/category/{{ post.category }}.html" style="float: right;">{{ post.category }}</a>
-        <span style="float: right;">category&nbsp;:&nbsp;</span>
-    </div>
-    <div class="blog_content" style="margin-top: 35px">
-        <div>
-            <p style="text-indent:2em; color: #555;">
-                {{ post.excerpt }}
-            </p>
-        </div>
-    </div>
-    <div style="float: right;">
-        <a href="{{ post.url }}">Continue reading &gt;&gt;</a>
-    </div>
-</div>
-{% endfor %}
-
-<div class="recent_posts">
-    <h3>Recent articles:</h3>
-    <ul>
-        {% for post in site.posts limit:recent_posts_limit %}
-            {% if forloop.index > description_posts_limit %}
-                <li class="post_list_item">
-                    {{ post.date | date: "%Y/%m/%d " }}
-                    <a href="{{post.url}}" style="margin-left: 5px; line-height: 25px;">{{post.title}}</a>
-                </li>
-            {% endif %}
-        {% endfor %}
-    </ul>
-
-    {% assign total_posts = site.posts | size %}
-    {% if total_posts > recent_posts_limit %}
-    <div style="float: right;">
-        <a href="/articles.html">More &gt;&gt;</a>
-    </div>
+<div class="pagination">
+  {% if paginator.next_page %}
+    <a class="pagination-item older" href="{{ site.baseurl }}page/{{paginator.next_page}}">Older</a>
+  {% else %}
+    <span class="pagination-item older">Older</span>
+  {% endif %}
+  {% if paginator.previous_page %}
+    {% if paginator.page == 2 %}
+      <a class="pagination-item newer" href="{{ site.baseurl }}">Newer</a>
+    {% else %}
+      <a class="pagination-item newer" href="{{ site.baseurl }}page/{{paginator.previous_page}}">Newer</a>
     {% endif %}
+  {% else %}
+    <span class="pagination-item newer">Newer</span>
+  {% endif %}
 </div>
-
-<!--
-<div class="recent_comments">
-    <h3>Recent comments:</h3>
-    <div id="recentcomments" class="dsq-widget"><script type="text/javascript" src="http://suninf.disqus.com/recent_comments_widget.js?num_items=20&amp;hide_avatars=0&amp;avatar_size=40&amp;excerpt_length=200"></script></div>
-</div>
--->
-
-
 

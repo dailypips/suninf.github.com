@@ -1,15 +1,15 @@
 ---
 layout: default
 ---
-<div class='post' style="padding-bottom: 3em; margin-top: 10px;">
-    <h1 style="padding: 8px;"><a href='{{page.url}}' id="article_title">{{page.title}}</a></h1>
-    <div class="info">
-        <span style="float: right;margin-left: 15px;">{{ page.date | date_to_string }}</span>
-        <a href="/category/{{ page.category }}.html" style="float: right;">{{ page.category }}</a>
-        <span style="float: right;">category&nbsp;:&nbsp;</span>
-    </div>
-    <div class='body' style="padding-top: 1em;">{{ content }}</div>
+
+<div class="post">
+  <h1 class="post-title">{{ page.title }}</h1>
+  <span class="post-date">{{ page.date | date_to_string }}&nbsp;:&nbsp;category&nbsp;:&nbsp;
+        <a href="/category/{{ page.category }}.html" >{{ page.category }}</a>
+  </span>
+  {{ content }}
 </div>
+
 <script type="text/javascript" charset="utf-8">
     var disqus_url = "http://suninf.github.com{{page.url}}";
     var disqus_developer = 1;
@@ -18,4 +18,3 @@ layout: default
 <div id="disqus_thread"></div>
 <script type="text/javascript" src="http://disqus.com/forums/suninf/embed.js"></script>
 <noscript><a href="http://disqus.com/forums/suninf/?url=ref">View the discussion thread.</a></noscript>
-
