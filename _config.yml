@@ -13,8 +13,8 @@ title:               suninf
 tagline:             'homepage'
 header_title:        "suninf's blog"
 description:         'Creative thinking、Happy sharing！ If not now, when? If not you, who?'
-url:                 http://flowerofsun.github.io
-baseurl:             http://flowerofsun.github.io/
+url:                 http://www.suninf.net
+baseurl:             http://www.suninf.net/
 paginate:            5
 paginate_path:       'page/:num'
 
