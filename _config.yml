@@ -11,7 +11,7 @@ permalink:           /:title
 # Setup
 title:               suninf
 tagline:             'homepage'
-header_title:        "suninf's blog"
+header_title:        "Enjoy From Programming And Technique"
 description:         'Creative thinking、Happy sharing！ If not now, when? If not you, who?'
 url:                 http://www.suninf.net
 baseurl:             http://www.suninf.net/
