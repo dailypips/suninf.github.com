@@ -5,6 +5,16 @@ title: Articles
 
 <div id="total_articles_size" style="text-align: right">Total <span style="font-weight: bold"> {{ site.posts | size }} </span> articles</div>
 
+<!-- categorys -->
+<section class="archives" style="border-top: 2px solid #d3d3d3;padding-top: 5px;margin-top: 10px;padding-bottom: 5px;">
+    <h1>Categories</h1>
+    <ul>
+        {% for category in site.categories %}
+        <li><a href="/category/{{category | first}}.html">{{category | first}} ({{category | last | size }})</a></li>
+        {% endfor %}
+    </ul>
+</section>
+        
 <!-- get a new year and list the articles in that year -->
 {% assign cur_year = "" %}
 {% for post in site.posts %}
