@@ -11,7 +11,8 @@ permalink:           /:title
 # Setup
 title:               suninf
 tagline:             'homepage'
-header_title:        "Enjoy From Programming And Technique"
+header_title:        "suninf's blog"
+header_description:  "Enjoy From Programming And Technique - suninf.net"
 description:         'Creative thinking、Happy sharing！ If not now, when? If not you, who?'
 baseurl:             http://www.suninf.net/
 paginate:            5
