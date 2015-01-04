@@ -1,4 +1,4 @@
-<h1><a href="#">Category: {{ page.category }}</a></h1>
+<h1><a href="#" style="color: #303030;">Category: {{ page.category }}</a></h1>
 <div class="size">total {{ site.categories[page.category] | size }} articles</div>
 <ul id="articles">
   {% for post in site.categories[page.category] %}
