@@ -1,0 +1,41 @@
+---
+layout: page
+title: Links
+---
+
+<section>
+    <h3>Friend links</h3>
+    <ul>
+        {% for blog in site.data.friends %}
+        <li><a href="{{ blog.url }}" target="_blank">{{ blog.name }}</a></li>
+        {% endfor %}
+    </ul>
+</section>
+
+<section>
+    <h3>Opensource</h3>
+    <ul>
+        {% for open_source in site.data.open_sources %}
+        <li><a href="{{ open_source.url }}" target="_blank">{{ open_source.name }}</a></li>
+        {% endfor %}
+    </ul>
+</section>
+
+<section>
+    <h3>Blogs</h3>
+    <ul>
+        {% for blog in site.data.blogs %}
+        <li><a href="{{ blog.url }}" target="_blank">{{ blog.name }}</a></li>
+        {% endfor %}
+    </ul>
+</section>
+
+<section>
+    <h3>Others</h3>
+    <ul>
+        {% for link in site.data.links %}
+        <li><a href="{{ link.url }}" target="_blank">{{ link.name }}</a></li>
+        {% endfor %}
+    </ul>
+</section>
+        
