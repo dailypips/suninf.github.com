@@ -7,7 +7,7 @@ title: Articles
 
 <!-- categorys -->
 <section class="archives" style="border-top: 2px solid #d3d3d3;padding-top: 5px;margin-top: 10px;padding-bottom: 5px;">
-    <h1>Categories</h1>
+    <h2>Categories</h2>
     <ul>
         {% for category in site.categories %}
         <li><a href="/category/{{category | first}}.html">{{category | first}} ({{category | last | size }})</a></li>
@@ -22,7 +22,7 @@ title: Articles
 {% if new_year != cur_year %}
 {% assign cur_year = new_year %}
 <section class="archives" style="border-top: 2px solid #d3d3d3;padding-top: 5px;margin-top: 10px;padding-bottom: 5px;">
-    <h1 class="year">{{cur_year}}</h1>
+    <h2 class="year">{{cur_year}}</h2>
     <ul id="articles">
         {% for tmp_post in site.posts %}
         {% assign tmp_year = tmp_post.date | date:"%Y" %}
