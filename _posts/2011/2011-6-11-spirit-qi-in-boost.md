@@ -1,7 +1,7 @@
 ---
 layout: article
 title: spirit.Qi in boost
-category: c++
+category: boost
 ---
 spirit.Qi (`namespace boost::spirit::qi`)是强大高效的语法分析器，spirit（boost版本1.41以上）对传统的spirit库进行了彻底的改写，传统的spirit库为现在库的一部分Classic而向后兼容，其他几个新内容：Q1, Karma, Lex 和 Phoenix。本文介绍分析器Qi，它和Karma是相对的孪生兄弟，一个用于解析，另一个逆向格式化。
 
