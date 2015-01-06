@@ -99,9 +99,10 @@ static void format( std::basic_string<CH>& resu_str, const CH* format_str,
 #endif// iterator end
 {% endhighlight %}
 
+
 ## 测试
 
-
+{% highlight c++ %}
 #include "format.h"
  
 #include <iostream>
