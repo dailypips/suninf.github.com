@@ -3,18 +3,15 @@ layout: article
 title: policy classes的设计理念
 category: c++
 ---
-http://blog.sina.com.cn/s/blog_74a12e7a0100tbs7.html
-{% highlight c++ %}
-{% endhighlight %}
-
 
 当我们要提供可复用，高度灵活性的组件、类库等情况时，我们该如何着手？policy classes是一种重要的类的设计技术，能大大提高程序的弹性和可复用性，也是《C++设计新思维》作者Andrei Alexandrescu所推崇的技术。
  
-策略policy的基本想法：是把需要实现的类的一些**相对独立的行为（behavior）**提取出来，然后抽象出每个行为对应的应具备的接口，这就是一个policy，而你可以针对这个policy提供任意个版本的policy classes，并在使用时根据情况选择一个最合适的policy class作为真正使用的版本。
+**策略policy的基本想法**：
+: 是把需要实现的类的一些**相对独立的行为（behavior）**提取出来，然后抽象出每个行为对应的应具备的接口，这就是一个policy，而你可以针对这个policy提供任意个版本的policy classes，并在使用时根据情况选择一个最合适的policy class作为真正使用的版本。
  
 这种通过组合各种policies，得到的宿主类(host class)具有非常大的灵活性，而且每个host可以使用的policy class的数量以及实现一个policy的实现方式也不限。进一步来说，通过使用模板来实现，不仅能在编译器完成很多约束条件(traits生成类型，静态断言作为约束)，而且没有任何运行时（run-time）开销。
  
-将一个host怎么分解提取出合理的policies是最困难的问题，一个准则是：
+将一个host怎么**分解提取出合理的policies是最困难的问题**，一个准则是：
 
 - 将参与class行为的设计鉴别出来并命名之，任何事情只要能用一种以上的方法实现或者解决，都应该被分析出来，从class提取出来作为一个policy。
 - 从class分解出policies时，理论上需要找到正交分解（orthogonal decomposition），这样产生的policies是完全相互独立的。
@@ -65,13 +62,16 @@ template
 class stack
 {
 public:
-    typedef Sequence<T,std::allocator<T> > Seq;// VS中的STL的vector,list,deque是这样的格式
+    // VS中的STL的vector,list,deque是这样的格式
+    typedef Sequence<T,std::allocator<T> > Seq;
     typedef typename Seq::value_type value_type;
     typedef typename Seq::size_type size_type;
     typedef typename Seq::reference reference;
     typedef typename Seq::const_reference const_reference;
+    
 protected:
     Seq c;
+    
 public:
     bool empty() const { return c.empty(); }
     size_type size() const { return c.size(); }
