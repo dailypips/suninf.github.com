@@ -288,6 +288,12 @@ a.sidebar-nav-item:focus {
   margin-top: 0;
 }
 
+.post h2 {
+    border-top: 4px solid #e0e0e0!important;
+    padding-top: .5em!important;
+    margin-top: 1.5em!important;
+}
+
 /* Meta data line below post title */
 .post-date {
   display: block;
