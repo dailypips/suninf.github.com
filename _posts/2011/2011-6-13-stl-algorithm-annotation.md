@@ -59,9 +59,8 @@ not2(func) -> ! func( param1, param2 )
 
 ### `mem_fun_ref, mem_fun`
 
-成员函数配接器mem_fun_ref, mem_fun分别针对函数对象本身以及其指针。
-
-op是类的成员函数地址,如`&X::func`，可以是一个参数或者无参数的成员函数。（目前只支持如此，要实现多个参数，标准库需要扩展，因为单参数的成员函数实际上已经是binary_function继承的了）。
+- 成员函数配接器mem_fun_ref, mem_fun分别针对函数对象本身以及其指针。
+- op是类的成员函数地址, 如`&X::func`，可以是一个参数或者无参数的成员函数。（目前只支持如此，要实现多个参数，标准库需要扩展，因为单参数的成员函数实际上已经是binary_function继承的了）。
 
 `mem_fun_ref( op )`
 : 返回函数对象，本身可以作为STL算法的参数，如果是单个参数的成员函数，用于算法还需要配接。它以类的对象obj为第一个参数（可能存在第二个参数），因此情况是：`mem_fun_ref(op)( obj )` 或者 `mem_fun_ref(op)(obj, param)`
@@ -71,8 +70,7 @@ op是类的成员函数地址,如`&X::func`，可以是一个参数或者无参�
 
 ### ptrfun一般函数的配接器
 
-两种形式（分别对应unary_function和binary_function）
-: `ptr_fun( func )` -> `func( param ) 或者 func( param1,param2 )`，返回的函数对象可以被配接，至于是单参数还是两个参数，你自己是知道的，而不用管是怎么实现的，内部有很多重载，有兴趣看源码。
+两种形式（分别对应unary_function和binary_function），`ptr_fun( func )` -> `func( param ) 或者 func( param1,param2 )`，返回的函数对象可以被配接，至于是单参数还是两个参数，你自己是知道的，而不用管是怎么实现的，内部有很多重载，有兴趣看源码。
 
 注意：所有配接器返回可配接的函数对象，可带1或2个参数，从unary_function或binary_function继承的；目前的boost的bind和function库功能更好更清晰；Lambda函数将使配接器更加受挫^_^
 
