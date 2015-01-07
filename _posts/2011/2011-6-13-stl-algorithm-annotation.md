@@ -44,9 +44,9 @@ equal_range( const key_type& k )
 
 它们接受从unary_function和binary_function继承的函数对象，因为这几个配接器使用函数对象类的一些typedef，即：return_type和argument_type,first_argument_type, second_argument_type等。
 
-－ 配接器返回的函数对象可以继续被配接。
-－ bind1st, bind2nd分别用于绑定函数对象的第1或第2个参数；
-－ 而not1,not2对函数对象效果取反，后面的数字1，2代表参数的数目。
+- 配接器返回的函数对象可以继续被配接。
+- bind1st, bind2nd分别用于绑定函数对象的第1或第2个参数；
+- 而not1,not2对函数对象效果取反，后面的数字1，2代表参数的数目。
 
 效果：
 
