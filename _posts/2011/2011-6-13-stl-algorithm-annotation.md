@@ -68,9 +68,9 @@ not2(func) -> ! func( param1, param2 )
 `men_fun(op)`
 : 与mem_fun_ref类似，不过mem_fun(op)能接受的第一个参数是对象指针objPtr，也有单参数和无参数两种情况。mem_fun(op)( objPtr ) 或者 mem_fun(op)( objPtr, param )。返回的单参数函数对象需要配接。
 
-### ptrfun一般函数的配接器
+### `ptrfun`
 
-两种形式（分别对应unary_function和binary_function），`ptr_fun( func )` -> `func( param ) 或者 func( param1,param2 )`，返回的函数对象可以被配接，至于是单参数还是两个参数，你自己是知道的，而不用管是怎么实现的，内部有很多重载，有兴趣看源码。
+ptrfun是一般函数的配接器，两种形式（分别对应unary_function和binary_function），`ptr_fun( func )` -> `func( param ) 或者 func( param1,param2 )`，返回的函数对象可以被配接，至于是单参数还是两个参数，你自己是知道的，而不用管是怎么实现的，内部有很多重载，有兴趣看源码。
 
 注意：所有配接器返回可配接的函数对象，可带1或2个参数，从unary_function或binary_function继承的；目前的boost的bind和function库功能更好更清晰；Lambda函数将使配接器更加受挫^_^
 
