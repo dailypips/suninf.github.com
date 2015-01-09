@@ -15,7 +15,7 @@ header_title:        "suninf's blog"
 header_description:  "Enjoy From Programming And Technique - "
 header_url:          "suninf.net"
 description:         'Creative thinking、Happy sharing！ If not now, when? If not you, who?'
-baseurl:             http://www.suninf.net/
+baseurl:             http://www.suninf.net
 paginate:            5
 paginate_path:       'page/:num'
 
