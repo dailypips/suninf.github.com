@@ -81,6 +81,9 @@ div.size  {
 }
 .masthead-title a {
   color: #505050;
+  font-family: 'Microsoft YaHei'; 
+  text-decoration: none; 
+  font-weight: bold;
 }
 .masthead-title small {
   font-size: 75%;
