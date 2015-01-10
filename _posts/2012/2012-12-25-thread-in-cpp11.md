@@ -352,7 +352,7 @@ std::cv_status wait_until( std::unique_lock<std::mutex>& lock,
      const std::chrono::time_point<Clock, Duration>& timeout_time );
      
 template< class Clock, class Duration, class Predicate >
-bool wait_until( std::unique_lock<mutex>& lock，
+bool wait_until( std::unique_lock<mutex>& lock,
  const std::chrono::time_point<Clock, Duration>& timeout_time, Predicate pred );
 // 支持等待一段时间。
 {% endhighlight %}
