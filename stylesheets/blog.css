@@ -91,6 +91,22 @@ div.size  {
   letter-spacing: 0;
 }
 
+#social {
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-align: right;
+}
+
+#social a {
+    padding: 0 5px;
+    font-size: 1.2rem;
+    color: #3A4145;
+    display: inline-block;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
 @media (max-width: 48em) {
   .masthead-title {
     text-align: center;
