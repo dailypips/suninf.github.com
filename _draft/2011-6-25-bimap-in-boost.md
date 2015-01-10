@@ -1,6 +1,6 @@
 ---
 layout: article
-title: phoenix in boost
+title: bimap in boost
 category: boost
 ---
 

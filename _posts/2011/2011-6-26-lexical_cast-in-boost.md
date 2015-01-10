@@ -1,6 +1,6 @@
 ---
 layout: article
-title: phoenix in boost
+title: lexical_cast in boost
 category: boost
 ---
 

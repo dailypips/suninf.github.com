@@ -1,6 +1,6 @@
 ---
 layout: article
-title: phoenix in boost
+title: type_traits in boost
 category: boost
 ---
 

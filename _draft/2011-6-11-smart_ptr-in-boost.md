@@ -1,6 +1,6 @@
 ---
 layout: article
-title: phoenix in boost
+title: smart_ptr in boost
 category: boost
 ---
 

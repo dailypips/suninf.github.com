@@ -1,6 +1,6 @@
 ---
 layout: article
-title: phoenix in boost
+title: bind in boost
 category: boost
 ---
 
