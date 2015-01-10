@@ -4,6 +4,8 @@ title: bind in boost
 category: boost
 ---
 
+bind在表达能力上可以取代所有的标准库配接器，如bind1st, bind2nd, not1, not2, mem_fun_ref, mem_fun, ptr_fun等，而且表达更统一，更清晰。
+
 基本的语法
 : `bind( func, argu_or_placeholder1, argu_or_placeholder2, ... )`
 
@@ -189,8 +191,7 @@ bind( &f, bind(&g, _1) )( 5 ) // 2 * 5^2 = 50
 ( !(bind( less<int>(), _1, _3 ) && bind( less_equal<int>(), _3, _2 )) ) (2, 4, 5)
 // 等价于 !(2<5 && 5<=4)，所以也为1
 {% endhighlight %}
- 
-## 注意事项
+
 
 ### 配合标准库算法使用bind
 
@@ -247,4 +248,3 @@ int main()
 }
 {% endhighlight %}
  
-### bind可以取代所有的标准库配接器，如bind1st, bind2nd, not1, not2, mem_fun_ref, mem_fun, ptr_fun等，而且表达更统一，更清晰。
