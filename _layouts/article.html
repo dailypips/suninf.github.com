@@ -4,9 +4,15 @@ layout: default
 
 <div class="post">
   <h1 class="post-title">{{ page.title }}</h1>
-  <span class="post-date">{{ page.date | date_to_string }}&nbsp;&nbsp;category&nbsp;:&nbsp;
-        <a href="/category/{{ page.category }}.html" >{{ page.category }}</a>
+  
+  <span class="post-date">
+        <i class="fa fa-pencil"></i>&nbsp;{{ page.date | date_to_string }}
+        &nbsp;&nbsp;&nbsp;
+        <i class="fa fa-tags"></i>&nbsp;<a href="/category/{{ page.category }}.html" >{{ page.category }}</a>
+        &nbsp;&nbsp;&nbsp;
+        <i class="fa fa-comments"></i>&nbsp;<a href="{{ site.url }}{{ page.url }}#disqus_thread"></a>
   </span>
+    
   {{ content }}
 </div>
 
