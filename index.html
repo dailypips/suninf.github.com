@@ -13,11 +13,11 @@ title: Home
     </h1>
 
     <span class="post-date">
-        {{ post.date | date_to_string }}
-        &nbsp;&nbsp;category&nbsp;:&nbsp;
-        <a href="/category/{{ post.category }}.html" >{{ post.category }}</a>
-        &nbsp;&nbsp;
-        <a href="{{ site.url }}{{ post.url }}#disqus_thread"></a>
+        <i class="fa fa-pencil"></i>&nbsp;{{ post.date | date_to_string }}
+        &nbsp;&nbsp;&nbsp;
+        <i class="fa fa-tags"></i>&nbsp;<a href="/category/{{ post.category }}.html" >{{ post.category }}</a>
+        &nbsp;&nbsp;&nbsp;
+        <i class="fa fa-comments"></i>&nbsp;<a href="{{ site.url }}{{ post.url }}#disqus_thread"></a>
     </span>
 
     {{ post.content }}
