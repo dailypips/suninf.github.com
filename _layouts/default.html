@@ -50,5 +50,10 @@
       ga('create', 'UA-56263597-1', 'auto');
       ga('send', 'pageview');
     </script>
+    
+    {% if page.title == "Home" %}
+        <!-- homepage needs to display comment count -->
+        {% include disqus_count.html %}
+    {% endif %}
   </body>
 </html>
