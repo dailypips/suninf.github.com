@@ -17,7 +17,7 @@ title: Home
         &nbsp;&nbsp;category&nbsp;:&nbsp;
         <a href="/category/{{ post.category }}.html" >{{ post.category }}</a>
         &nbsp;&nbsp;
-        <a href="{{ post.url }}#disqus_thread"></a>
+        <a href="{{ site.url }}{{ post.url }}#disqus_thread"></a>
     </span>
 
     {{ post.content }}
