@@ -387,8 +387,8 @@ struct extent : public integral_constant<std::size_t, EXTENT(T,N)> {};
 // 如果 T 不是一个数组类型，或者 N > rank<T>::value，那么 EXTENT(T,N) 为 0。
 
 // 例如：
-extent<int[1]> 从 integral_constant<std::size_t, 1> 继承。 // 默认N为0
-extent<double[2][3][4], 1>::type 是 integral_constant<std::size_t, 3> 类型。 
+extent<int[1]> // 从 integral_constant<std::size_t, 1> 继承，默认N为0
+extent<double[2][3][4], 1>::type // 是 integral_constant<std::size_t, 3> 类型。 
 {% endhighlight %}
 
 `rank`
@@ -404,6 +404,8 @@ rank<int[][2]>::value 是求值为 2 的 integral constant expression（整常�
 
 ### 这些模板确定在两个类型之间是否有关系：
 
+- `is_base_of`
+
 ~~~~
 template <class Base, class Derived>
 struct is_base_of;
@@ -412,6 +414,8 @@ struct is_base_of;
 如果 Base 是类型 Derived 的基类，或者两个类型相同，则从 true_type 继承，否则从 false_type 继承。这个模板可用于检测非公有基类，和 ambiguous base classes（歧义基类）。  
 注意，`is_base_of<X,X>` 总是从 true_type 继承。甚至在 X 不是一个类类型时也是如此。这是 Boost-1.33 为了符合 C++ 库扩展技术报告而做的行为上的更改。
 
+- `is_virtual_base_of`
+
 ~~~~
 template <class Base, class Derived>
 struct is_virtual_base_of;
@@ -419,12 +423,16 @@ struct is_virtual_base_of;
 
 如果 Base 是类型 Derived 的虚拟基类，则继承自 true_type，否则继承自 false_type.
 
+- `is_convertible`
+
 ~~~~
 template <class From, class To>
 struct is_convertible;
 ~~~~
 
 如果一个类型为 From 的 imaginary lvalue（假想左值）可以转换为类型 To，则从 true_type 继承，否则从 false_type 继承。隐式转换的，继承使得指针可以转换的都可以用is_convertible测试。
+
+- `is_same`
 
 ~~~~
 template <class T, class U>
