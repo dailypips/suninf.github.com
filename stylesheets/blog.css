@@ -311,7 +311,7 @@ a.sidebar-nav-item:focus {
 }
 
 .post h3 {
-    color: #080;
+    color: rgb(0, 0, 150);
 }
 
 /* Meta data line below post title */
