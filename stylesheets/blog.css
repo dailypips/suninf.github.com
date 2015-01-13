@@ -308,10 +308,12 @@ a.sidebar-nav-item:focus {
     border-top: 4px solid #e0e0e0!important;
     padding-top: .5em!important;
     margin-top: 1.5em!important;
+    font-weight: bold;
 }
 
 .post h3 {
-    color: rgb(0, 0, 150);
+    color: rgb(0, 0, 200);
+    font-weight: bold;
 }
 
 /* Meta data line below post title */
