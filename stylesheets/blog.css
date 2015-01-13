@@ -310,6 +310,10 @@ a.sidebar-nav-item:focus {
     margin-top: 1.5em!important;
 }
 
+.post h3 {
+    color: #080;
+}
+
 /* Meta data line below post title */
 .post-date {
   display: block;
