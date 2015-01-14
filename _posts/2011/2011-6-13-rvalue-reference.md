@@ -121,7 +121,7 @@ public:
 
 1. move constructor和move assignment operator不会默认生成。
 2. 隐式的默认构造函数（即不写无参数的构造函数）会被move constructor阻止。
-3. 隐式的默认构造函数不会被move constructor阻止。即如果不显式写`Type( const Type& )`，这个构造函数能默认生成。
+3. 隐式的默认拷贝构造函数不会被move constructor阻止。即如果不显式写`Type( const Type& )`，这个构造函数能默认生成。
 4. 隐式的默认赋值运算符不会被move assignment operator阻止。即如果不显式写，会默认生成。
  
  
