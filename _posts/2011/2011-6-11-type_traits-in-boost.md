@@ -4,7 +4,7 @@ title: type_traits in boost
 category: boost
 ---
 
-VS2008以后，std名字空间中已经增加了type_traits的库，基本上它与boost的type_traits库一致。现在就来介绍下type_traits的一些特点和用处，还有就是boost库中的内置的traits的使用清单，用它们来协助泛型编程，能大大提高工作效率，而且还有静态断言static_assert在编译期假设一些事情。traits常用于类型计算，策略导向，元编程。
+标准库std名字空间中已经增加了type_traits的库，基本上它与boost的type_traits库一致。现在就来介绍下type_traits的一些特点和用处，还有就是boost库中的内置的traits的使用清单，用它们来协助泛型编程，能大大提高工作效率，而且还有静态断言static_assert在编译期假设一些事情。traits常用于类型计算，策略导向，元编程。
 
 traits是典型的元函数，`元函数`( meta-function )是指所有成员都是元数据(metadata)类。`元数据`：是指整型常量（包括bool，枚举型）以及类型。元函数内部只有对元数据的操作。整型常量和typedef类型分别用一个常值和一个类型来初始化，定义之后就不会再改变，因此可以作为在编译期计算的类型。如果你熟悉tuple，你应该对元函数和元编程比较了解。
 
