@@ -124,41 +124,41 @@ vector<t1,t2,... tn>::type
 - 迭代器
 
 ~~~~
-begin<v>::type 	：指向 v 的开头的迭代器
-end<v>::type		：指向 v 的结尾的迭代器
+begin<v>::type ：指向 v 的开头的迭代器
+end<v>::type ：指向 v 的结尾的迭代器
 ~~~~
 
 - 序列大小属性
 
 ~~~~
-size<v>::type		：v的大小
-empty<v>::type	：返回布尔整型常量C满足：C::value == true 当且仅当v为空
+size<v>::type ：v的大小
+empty<v>::type ：返回布尔整型常量C满足：C::value == true 当且仅当v为空
 ~~~~
 
 - 读取元素
 
 ~~~~
-front<v>::type		：首个元素类型
-back<v>::type		：最后一个元素类型
-at<v,n>::type		：支持随机访问，第n::value个元素类型
+front<v>::type ：首个元素类型
+back<v>::type ：最后一个元素类型
+at<v,n>::type ：支持随机访问，第n::value个元素类型
 ~~~~
 
 - 序列扩展操作
 
 ~~~~
-insert<v,pos,x>::type			：在某个迭代器位置插入一个元素
+insert<v,pos,x>::type ：在某个迭代器位置插入一个元素
 新的 vector，具有以下元素：[begin<v>::type, pos), x, [pos, end<v>::type)；
 
-insert_range<v,pos,r>::type		：插入一个序列
+insert_range<v,pos,r>::type ：插入一个序列
 新的 vector，具有以下元素：[begin<v>::type, pos), [begin<r>::type, end<r>::type) [pos, end<v>::type)；
 
-erase<v,pos>::type				：删除迭代器对于的元素
+erase<v,pos>::type ：删除迭代器对于的元素
 新的 vector，具有以下元素：[begin<v>::type, pos), [next<pos>::type, end<v>::type)；
 
-erase<v,pos,last>::type			：删除迭代器对[ pos, last )指定的区间
+erase<v,pos,last>::type ：删除迭代器对[ pos, last )指定的区间
 新的 vector，具有以下元素：[begin<v>::type, pos), [last, end<v>::type)；
 
-clear<v>::type					：清空
+clear<v>::type ：清空
 空的 vector
 
 push_back<v,x>::type
@@ -232,7 +232,7 @@ listn<t1,t2,... tn>::type
 - 迭代器
 
 ~~~~
-begin<l>::type					：通过迭代器可以遍历list
+begin<l>::type ：通过迭代器可以遍历list
 end<l>::type 
 ~~~~
 
@@ -246,7 +246,7 @@ empty<l>::type
 - 读取元素
 
 ~~~~
-front<l>::type					：list只有front元素可以读取
+front<l>::type ：list只有front元素可以读取
 ~~~~
 
 - 序列扩展操作
@@ -302,19 +302,19 @@ front<s>::type
 - 元素检查
 
 ~~~~
-has_key<s,k>::type			：容器s中含有k，则返回C::value == true
-count<s,k>::type			：s 中键为 k 的数量，等价于count_if< s,is_same<_,T> >::type
-order<s,k>::type         	：如果 has_key<s,key>::value == true, 则为一个唯一的无符号 整型常量，与 s 中的 key 相关联; 否则，等价于 void_.
+has_key<s,k>::type ：容器s中含有k，则返回C::value == true
+count<s,k>::type ：s 中键为 k 的数量，等价于count_if< s,is_same<_,T> >::type
+order<s,k>::type ：如果 has_key<s,key>::value == true, 则为一个唯一的无符号 整型常量，与 s 中的 key 相关联; 否则，等价于 void_.
 ~~~~
 
 - 返回与k关联的元素
 
 ~~~~
-at<s,k>::type				：如果存在k，则为k类型；否则为mpl::void_类型
-at<s,k,def>::type			：支持默认类型
+at<s,k>::type ：如果存在k，则为k类型；否则为mpl::void_类型
+at<s,k,def>::type ：支持默认类型
 
-key_type<s,x>::type		：与x等价
-value_type<s,x>::type		：与x等价
+key_type<s,x>::type ：与x等价
+value_type<s,x>::type ：与x等价
 ~~~~
 
 - 序列扩展操作
@@ -361,7 +361,7 @@ int main()
 - 定义序列
 
 ~~~~
-map<p1,p2,... pn>					：其中p为pair< Key, Value >
+map<p1,p2,... pn> ：其中p为pair< Key, Value >
 mapn<p1,p2,... pn>
 map<p1,p2,... pn>::type
 mapn<p1,p2,... pn>::type
@@ -390,19 +390,19 @@ front<m>::type
 - 元素检查
 
 ~~~~
-has_key<m,k>::type			：容器s中含有k，则返回C::value == true
-count<m,k>::type			：s 中键为 k 的数量，等价于count_if< s,is_same<_,T> >::type
-order<m,k>::type         	：如果 has_key<s,key>::value == true, 则为一个唯一的无符号 整型常量，与 s 中的 key 相关联; 否则，等价于 void_.
+has_key<m,k>::type ：容器s中含有k，则返回C::value == true
+count<m,k>::type ：s 中键为 k 的数量，等价于count_if< s,is_same<_,T> >::type
+order<m,k>::type ：如果 has_key<s,key>::value == true, 则为一个唯一的无符号 整型常量，与 s 中的 key 相关联; 否则，等价于 void_.
 ~~~~
 
 - 返回与k关联的元素
 
 ~~~~
-at<m,k>::type				：如果存在k，则为与k对应的值类型；否则为mpl::void_类型
-at<m,k,def>::type			：支持默认类型
+at<m,k>::type ：如果存在k，则为与k对应的值类型；否则为mpl::void_类型
+at<m,k,def>::type ：支持默认类型
 
-key_type<m,x>::type		：等同于 x::first
-value_type<m,x>::type		：等同于 x::second
+key_type<m,x>::type ：等同于 x::first
+value_type<m,x>::type ：等同于 x::second
 ~~~~
 
 - 序列扩展操作
@@ -495,7 +495,7 @@ vectorn_c<T,c1,c2,... cn>::type
 - 定义序列
 
 ~~~~
-string<c1,c2,... cn>			：c可以为任意多个字符
+string<c1,c2,... cn> ：c可以为任意多个字符
 string<c1,c2,... cn>::type
 ~~~~
 
@@ -567,8 +567,8 @@ BOOST_MPL_ASSERT_RELATION( size<empty_sequence>::value, ==, 0 );
 ~~~~
 template
 <
-	typename Sequence
-	, typename Pred
+    typename Sequence
+    , typename Pred
 >
 struct filter_view;
 ~~~~
@@ -580,7 +580,7 @@ struct filter_view;
 {% highlight c++ %}
 typedef vector<int,float,long,float,char[50],long double,char> types;
 typedef max_element<
-	transform_view< filter_view< types,boost::is_float<_> >, size_of<_> >
+    transform_view< filter_view< types,boost::is_float<_> >, size_of<_> >
 >::type iter;
 
 BOOST_MPL_ASSERT(( is_same< deref<iter::base>::type, long double > ));
@@ -591,8 +591,8 @@ BOOST_MPL_ASSERT(( is_same< deref<iter::base>::type, long double > ));
 ~~~~
 template
 <
-	typename First
-	, typename Last
+    typename First
+    , typename Last
 >
 struct iterator_range;
 ~~~~
@@ -605,8 +605,8 @@ struct iterator_range;
 ~~~~
 template
 <
-	typename Sequence1, 
-	typename Sequence2
+    typename Sequence1, 
+    typename Sequence2
 >
 struct joint_view;
 ~~~~
@@ -619,7 +619,7 @@ struct joint_view;
 ~~~~
 template
 <
-	typename T
+    typename T
 >
 struct single_view;
 ~~~~
@@ -632,8 +632,8 @@ struct single_view;
 ~~~~
 template
 <
-	typename Sequence
-	, typename F
+    typename Sequence
+    , typename F
 >
 struct transform_view;
 ~~~~
@@ -646,7 +646,7 @@ struct transform_view;
 ~~~~
 template
 <
-	typename Sequences		// 由序列组成的序列
+    typename Sequences		// 由序列组成的序列
 >
 struct zip_view;
 ~~~~
@@ -670,8 +670,8 @@ typedef vector_c<int,1,1,1,1,1> v3;
 
 typedef transform_view
 <
-	zip_view< vector<v1,v2,v3> >
-	, unpack_args< plus<_1,_2,_3> > // 将接受3个参数转为接受序列
+    zip_view< vector<v1,v2,v3> >
+    , unpack_args< plus<_1,_2,_3> > // 将接受3个参数转为接受序列
 > sum;
 
 BOOST_MPL_ASSERT(( equal< sum, vector_c<int,7,7,7,7,7> > ));
@@ -685,16 +685,16 @@ BOOST_MPL_ASSERT(( equal< sum, vector_c<int,7,7,7,7,7> > ));
 ~~~~
 template
 <
-	typename Sequence
-	, typename N
+    typename Sequence
+    , typename N
 >
 struct at;
 
 template
 <
-	typename AssocSeq
-	, typename Key
-	, typename Default = unspecified
+    typename AssocSeq
+    , typename Key
+    , typename Default = unspecified
 >
 struct at;
 ~~~~
@@ -710,8 +710,8 @@ at 是一个重载的名字：
 ~~~~
 template
 <
-	typename Sequence
-	, long n
+    typename Sequence
+    , long n
 >
 struct at_c;
 ~~~~
@@ -808,16 +808,16 @@ erase 从序列中的任意位置开始删除一个或多个连续元素。删�
 ~~~~
 template
 < 
-	typename Sequence
-	, typename Pos
-	, typename T 
+    typename Sequence
+    , typename Pos
+    , typename T 
 >
 struct insert;
 
 template
 < 
-	typename Sequence
-	, typename T 
+    typename Sequence
+    , typename T 
 >
 struct insert;
 ~~~~
@@ -841,8 +841,8 @@ push_front
 ~~~~
 template
 <
-	typename AssocSeq
-	, typename Key
+    typename AssocSeq
+    , typename Key
 >
 struct erase_key;
 ~~~~
@@ -860,9 +860,9 @@ struct erase_key;
 ~~~~
 template
 <
-	typename Sequence
-	, typename Pos
-	, typename Range	// 待插入的序列
+    typename Sequence
+    , typename Pos
+    , typename Range	// 待插入的序列
 >
 struct insert_range;
 ~~~~
@@ -885,8 +885,8 @@ struct is_sequence;
 ~~~~
 template
 <
-	typename Sequence
-	, typename Key
+    typename Sequence
+    , typename Key
 >
 struct order;
 ~~~~
@@ -904,8 +904,8 @@ sequence_tag 是一个 tag 元函数，用于所有 tag 分派 固有序列操�
 ~~~~
 template
 <
-	typename Sequence
-	, typename X
+    typename Sequence
+    , typename X
 >
 struct value_type;
 ~~~~
@@ -922,8 +922,8 @@ BOOST_MPL_ASSERT(( is_same< v, unsigned > ));
 ~~~~
 template
 <
-	typename Sequence
-	, typename X
+    typename Sequence
+    , typename X
 >
 struct key_type;
 ~~~~
@@ -943,8 +943,8 @@ BOOST_MPL_ASSERT(( is_same< k,int > ));
 ~~~~
 template
 <
-	typename Iterator
-	, typename N
+    typename Iterator
+    , typename N
 >
 struct advance;
 ~~~~
@@ -956,8 +956,8 @@ struct advance;
 ~~~~
 template
 <
-	typename First
-	, typename Last
+    typename First
+    , typename Last
 >
 struct distance;
 ~~~~
@@ -969,7 +969,7 @@ struct distance;
 ~~~~
 template
 <
-	typename Iterator
+    typename Iterator
 >
 struct next;
 ~~~~
@@ -983,7 +983,7 @@ struct next;
 ~~~~
 template
 <
-	typename Iterator
+    typename Iterator
 >
 struct prior;
 ~~~~
@@ -997,7 +997,7 @@ struct prior;
 ~~~~
 template
 <
-	typename Iterator
+    typename Iterator
 >
 struct deref;
 ~~~~
@@ -1010,7 +1010,7 @@ struct deref;
 ~~~~
 template
 <
-	typename Iterator
+    typename Iterator
 >
 struct iterator_category;
 ~~~~
@@ -1056,9 +1056,9 @@ Tag分派元函数
 ### 类型选择元函数
 
 ~~~~
-if_		： if_< C, T1, T2 >::type 其中C为整型常量，等价于if_c< C::value, T1, T2 >
-if_c		：if_c< c, T1, T2 >::type，其中c为bool类型
-eval_if	：eval_f<C, F1, F2>::type，当C::value为true时，则选择F1::type，否则F2::type
+if_ ：if_< C, T1, T2 >::type 其中C为整型常量，等价于if_c< C::value, T1, T2 >
+if_c ：if_c< c, T1, T2 >::type，其中c为bool类型
+eval_if ：eval_f<C, F1, F2>::type，当C::value为true时，则选择F1::type，否则F2::type
 eval_if_c	
 ~~~~
 
@@ -1077,14 +1077,14 @@ namespace mpl = boost::mpl;
 
 int main()
 {
-	typedef mpl::if_< boost::is_same<int,double>, int, double >::type if_type1;
-
-	typedef mpl::eval_if_c< boost::is_same<int,double>::value, mpl::identity<int>, mpl::identity<double> >::type if_type2; 
-
-	std::cout << typeid(if_type1).name() << "\n";
-	std::cout << typeid(if_type2).name() << "\n";
-
-	return 0;
+    typedef mpl::if_< boost::is_same<int,double>, int, double >::type if_type1;
+    
+    typedef mpl::eval_if_c< boost::is_same<int,double>::value, mpl::identity<int>, mpl::identity<double> >::type if_type2; 
+    
+    std::cout << typeid(if_type1).name() << "\n";
+    std::cout << typeid(if_type2).name() << "\n";
+    
+    return 0;
 }
 {% endhighlight %}
 
@@ -1096,10 +1096,10 @@ int main()
 ~~~~
 template
 < 
-	typename F
-	, typename A1 = unspecified
-// 	...
-	, typename An = unspecified
+    typename F
+    , typename A1 = unspecified
+    // 	...
+    , typename An = unspecified
 >
 struct apply;
 ~~~~
@@ -1129,23 +1129,23 @@ struct int_plus
 
 struct int_plus_apply
 {
-	template< typename N1, typename N2 >
-	struct apply 
-	{
-		typedef mpl::int_< N1::value + N2::value > type;
-	};
+    template< typename N1, typename N2 >
+    struct apply 
+    {
+        typedef mpl::int_< N1::value + N2::value > type;
+    };
 };
 
 int main()
 {
-	// apply应用于 lambda表达式
-	typedef mpl::apply< int_plus<mpl::_1,mpl::_2>, mpl::int_<2>, mpl::int_<3> >::type r1;
-
-	// apply应用于元函数类
-	typedef mpl::apply< int_plus_apply, mpl::int_<2>, mpl::int_<3> >::type r2;
-	std::cout << r1::value << " " << r2::value << "\n";
-
-	return 0;
+    // apply应用于 lambda表达式
+    typedef mpl::apply< int_plus<mpl::_1,mpl::_2>, mpl::int_<2>, mpl::int_<3> >::type r1;
+    
+    // apply应用于元函数类
+    typedef mpl::apply< int_plus_apply, mpl::int_<2>, mpl::int_<3> >::type r2;
+    std::cout << r1::value << " " << r2::value << "\n";
+    
+    return 0;
 }
 {% endhighlight %}
 
@@ -1175,26 +1175,26 @@ namespace mpl = boost::mpl;
 
 struct int_plus_apply
 {
-	template< typename N1, typename N2 >
-	struct apply 
-	{
-		typedef mpl::int_< N1::value + N2::value > type;
-	};
+    template< typename N1, typename N2 >
+    struct apply 
+    {
+        typedef mpl::int_< N1::value + N2::value > type;
+    };
 };
 
 int main()
 {
-	// apply_wrap2继续封装
-	typedef mpl::apply_wrap2< int_plus_apply, mpl::int_<2>, mpl::_1 > plus2;
-
-	// apply只能调用
-	typedef mpl::apply< plus2, mpl::int_<3> >::type r2;
-
-	// apply_wrapN不带更多的占位符时，取type即为调用
-	typedef mpl::apply_wrap1< mpl::lambda<plus2>::type, mpl::int_<3> >::type r3;
-	std::cout << r2::value << " " << r3::value << "\n";
-
-	return 0;
+    // apply_wrap2继续封装
+    typedef mpl::apply_wrap2< int_plus_apply, mpl::int_<2>, mpl::_1 > plus2;
+    
+    // apply只能调用
+    typedef mpl::apply< plus2, mpl::int_<3> >::type r2;
+    
+    // apply_wrapN不带更多的占位符时，取type即为调用
+    typedef mpl::apply_wrap1< mpl::lambda<plus2>::type, mpl::int_<3> >::type r3;
+    std::cout << r2::value << " " << r3::value << "\n";
+    
+    return 0;
 }
 {% endhighlight %}
 
@@ -1229,12 +1229,12 @@ struct int_plus
 
 int main()
 {
-	// 封装成接受序列的模板元函数类
-	typedef mpl::unpack_args< int_plus<mpl::_1, mpl::_2> > FunType;
-
-	std::cout << mpl::apply< FunType, mpl::vector< mpl::int_<2>, mpl::int_<3> > >::type::value << "\n";
-
-	return 0;
+    // 封装成接受序列的模板元函数类
+    typedef mpl::unpack_args< int_plus<mpl::_1, mpl::_2> > FunType;
+    
+    std::cout << mpl::apply< FunType, mpl::vector< mpl::int_<2>, mpl::int_<3> > >::type::value << "\n";
+    
+    return 0;
 }
 {% endhighlight %}
 
@@ -1251,8 +1251,8 @@ int main()
 ~~~~
 template
 <       
-	typename X,
-	typename Tag = unspecified
+    typename X,
+    typename Tag = unspecified
 >
 struct lambda;
 ~~~~
@@ -1277,12 +1277,12 @@ struct int_plus
 
 int main()
 {
-	typedef mpl::lambda< int_plus<mpl::_1, mpl::int_<5>> >::type F;
-	std::cout << mpl::apply< F, mpl::int_<5> >::type::value << "\n";
-
-	std::cout << F::apply< mpl::int_<10> >::type::value << "\n";
-
-	return 0;
+    typedef mpl::lambda< int_plus<mpl::_1, mpl::int_<5>> >::type F;
+    std::cout << mpl::apply< F, mpl::int_<5> >::type::value << "\n";
+    
+    std::cout << F::apply< mpl::int_<10> >::type::value << "\n";
+    
+    return 0;
 }
 {% endhighlight %}
 
@@ -1291,10 +1291,10 @@ int main()
 ~~~~
 template
 < 
-	typename F
-	, typename A1 = unspecified
-// 	...
-	, typename An = unspecified
+    typename F
+    , typename A1 = unspecified
+    // 	...
+    , typename An = unspecified
 >
 struct bind;
 ~~~~
@@ -1312,22 +1312,22 @@ namespace mpl = boost::mpl;
 
 struct ArguFun 
 {
-	template<typename T, typename U>
-	struct apply 
-	{
-		typedef U type;
-	};
+    template<typename T, typename U>
+    struct apply 
+    {
+        typedef U type;
+    };
 };
 
 int main()
 {
-	typedef mpl::bind< ArguFun, mpl::_1, double > bind_f;
-	
-	std::cout << typeid( bind_f::apply<int>::type ).name() << "\n";
-
-	std::cout << typeid( mpl::apply< bind_f, int >::type ).name() << "\n"; 
-	
-	return 0;
+    typedef mpl::bind< ArguFun, mpl::_1, double > bind_f;
+    
+    std::cout << typeid( bind_f::apply<int>::type ).name() << "\n";
+    
+    std::cout << typeid( mpl::apply< bind_f, int >::type ).name() << "\n"; 
+    
+    return 0;
 }
 {% endhighlight %}
 
@@ -1336,8 +1336,8 @@ int main()
 ~~~~
 template
 <
-	template< typename P1,... typename Pn > class F, // 模板的模板参数
-	typename Tag = unspecified
+    template< typename P1,... typename Pn > class F, // 模板的模板参数
+    typename Tag = unspecified
 >
 struct quoten;
 ~~~~
@@ -1357,7 +1357,7 @@ namespace mpl = boost::mpl;
 template<typename T>
 struct AddPointer
 {
-	typedef typename boost:: add_pointer<T>::type type;
+    typedef typename boost:: add_pointer<T>::type type;
 };
 
 template<typename T>
@@ -1367,13 +1367,13 @@ struct dummy
 
 int main()
 {
-	// 对于内嵌type的元函数，创建的元函数类apply时计算对应的type：int*
-	std::cout << typeid( mpl::quote1< AddPointer>::apply<int>::type ).name() << "\n";
-
-	// 没有内嵌type，则简单计算为原元函数的实例化：dummy<int>
-	std::cout << typeid( mpl::quote1< dummy >::apply<int>::type ).name() << "\n";
-	
-	return 0;
+    // 对于内嵌type的元函数，创建的元函数类apply时计算对应的type：int*
+    std::cout << typeid( mpl::quote1< AddPointer>::apply<int>::type ).name() << "\n";
+    
+    // 没有内嵌type，则简单计算为原元函数的实例化：dummy<int>
+    std::cout << typeid( mpl::quote1< dummy >::apply<int>::type ).name() << "\n";
+    
+    return 0;
 }
 {% endhighlight %}
 
@@ -1383,21 +1383,21 @@ int main()
 template< int n > struct arg;
 template<> struct arg<1>
 {
-	template< typename A1,... typename An = unspecified >
-	struct apply
-	{
-		typedef A1 type;
-	};
+    template< typename A1,... typename An = unspecified >
+    struct apply
+    {
+        typedef A1 type;
+    };
 };
 
 // ...
 template<> struct arg<n>
 {
-	template< typename A1,... typename An >
-	struct apply
-	{
-		typedef An type;
-	};
+    template< typename A1,... typename An >
+    struct apply
+    {
+        typedef An type;
+    };
 };
 ~~~~
 
@@ -1427,28 +1427,28 @@ using namespace mpl;
 
 struct f
 {
-	template< typename T1, typename T2 > 
-	struct apply
-	{
-		typedef T2 type;
-	};
+    template< typename T1, typename T2 > 
+    struct apply
+    {
+        typedef T2 type;
+    };
 };
 
 int main()
 {
-	typedef bind< quote3<if_>, _1, _2, bind<f,_1,_2> >				b1;
-	typedef bind< quote3<if_>, _1, _2, protect< bind<f,_1,_2> > >	b2;
-
-	typedef apply_wrap2< b1, false_, char >::type r1; // char
-	
-	// protect< bind<f,_1,_2> >
-	typedef apply_wrap2< b2, false_, char >::type r2; 
-
-	BOOST_MPL_ASSERT( (boost::is_same< r1, char >) );
-	BOOST_MPL_ASSERT( (boost::is_same< r2, protect< bind<f,_1,_2> > >) );
-
-	
-	return 0;
+    typedef bind< quote3<if_>, _1, _2, bind<f,_1,_2> >				b1;
+    typedef bind< quote3<if_>, _1, _2, protect< bind<f,_1,_2> > >	b2;
+    
+    typedef apply_wrap2< b1, false_, char >::type r1; // char
+    
+    // protect< bind<f,_1,_2> >
+    typedef apply_wrap2< b2, false_, char >::type r2; 
+    
+    BOOST_MPL_ASSERT( (boost::is_same< r1, char >) );
+    BOOST_MPL_ASSERT( (boost::is_same< r2, protect< bind<f,_1,_2> > >) );
+    
+    
+    return 0;
 }
 {% endhighlight %}
 
@@ -1490,10 +1490,10 @@ and_
 ~~~~
 template
 < 
-	typename F1	
-	, typename F2
-	...
-	, typename Fn = unspecified
+    typename F1	
+    , typename F2
+    ...
+    , typename Fn = unspecified
 >
 struct and_;
 ~~~~
@@ -1589,24 +1589,24 @@ BOOST_MPL_AUX_ARITY_SPEC(1, always)
 ~~~~
 template
 <
-	typename T1
-	, typename T2
-	...
-	, typename Tn = unspecified
+    typename T1
+    , typename T2
+    ...
+    , typename Tn = unspecified
 >
 struct inherit;
 ~~~~
 
-![](http://www.suninf.net/images/articles/mpl_inherit.png)
+![](http://www.suninf.net/images/articles/mpl_inherit.png){: style="width:90%;"}
 
 -  inherit_linearly
 
 ~~~~
 template
 <
-	typename Types
-	, typename Node
-	, typename Root = empty_base
+    typename Types
+    , typename Node
+    , typename Root = empty_base
 >
 struct inherit_linearly
 	: fold<Types,Root,Node>
@@ -1632,13 +1632,13 @@ using mpl::_2;
 template< typename T > 
 struct tuple_field
 {
-	T field;
+    T field;
 };
 
 template< typename T >
 inline T& field(tuple_field<T>& t)
 {
-	return t.field;
+    return t.field;
 }
 
 typedef mpl::inherit_linearly<
@@ -1648,18 +1648,18 @@ typedef mpl::inherit_linearly<
 
 int main()
 {
-	tuple t;
-
-	field<int>(t) = -1;
-	field<char const*>(t) = "text";
-	field<bool>(t) = false;
-
-	std::cout
-		<< field<int>(t) << '\n'
-		<< field<char const*>(t) << '\n'
-		<< field<bool>(t) << '\n';
-
-	return 0;
+    tuple t;
+    
+    field<int>(t) = -1;
+    field<char const*>(t) = "text";
+    field<bool>(t) = false;
+    
+    std::cout
+        << field<int>(t) << '\n'
+        << field<char const*>(t) << '\n'
+        << field<bool>(t) << '\n';
+    
+    return 0;
 }
 {% endhighlight %}
 
@@ -1709,7 +1709,7 @@ C++标准库中的算法是操作于隐式的迭代器区间之上的，而MPL�
 ~~~~
 template
 <
-      typename Sequence			// 目标序列的基础状态
+    typename Sequence			// 目标序列的基础状态
     , typename Operation		// 二元操作 op< state, argu >
 >
 struct inserter
@@ -1743,15 +1743,15 @@ struct is_odd
 
 int main()
 {
-	typedef mpl::if_< is_odd<mpl::_2>, mpl::push_back<mpl::_1, mpl::_2>, mpl::_1 > insert_oper;
-
-	typedef mpl::inserter< mpl::vector<>,  insert_oper > copy_inserter;
-
-	typedef mpl::copy< mpl::range_c<int,0,10>, copy_inserter>::type odds;
-	
-	print_seq::PrintSequence<odds>();
-
-	return 0;
+    typedef mpl::if_< is_odd<mpl::_2>, mpl::push_back<mpl::_1, mpl::_2>, mpl::_1 > insert_oper;
+    
+    typedef mpl::inserter< mpl::vector<>,  insert_oper > copy_inserter;
+    
+    typedef mpl::copy< mpl::range_c<int,0,10>, copy_inserter>::type odds;
+    
+    print_seq::PrintSequence<odds>();
+    
+    return 0;
 }
 {% endhighlight %}
 
@@ -1799,9 +1799,9 @@ inserter<s,push_front<_1,_2> >
 ~~~~
 template
 <
-	typename Sequence
-	, typename State
-	, typename ForwardOp
+    typename Sequence
+    , typename State
+    , typename ForwardOp
 >
 struct fold;
 ~~~~
@@ -1828,21 +1828,21 @@ namespace mpl = boost::mpl;
 
 int main()
 {
-	using mpl::_1;
-	using mpl::_2;
-
-	typedef mpl::vector<long,float,short,double,float,long,long double> types;
-	typedef mpl::if_< boost::is_float<_2>, mpl::next<_1>, _1 >			oper;
-
-	typedef mpl::fold< types, mpl::int_<0>, oper >::type number_of_floats;
-	std::cout << number_of_floats::value << '\n';
-
-	// 封装iter_fold的op
-	typedef mpl::apply_wrap2< mpl::lambda<oper>::type, _1, mpl::deref<_2> > iter_oper;
-	typedef mpl::iter_fold< types, mpl::int_<0>, iter_oper >::type number_of_floats2;
-	std::cout << number_of_floats2::value << '\n';
-
-	return 0;
+    using mpl::_1;
+    using mpl::_2;
+    
+    typedef mpl::vector<long,float,short,double,float,long,long double> types;
+    typedef mpl::if_< boost::is_float<_2>, mpl::next<_1>, _1 >			oper;
+    
+    typedef mpl::fold< types, mpl::int_<0>, oper >::type number_of_floats;
+    std::cout << number_of_floats::value << '\n';
+    
+    // 封装iter_fold的op
+    typedef mpl::apply_wrap2< mpl::lambda<oper>::type, _1, mpl::deref<_2> > iter_oper;
+    typedef mpl::iter_fold< types, mpl::int_<0>, iter_oper >::type number_of_floats2;
+    std::cout << number_of_floats2::value << '\n';
+    
+    return 0;
 }
 {% endhighlight %}
 
@@ -1854,9 +1854,9 @@ int main()
 
 ~~~~
 template<
-	typename Sequence
-	, typename State
-	, typename ForwardOp
+    typename Sequence
+    , typename State
+    , typename ForwardOp
 >
 struct iter_fold;
 ~~~~
@@ -1868,10 +1868,10 @@ struct iter_fold;
 ~~~~
 template
 <
-	typename Sequence
-	, typename State
-	, typename BackwardOp
-	, typename ForwardOp = _1
+    typename Sequence
+    , typename State
+    , typename BackwardOp
+    , typename ForwardOp = _1
 >
 struct reverse_fold;
 ~~~~
@@ -1902,20 +1902,20 @@ namespace mpl = boost::mpl;
 
 int main()
 {
-	using mpl::_1;
-	using mpl::_2;
-
-	typedef mpl::vector<long,float,short,double,float,long,long double> types;
-
-	typedef mpl::reverse_fold< 
-		types,
-		mpl::vector<>,
-		mpl::if_< boost::is_same<float, _2>, _1, mpl::push_back<_1, _2 > >
-	>::type except_float_types;
-
-	print_seq::PrintSequence<except_float_types>();
-
-	return 0;
+    using mpl::_1;
+    using mpl::_2;
+    
+    typedef mpl::vector<long,float,short,double,float,long,long double> types;
+    
+    typedef mpl::reverse_fold< 
+        types,
+        mpl::vector<>,
+        mpl::if_< boost::is_same<float, _2>, _1, mpl::push_back<_1, _2 > >
+    >::type except_float_types;
+    
+    print_seq::PrintSequence<except_float_types>();
+    
+    return 0;
 }
 {% endhighlight %}
 
@@ -1954,8 +1954,8 @@ find<s,t>::type 等价于 find_if<s, is_same<_,t> >::type
 ~~~~
 template
 <
-	typename Sequence
-	, typename Pred
+    typename Sequence
+    , typename Pred
 >
 struct find_if;
 ~~~~
@@ -1985,8 +1985,8 @@ contains<s,t>::type 等价于 not_< is_same< find<s,t>::type, end<s>::type> >::t
 ~~~~
 template
 <
-	typename Sequence
-	, typename T
+    typename Sequence
+    , typename T
 >
 struct count;
 ~~~~
@@ -1998,8 +1998,8 @@ struct count;
 ~~~~
 template
 <
-	typename Sequence
-	, typename Pred
+    typename Sequence
+    , typename Pred
 >
 struct count_if;
 ~~~~
@@ -2022,9 +2022,9 @@ typedef fold<
 ~~~~
 template
 <
-	typename Sequence
-	, typename T
-	, typename Pred = less<_1,_2>
+    typename Sequence
+    , typename T
+    , typename Pred = less<_1,_2>
 >
 struct lower_bound;
 ~~~~
@@ -2045,9 +2045,9 @@ i 是 [begin<s>::type, end<s>::type) 中满足以下条件的最靠后的迭代�
 ~~~~
 template
 <
-	typename Sequence
-	, typename T
-	, typename Pred = less<_1,_2>
+    typename Sequence
+    , typename T
+    , typename Pred = less<_1,_2>
 >
 struct upper_bound;
 ~~~~
@@ -2081,9 +2081,9 @@ struct min_element;
 ~~~~
 template
 <
-	typename Seq1
-	, typename Seq2
-	, typename Pred = is_same<_1,_2>
+    typename Seq1
+    , typename Seq2
+    , typename Pred = is_same<_1,_2>
 >
 struct equal;
 ~~~~
@@ -2098,8 +2098,8 @@ struct equal;
 ~~~~
 template
 <      
-	typename Sequence,			// 原序列
-	typename In = unspecified	// 插入器
+    typename Sequence,			// 原序列
+    typename In = unspecified	// 插入器
 >
 struct copy;
 ~~~~
@@ -2126,9 +2126,9 @@ BOOST_MPL_ASSERT(( equal< result,range_c<int,0,20> > ));
 ~~~~
 template
 <
-	typename Sequence
-	, typename Pred	// 对序列中满足条件的进行插入
-	, typename In = unspecified
+    typename Sequence
+    , typename Pred	// 对序列中满足条件的进行插入
+    , typename In = unspecified
 >
 struct copy_if;
 ~~~~
@@ -2171,33 +2171,33 @@ namespace mpl = boost::mpl;
 
 int main()
 {
-	using mpl::_1;
-	using mpl::_2;
-
-	typedef mpl::vector<long,float,short,double,float,long,long double> types;
-
-	typedef boost::is_float<mpl::_> pred;
-	typedef mpl::inserter< mpl::vector<>, mpl::push_back<_1, _2> > in;
-
- 	typedef mpl::copy_if< types, pred, in >::type result1;
-	print_seq::PrintSequence<result1>();
-	std::cout << "\n";
-	
-	// 以下与copy_if等价
-	typedef mpl::lambda<pred>::type p;
-	typedef mpl::lambda<in::operation>::type op;
-
-	typedef mpl::fold< types , in::state, 
-		mpl::eval_if <
-		mpl::apply_wrap1<p,_2>
-		, mpl::apply_wrap2<op,_1,_2>
-		, mpl::identity<_1>
-		>
-	>::type result2;
-
-	print_seq::PrintSequence<result2>();
-
-	return 0;
+    using mpl::_1;
+    using mpl::_2;
+    
+    typedef mpl::vector<long,float,short,double,float,long,long double> types;
+    
+    typedef boost::is_float<mpl::_> pred;
+    typedef mpl::inserter< mpl::vector<>, mpl::push_back<_1, _2> > in;
+    
+    typedef mpl::copy_if< types, pred, in >::type result1;
+    print_seq::PrintSequence<result1>();
+    std::cout << "\n";
+    
+    // 以下与copy_if等价
+    typedef mpl::lambda<pred>::type p;
+    typedef mpl::lambda<in::operation>::type op;
+    
+    typedef mpl::fold< types , in::state, 
+        mpl::eval_if <
+        mpl::apply_wrap1<p,_2>
+        , mpl::apply_wrap2<op,_1,_2>
+        , mpl::identity<_1>
+        >
+    >::type result2;
+    
+    print_seq::PrintSequence<result2>();
+    
+    return 0;
 }
 {% endhighlight %}
 
@@ -2208,9 +2208,9 @@ int main()
 ~~~~
 template
 <
-	typename Sequence
-	, typename Op
-	, typename In = unspecified	// 默认是back_inserter
+    typename Sequence
+    , typename Op
+    , typename In = unspecified	// 默认是back_inserter
 >
 struct transform;
 ~~~~
@@ -2236,10 +2236,10 @@ typedef fold<
 ~~~~
 template
 <
-	typename Seq1
-	, typename Seq2
-	, typename BinaryOp
-	, typename In = unspecified
+    typename Seq1
+    , typename Seq2
+    , typename BinaryOp
+    , typename In = unspecified
 >
 struct transform;
 ~~~~
@@ -2277,10 +2277,10 @@ BOOST_MPL_ASSERT(( equal<result,pointers> ));
 ~~~~
 template
 <
-	typename Sequence
-	, typename OldType
-	, typename NewType
-	, typename In = unspecified
+    typename Sequence
+    , typename OldType
+    , typename NewType
+    , typename In = unspecified
 >
 struct replace;
 ~~~~
@@ -2294,10 +2294,10 @@ struct replace;
 ~~~~
 template
 <
-	typename Sequence
-	, typename Pred
-	, typename NewType
-	, typename In = unspecified
+    typename Sequence
+    , typename Pred
+    , typename NewType
+    , typename In = unspecified
 >
 struct replace_if;
 ~~~~
@@ -2316,9 +2316,9 @@ typedef transform< s, if_< apply_wrap1<p,_1>, x, _1>, in >::type r;
 ~~~~
 template
 <
-	typename Sequence
-	, typename T
-	, typename In = unspecified
+    typename Sequence
+    , typename T
+    , typename In = unspecified
 >
 struct remove;
 ~~~~
@@ -2331,9 +2331,9 @@ struct remove;
 ~~~~
 template
 <
-	typename Sequence
-	, typename Pred
-	, typename In = unspecified
+    typename Sequence
+    , typename Pred
+    , typename In = unspecified
 >
 struct remove_if;
 ~~~~
@@ -2346,9 +2346,9 @@ struct remove_if;
 ~~~~
 template
 <
-	typename Seq
-	, typename Pred
-	, typename In = unspecified
+    typename Seq
+    , typename Pred
+    , typename In = unspecified
 >
 struct unique;
 ~~~~
@@ -2361,10 +2361,10 @@ struct unique;
 ~~~~
 template
 <
-	typename Seq
-	, typename Pred
-	, typename In1 = unspecified
-	, typename In2 = unspecified
+    typename Seq
+    , typename Pred
+    , typename In1 = unspecified
+    , typename In2 = unspecified
 >
 struct partition; // 与 stable_partition同义
 ~~~~
@@ -2390,9 +2390,9 @@ BOOST_MPL_ASSERT(( equal< r::second, vector_c<int,0,2,4,6,8> > ));
 ~~~~
 template
 <
-	typename Seq
-	, typename Pred = less<_1,_2>
-	, typename In = unspecified
+    typename Seq
+    , typename Pred = less<_1,_2>
+    , typename In = unspecified
 >
 struct sort;
 ~~~~
@@ -2414,8 +2414,8 @@ BOOST_MPL_ASSERT(( equal< result, expected, equal_to<_,_> > ));
 ~~~~
 template
 <
-	typename Sequence
-	, typename In = unspecified
+    typename Sequence
+    , typename In = unspecified
 >
 struct reverse;
 ~~~~
@@ -2439,8 +2439,8 @@ reverse_stable_partition
 ~~~~
 template
 <
-	typename Sequence
-	, typename F
+    typename Sequence
+    , typename F
 >
 void for_each( F f );
 ~~~~
@@ -2479,26 +2479,26 @@ namespace mpl = boost::mpl;
 template<typename T>
 struct AccuOp 
 {
-	void operator() ( T const& t )
-	{
-		if ( t % 2 != 0 )
-		{
-			val += t;
-		}
-	}
-
-	// status
-	AccuOp() : val( T() ) {}
-	T val;
+    void operator() ( T const& t )
+    {
+        if ( t % 2 != 0 )
+        {
+            val += t;
+        }
+    }
+    
+    // status
+    AccuOp() : val( T() ) {}
+    T val;
 };
 
 int main()
 {
-	AccuOp<int> op;
-	mpl::for_each< mpl::range_c<int, 0, 10> >( boost::ref(op) );
-	std::cout << op.val << std::endl;
-
-	return 0;
+    AccuOp<int> op;
+    mpl::for_each< mpl::range_c<int, 0, 10> >( boost::ref(op) );
+    std::cout << op.val << std::endl;
+    
+    return 0;
 }
 {% endhighlight %}
 
@@ -2508,9 +2508,9 @@ int main()
 ~~~~
 template
 <
-	typename Sequence
-	, typename TransformOp
-	, typename F
+    typename Sequence
+    , typename TransformOp
+    , typename F
 >
 void for_each( F f );
 ~~~~
@@ -2561,14 +2561,14 @@ struct integral_c;
 ~~~~
 template
 <
-	typename T1
-	, typename T2
+    typename T1
+    , typename T2
 >
 struct pair
 {
-	typedef pair type;
-	typedef T1 first;
-	typedef T2 second;
+    typedef pair type;
+    typedef T1 first;
+    typedef T2 second;
 };
 ~~~~
 
@@ -2604,7 +2604,7 @@ struct empty_base {};
 ~~~~
 struct void_
 {
-	typedef void_ type;
+    typedef void_ type;
 };
 ~~~~
 
