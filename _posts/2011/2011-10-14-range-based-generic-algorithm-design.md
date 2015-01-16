@@ -1,7 +1,7 @@
 ---
 layout: article
 title: 基于Range的泛型算法设计
-category: c++
+category: boost
 ---
 
 本文介绍基于range的C++泛型算法设计的方式。
