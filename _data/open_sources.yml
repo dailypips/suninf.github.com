@@ -6,9 +6,6 @@
   
 - name: Node.js
   url: http://nodejs.org/api/all.html
-
-- name: gitlab
-  url: http://gitlab.alibaba-inc.com/
     
 - name: kramdown
   url: http://kramdown.gettalong.org/index.html
