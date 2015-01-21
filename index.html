@@ -31,6 +31,7 @@ title: Home
   {% else %}
     <span class="pagination-item older">Older</span>
   {% endif %}
+    <a class="pagination-item articles" href="/articles.html" style="border-left: 0px;">articles</a>
   {% if paginator.previous_page %}
     {% if paginator.page == 2 %}
       <a class="pagination-item newer" href="{{ site.baseurl }}">Newer</a>
