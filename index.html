@@ -6,8 +6,8 @@ title: Home
 <div class="posts">
   {% for post in paginator.posts %}
   <div class="post">
-    <h1 class="post-title">
-      <a href="{{ post.url }}">
+    <h1 class="index-post-title">
+      <a href="{{ post.url }}" style="text-decoration: none;">
         {{ post.title }}
       </a>
     </h1>
