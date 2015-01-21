@@ -18,7 +18,7 @@ description:         'Creative thinking、Happy sharing！ If not now, when? If 
 url:                 http://www.suninf.net
 baseurl:             /
 index_url:           /index.html
-paginate:            5
+paginate:            10
 paginate_path:       'page/:num'
 
 
