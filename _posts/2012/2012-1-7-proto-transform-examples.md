@@ -3,6 +3,7 @@ layout: article
 title: proto转换(transform)使用实例
 category: boost
 ---
+proto转换(transform)使用实例。
 
 ## 带占位符的加法计算器
 

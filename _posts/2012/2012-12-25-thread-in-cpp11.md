@@ -7,7 +7,7 @@ category: c++
 C++0x对多线程有了直接的支持，这对于跨平台的统一的线程管理和使用是个福音。
  
 C++0x多线程库提供了std::thread类，用于创建和管理线程，还为共享资源的竞态问题提供了互斥量（mutex）、锁、事件通知的条件变量（condition variable）和获取异步调用的返回值（future）等。
- 
+
 ## std::thread  `<thread>`
 
 ### 构造函数：

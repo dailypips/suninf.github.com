@@ -7,7 +7,7 @@ category: boost
 在文本处理过程中常常格式验证、文本替换、文本格式化等，这时使用正则表达式就非常方便。C++标准库(TR1)已经引入了std::regex，基本是按照boost::regex来实现的。
  
 使用regex库首先需要了解正则表达式规则，另一方面，regex库功能很强大，但是内容也很多。
- 
+
 ## regex类的基本使用，头文件`<boost\regex.hpp>`
 
 regex类其实是模板类basic_regex的一个特化：

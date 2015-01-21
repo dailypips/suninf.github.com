@@ -5,7 +5,6 @@ category: chrome
 ---
 Move constructor is a idiom in C++ for efficiency( use move if possible instead of copy ), this article introduce the implement of `move constructor` in chrome source code ( [**move.h**{: style="color:#2970A6"}](http://src.chromium.org/viewvc/chrome/trunk/src/base/move.h){: target="_blank"} ).
 
-
 * Move constructor is used to transfer the ownership of a resource held by an object to another object in C++03 effectively.
 * **Note:** In C++11, move-constructors are implemented using the built-in rvalue reference feature.
 

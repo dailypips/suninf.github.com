@@ -5,7 +5,6 @@ category: chrome
 ---
 WeakPtr is normally used to avoid recursive reference, this article introduce the use of `WeakPtr` and `WeakPtrFactory` in chrome source code.
 
-
 - **Weak pointers** are pointers to an object that **do not affect its lifetime**, and which may be invalidated (i.e. reset to NULL) by the object, or its owner, at any time, most commonly when the object is about to be deleted.
 
 - **Weak pointers are useful when an object needs to be accessed safely by one or more objects other than its owner**, and those callers can cope with the object vanishing and e.g. tasks posted to it being silently dropped. Reference-counting such an object would complicate the ownership graph and make it harder to reason about the object's lifetime.

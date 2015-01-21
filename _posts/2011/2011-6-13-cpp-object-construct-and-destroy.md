@@ -4,6 +4,8 @@ title: C++对象的构造和析构语义
 category: c++ 
 ---
 
+本文分析C++对象的构造和析构语义。
+
 ## OO与OB的比较
 
 OB(Object-based)：抽象数据结构模型（abstract data type model, ADT），把数据结构封装，提供public方法来使用，比如：STL中的vector，string等都是OB的范例，比起OO速度更快，空间也更紧凑，高效率是因为所有函数引发操作都在编译期解析完成，对象构建不需要设置virtual机制；空间紧凑是因为不用为支持virtual而额外付出的负荷。

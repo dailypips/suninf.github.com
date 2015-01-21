@@ -3,6 +3,7 @@ layout: article
 title: 乔布斯在斯坦福大学的演讲
 category: life
 ---
+乔布斯在斯坦福大学的演讲。
 
 ## 演讲全文
 

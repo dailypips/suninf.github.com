@@ -5,7 +5,6 @@ category: chrome
 ---
 Class base::Value is a variant type to holder complex data, this article introduce the use of `base::Value` in chrome source code.
 
-
 ## base::Value
 The Value class is the base class for Values. A Value can be instantiated via the Create\*Value() factory methods, or by directly creating instances of the subclasses.
 

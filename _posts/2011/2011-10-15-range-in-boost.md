@@ -5,7 +5,7 @@ category: boost
 ---
 
 正如“Iterator Must Go”中所说，STL的算法虽然设计的高效，但是基于迭代器的算法设计使得灵活性和简洁性受到很大的限制，也阻碍了STL算法的更广泛的使用。
-
+ 
 range设计的目的就是弥补STL的这个缺陷，用range的概念来取代用迭代器对`[first, one_past_last)`来标识区间，使得使用算法可以更加灵活和紧凑。
 
 ## Range的Concept定义

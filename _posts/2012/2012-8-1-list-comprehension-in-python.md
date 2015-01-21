@@ -4,7 +4,7 @@ title: Python之列表解析
 category: python
 ---
 列表解析（List Comprehensions）是针对列表的操作语法，使得处理列表的表达能力大大提升。
- 
+
 ## python中列表解析的基本语法
 
 `[ expr for iter_var in iterable if cond_expr ]`

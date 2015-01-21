@@ -5,16 +5,16 @@ category: boost
 ---
 
 命名约定：
-
+ 
 函数
 : 所有函数定义下名字空间boost::proto下，例如函数value()定义在boost::proto下，它接受一个终结表达式，并返回终结符的值。
-
+ 
 元函数
 : proto定义了与所有函数相对应的元函数，用于计算对应函数的返回类型，所有元函数定义在`boost::proto::result_of`下，例如类模板`boost::proto::result_of::value<>`用于计算函数`boost::proto::value()`的返回值类型。
-
+ 
 函数对象
 : proto定义了与所有函数相等价的函数对象，proto的函数对象都定义在`boost::proto::functional`下，例如boost::proto::functional::value是一个函数对象类型，行为与boost::proto::value一致。
-
+ 
 基元转换
 : proto定义了基元转换（可以用来组合成更大的转换来计算表达式树），大部分proto函数定义了对应的基元转换，在名字空间`boost::proto`下，并且带下划线打头，例如与函数value()对应的转换为boost::proto::_value
 

@@ -4,6 +4,8 @@ title: Expression Templates 表达式模板
 category: c++ 
 ---
 
+本文深入分析C++表达式模板的思想。
+
 ### 表达式模板的目标是：
 
 - 创建C++中的嵌入式语言，boost.proto为我们搭好了这个框架，boost.xpressive就是嵌入C++的正则表达式，可以静态的生成正则表达式引擎，所有的正则表达式运算都被重载。boost.spirit也是嵌入C++的语言，可以直接用于EBNF语法解析，json_spirit就是使用它的Classic库实现的。

@@ -5,7 +5,7 @@ category: boost
 ---
 
 介绍三种最常用的智能指针:
-
+ 
 1. `shared_ptr`：对象生成期自动管理，基于共享所有权（适合用于标准库容器）
 2. `weak_ptr`：安全观测共享资源，配合shared_ptr
 3. `intrusive_ptr`：带有一个侵入式引用计数的对象的共享所有权。

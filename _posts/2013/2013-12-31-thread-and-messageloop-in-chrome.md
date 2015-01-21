@@ -5,7 +5,6 @@ category: chrome
 ---
 Threads are very useful in application to deal with multi-thread problems, and chrome wrapped a series of excellent classes: `base::Thread`, MessageLoop and so on.
 
-
 ## Thread
 
 - A simple thread abstraction that establishes a MessageLoop on a new thread. The consumer uses the MessageLoop of the thread to cause code to execute on the thread.
