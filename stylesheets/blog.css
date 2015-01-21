@@ -295,6 +295,10 @@ a.sidebar-nav-item:focus {
 
 /* Blog post or page title */
 
+.index-post-title a {
+    color: #4C4C4C;
+}
+
 .index-post-title a:hover {
     color: #2970A6;
 }
