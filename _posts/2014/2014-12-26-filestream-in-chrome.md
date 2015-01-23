@@ -243,7 +243,6 @@ public:
     : file_task_runner_(file_task_runner)
     , stream_(new net::FileStream(NULL, file_task_runner))
     , file_size_(0)
-    , ready_for_read_(true)
   {
   }
 
@@ -254,12 +253,6 @@ public:
       base::MessageLoop::current()->type() != base::MessageLoop::TYPE_IO ) 
     {
       assert(false && "MUST called on base::Thread IO message_loop");
-      return false;
-    }
-
-    if ( !ready_for_read_ ) 
-    {
-      // A reading task is in progress
       return false;
     }
 
@@ -274,7 +267,6 @@ public:
       base::Bind(&FileReader::DidFetchMetaInfo, 
         base::Unretained(this), base::Owned(meta_info)) );
 
-    ready_for_read_ = false;
     return true;
   }
 
@@ -367,24 +359,11 @@ private:
   {
     std::string data = std::string(read_buffer_->data(), file_size_);
     complete_callback_.Run( net::OK, data );
-
-    ResetReader();
   }
 
   void DidReadFileFailed(int result)
   {
     complete_callback_.Run(result, "");
-    
-    ResetReader();
-  }
-
-  void ResetReader()
-  {
-    stream_.reset();
-    file_size_ = 0;
-    file_path_.clear();
-    read_buffer_ = NULL;
-    ready_for_read_ = true;
   }
 
 private:
@@ -393,7 +372,6 @@ private:
   scoped_refptr<net::IOBuffer> read_buffer_;
   base::FilePath file_path_;
   int file_size_;
-  bool ready_for_read_;
   base::Callback<void(int,std::string)> complete_callback_;
 };
 
