@@ -4,7 +4,16 @@ title: proto in boost
 category: boost
 ---
 
-命名约定：
+Proto是在C++中嵌入领域语言（Embedded Domain-Specific Languages）的一个框架。它提供构建，类型检查，转换，和执行表达式模板的工具：
+ 
+- 表达式树数据结构
+- 让表达式赋予行为和成员的机制
+- 建立表达式树的运算符重载
+- 定义表达式语法（grammar）的工具
+- 执行表达式模板的扩展机制
+-应用于表达式树的可扩展的转换（transformations）机制
+
+### 命名约定：
  
 函数
 : 所有函数定义下名字空间boost::proto下，例如函数value()定义在boost::proto下，它接受一个终结表达式，并返回终结符的值。
@@ -719,6 +728,7 @@ CheckTerminal( proto::lit(std::vector<int>(5, 0)) );
 ~~~~
 
 输出：
+
 ~~~~
 class std::vector<int,class std::allocator<int> >
 ~~~~
