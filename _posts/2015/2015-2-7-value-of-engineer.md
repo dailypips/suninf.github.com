@@ -1,6 +1,6 @@
 ---
 layout: article
-title: 前百度科学家张栋：36岁以前做到这8点再谈梦想
+title: 张栋：36岁以前做到这8点再谈梦想
 category: life
 ---
 
