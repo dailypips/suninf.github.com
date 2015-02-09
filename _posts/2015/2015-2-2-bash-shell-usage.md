@@ -56,7 +56,7 @@ alias grep="grep --color=auto"
 ~~~~
 
 
-- 关于`变量的获取与设置`
+- 关于变量(`variable`)的获取与设置
 
 获取：  
 `$variable`：获取变量值（用echo可以显示出来，未设置的变量，echo显示为空）
