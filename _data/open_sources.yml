@@ -3,6 +3,8 @@
 
 - name: V8
   url: https://developers.google.com/v8/?hl=zh-CN
+- name: clang
+  url: http://clang.llvm.org/docs/index.html
   
 - name: Node.js
   url: http://nodejs.org/api/all.html
