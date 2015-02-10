@@ -105,7 +105,7 @@ done
 
 `Ctrl + u`        删除光标之前到行首的字符  
 `Ctrl + k`        删除光标之前到行尾的字符  
-`Ctrl + c`        取消当前行输入的命令，相当于`Ctrl + B`reak  
+`Ctrl + c`        取消当前行输入的命令，相当于`Ctrl + Break`  
 `Ctrl + a`        光标移动到行首（Ahead of line），相当于通常的Home键  
 `Ctrl + e`        光标移动到行尾（End of line）  
 `Ctrl + l`        清屏，相当于执行clear命令  
