@@ -28,6 +28,9 @@
 - name: ruanyifeng
   url: http://www.ruanyifeng.com/blog/
 
+- name: UC blog
+  url: http://tech.uc.cn/
+
 - name: Paul Graham
   url: http://paulgraham.com/articles.html
   
