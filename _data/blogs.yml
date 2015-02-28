@@ -1,6 +1,9 @@
 - name: chromium blog
   url: http://blog.chromium.org/
 
+- name: mimvp
+  url: http://blog.mimvp.com/
+
 - name: Simplify C++
   url: http://arne-mertz.de/why-simplify-cpp/
   
