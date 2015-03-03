@@ -37,6 +37,9 @@ category: tools
 -s：复制成符号连接（symbolic link）文件，即快捷方式  
 -u：若目标文件比源文件旧，则更新目标文件  
 
+查看进程命令行参数  
+`ps -f -p <pid>`
+
 查找可执行文件  
 `which cmd` 
 
