@@ -2,7 +2,7 @@
   url: http://www.chromium.org/Home
 
 - name: V8
-  url: https://developers.google.com/v8/?hl=zh-CN
+  url: https://developers.google.com/v8/
 - name: clang
   url: http://clang.llvm.org/docs/index.html
   
